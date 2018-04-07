@@ -18,4 +18,7 @@ Route::group([
     $router->get('login', 'Auth\LoginController@getLogin');
     $router->post('login', 'Auth\LoginController@postLogin');
     $router->post('logout', 'Auth\LoginController@postLogout');
+
+    //administrators
+    $router->resource('auth/administrators', 'Auth\AdministratorController');
 });

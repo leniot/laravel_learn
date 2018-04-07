@@ -7,7 +7,7 @@
     <section class="content-header">
         <h1>
             首页
-            <small>系统首页</small>
+            <small>仪表盘</small>
         </h1>
         <ol class="breadcrumb">
             <li><a href="#"><i class="fa fa-home"></i> home</a></li>

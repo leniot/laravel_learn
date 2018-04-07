@@ -7,7 +7,7 @@
         <!-- Sidebar user panel (optional) -->
         <div class="user-panel">
             <div class="pull-left image">
-                <img src="{{ asset('bower_components/admin-lte/dist/img/user2-160x160.jpg') }}" class="img-circle" alt="User Image">
+                <img src="{{ asset('AdminLTE/dist/img/user2-160x160.jpg') }}" class="img-circle" alt="User Image">
             </div>
             <div class="pull-left info">
                 <p>Alexander Pierce</p>
@@ -43,7 +43,7 @@
                 </a>
                 <ul class="treeview-menu">
                     <li>
-                        <a href="{{ admin_base_path('administrators') }}">
+                        <a href="{{ admin_base_path('auth/administrators') }}">
                             <i class="fa fa-user"></i>
                             <span>管理员</span>
                         </a>

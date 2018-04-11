@@ -1,6 +1,5 @@
 @extends('admin::layouts.layout')
 
-
 @section('content')
 
     <!-- Content Header (Page header) -->
@@ -11,7 +10,7 @@
         </h1>
         <ol class="breadcrumb">
             <li><a href="#"><i class="fa fa-home"></i> administrators</a></li>
-            <li class="active">index</li>
+            <li class="active"> index</li>
         </ol>
     </section>
 
@@ -34,4 +33,5 @@
     <script src="https://cdn.datatables.net/buttons/1.0.3/js/dataTables.buttons.min.js"></script>
     <script src="/vendor/datatables/buttons.server-side.js"></script>
     {!! $dataTable->scripts() !!}
+
 @endsection

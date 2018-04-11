@@ -46,11 +46,10 @@ class AdministratorDataTable extends DataTable
         return $this->builder()
             ->addTableClass('table-bordered table-striped')
             ->columns($this->getColumns())
-            ->minifiedAjax()
+            ->minifiedAjax('administrators')
             ->addAction(['title' => '操作', 'class' => 'text-center'])
             ->parameters([
                 'dom' => 'Bfrtip',
-//                        'buttons'      => ['create', 'postExcel', 'print', 'reload'],
                 'buttons' => [
                     ['extend' => 'create', 'text' => '<i class="fa fa-plus"> 创建</i>'],
                     ['extend' => 'excel', 'text' => '<i class="fa fa-file-excel-o"> 导出</i>'],
@@ -87,4 +86,10 @@ class AdministratorDataTable extends DataTable
     {
         return 'Administrator_' . date('YmdHis');
     }
+
+    /**
+     * 打印列
+     * @var array
+     */
+    protected $printColumns = ['id', 'login_name', 'display_name', 'created_at', 'updated_at'];
 }

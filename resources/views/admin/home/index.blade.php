@@ -1,6 +1,5 @@
 @extends('admin::layouts.layout')
 
-
 @section('content')
 
     <!-- Content Header (Page header) -->
@@ -11,7 +10,7 @@
         </h1>
         <ol class="breadcrumb">
             <li><a href="#"><i class="fa fa-home"></i> home</a></li>
-            <li class="active">index</li>
+            <li class="active"> index</li>
         </ol>
     </section>
 

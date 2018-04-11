@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="{{ asset('AdminLTE/bower_components/Ionicons/css/ionicons.min.css') }}">
     <!-- DataTables -->
     <link rel="stylesheet" href="{{ asset('AdminLTE/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('js_expand/dataTables.buttons/buttons.dataTables.min.css') }}">
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ asset('AdminLTE/dist/css/AdminLTE.min.css') }}">
     <!-- AdminLTE Skins -->
@@ -49,6 +50,8 @@
     <script src="{{ asset('AdminLTE/bower_components/datatables.net/js/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('AdminLTE/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js') }}"></script>
     <script src="{{ asset('js_expand/dataTables.lan.js') }}"></script>
+    <script src="{{ asset('js_expand/dataTables.buttons/dataTables.buttons.min.js') }}"></script>
+    <script src="{{ asset('vendor/datatables/buttons.server-side.js') }}"></script>
 </head>
 
 <body class="hold-transition skin-blue sidebar-mini">
@@ -81,7 +84,6 @@
     @include('admin::partials.footer')
 </div>
 <!-- ./wrapper -->
-
 
 <!-- nprogress -->
 <script src="{{ asset('js_expand/nprogress/nprogress.js') }}"></script>

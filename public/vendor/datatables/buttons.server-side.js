@@ -214,7 +214,8 @@
         },
 
         action: function (e, dt, button, config) {
-            window.location = window.location.href.replace(/\/+$/, "") + '/create';
+            // window.location = window.location.href.replace(/\/+$/, "") + '/create';
+            $.pjax({ url: window.location.href.replace(/\/+$/, "") + '/create', container: '#pjax-container' });
         }
     };
 

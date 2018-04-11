@@ -13,6 +13,7 @@ class AdminServiceProvider extends ServiceProvider
     protected $routeMiddleware = [
         'admin.auth' => \App\Http\Middleware\Admin\Authenticate::class,
         'admin.pjax' => \Spatie\Pjax\Middleware\FilterIfPjax::class,
+        'admin.permission' => \App\Http\Middleware\Admin\Permission::class,
     ];
 
     /**
@@ -23,6 +24,7 @@ class AdminServiceProvider extends ServiceProvider
         'admin' => [
             'admin.auth',
             'admin.pjax',
+            'admin.permission',
         ],
     ];
 

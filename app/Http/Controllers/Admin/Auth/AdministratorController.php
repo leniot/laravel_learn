@@ -9,9 +9,9 @@ use App\Http\Controllers\Controller;
 class AdministratorController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+     * 列表页
+     * @param AdministratorDataTable $dataTable
+     * @return mixed
      */
     public function index(AdministratorDataTable $dataTable)
     {
@@ -25,7 +25,7 @@ class AdministratorController extends Controller
      */
     public function create()
     {
-        //
+        return view(admin_view_path('auth.administrator.create'));
     }
 
     /**

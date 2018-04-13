@@ -14,7 +14,7 @@ Route::group([
     'namespace'     => config('admin.route.namespace'),
     'middleware'    => config('admin.route.middleware'),
 ], function (Router $router) {
-    $router->get('/', 'Home\HomeController@index');
+    $router->get('/', 'Home\HomeController@index')->name('admin.home');
     $router->get('login', 'Auth\LoginController@getLogin');
     $router->post('login', 'Auth\LoginController@postLogin');
     $router->post('logout', 'Auth\LoginController@postLogout');

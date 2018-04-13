@@ -19,8 +19,10 @@ class AdministratorDataTable extends DataTable
             ->setRowClass('text-center')
             ->addColumn('action', function (Administrator $administrator) {
                 $edit_path = admin_base_path('auth/administrators/'.$administrator->id.'/edit');
-                return '<a href="'.$edit_path.'" class="btn btn-xs btn-primary margin-r-5"><i class="fa fa-edit"></i> 编辑</a>'.
-                    '<a class="btn btn-xs btn-danger margin-r-5 row-delete"><i class="fa fa-trash"></i> 删除</a>';
+                return '<a href="'.$edit_path.'" class="btn btn-xs btn-primary margin-r-5">'.
+                        '<i class="fa fa-edit"></i> 编辑</a>'.
+                    '<a class="btn btn-xs btn-danger margin-r-5 row-delete" data-id="'.$administrator->id.'">'.
+                    '<i class="fa fa-trash"></i> 删除</a>';
             });
     }
 

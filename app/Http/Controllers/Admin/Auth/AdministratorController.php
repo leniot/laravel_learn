@@ -25,6 +25,7 @@ class AdministratorController extends Controller
      */
     public function create()
     {
+        dump(\Illuminate\Support\Facades\Request::route()->getActionMethod());
         return view(admin_view_path('auth.administrator.create'));
     }
 
@@ -37,6 +38,8 @@ class AdministratorController extends Controller
     public function store(Request $request)
     {
         //
+        dump(\Illuminate\Support\Facades\Request::route()->getName());
+        die;
     }
 
     /**
@@ -58,6 +61,7 @@ class AdministratorController extends Controller
      */
     public function edit($id)
     {
+        dump(\Illuminate\Support\Facades\Request::route()->getActionMethod());
         return view(admin_base_path('auth.administrator.edit'));
     }
 
@@ -81,6 +85,7 @@ class AdministratorController extends Controller
      */
     public function destroy($id)
     {
-        //
+        dump(\Illuminate\Support\Facades\Request::route()->getAction());
+        die;
     }
 }

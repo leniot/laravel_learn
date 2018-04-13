@@ -2,6 +2,7 @@ toastr.options = {
     closeButton: true,
     progressBar: true,
     showMethod: 'slideDown',
+    positionClass: 'toast-top-center',
     timeOut: 4000
 };
 

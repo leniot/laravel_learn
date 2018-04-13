@@ -25,6 +25,8 @@
     <link rel="stylesheet" href="{{ asset('js_expand/nprogress/nprogress.css') }}">
     <!-- toastr -->
     <link rel="stylesheet" href="{{ asset('js_expand/toastr/build/toastr.min.css') }}">
+    <!-- sweetalert -->
+    <link rel="stylesheet" href="{{ asset('js_expand/sweetalert/dist/sweetalert.css') }}">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -71,6 +73,20 @@
 
             @yield('content')
 
+            @if(Session::has('toastr'))
+                @php
+                    $toastr     = Session::get('toastr');
+                    $type       = array_get($toastr->get('type'), 0, 'success');
+                    $message    = array_get($toastr->get('message'), 0, '');
+                    $options    = json_encode($toastr->get('options', []));
+                @endphp
+                <script>
+                    $(function () {
+                        toastr.{{$type}}('{!!  $message  !!}', null, {!! $options !!});
+                    });
+                </script>
+            @endif
+            
         </section>
         <!-- /.content -->
     </div>
@@ -91,6 +107,8 @@
 <script src="{{ asset('js_expand/jquery-pjax/jquery.pjax.js') }}"></script>
 <!-- toastr -->
 <script src="{{ asset('js_expand/toastr/build/toastr.min.js') }}"></script>
+<!-- sweetalert -->
+<script src="{{ asset('js_expand/sweetalert/dist/sweetalert.min.js') }}"></script>
 <!-- admin.base -->
 <script src="{{ asset('js_expand/laravel-admin/admin.base.js') }}"></script>
 

@@ -15,6 +15,7 @@ class Permission
      */
     public function handle($request, Closure $next)
     {
+//        dump($request->route()->getName());
         return $next($request);
     }
 }

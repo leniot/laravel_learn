@@ -203,6 +203,7 @@
 
         action: function (e, dt, button, config) {
             dt.draw(false);
+            toastr.success('列表已刷新');
         }
     };
 

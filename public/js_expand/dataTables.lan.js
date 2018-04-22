@@ -23,3 +23,5 @@ $.fn.dataTable.defaults.oLanguage = {
         "sSortDescending": ": 以降序排列此列"
     }
 };
+
+$.fn.dataTable.defaults.autoWidth = false;

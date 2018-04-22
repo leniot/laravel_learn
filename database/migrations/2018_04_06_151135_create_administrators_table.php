@@ -13,6 +13,9 @@ class CreateAdministratorsTable extends Migration
      */
     public function up()
     {
+//        Schema::table('administrators', function (Blueprint $table) {
+//            $table->json('roles');
+//        });
         Schema::create('administrators', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->increments('id');

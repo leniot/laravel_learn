@@ -24,12 +24,20 @@ class LoginController extends Controller
 
     /**
      * 登录操作
-     * @param AdministratorLoginRequest $loginRequest
+     * @param Request $request
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function postLogin(AdministratorLoginRequest $loginRequest)
+    public function postLogin(Request $request)
     {
-        $postData = $loginRequest->only('login_name', 'password');
+        $this->validate($request, [
+            'login_name' => 'required',
+            'password' => 'required|min:6' //密码必须，最小长度为6
+        ],[
+            'login_name.required' => '请输入用户名',
+            'password.required' => '请输入密码',
+            'password.min' => '密码至少6位',
+        ]);
+        $postData = $request->only('login_name', 'password');
 
         $result = Auth::guard('administrator')->attempt($postData, $loginRequest->filled('remember'));
 

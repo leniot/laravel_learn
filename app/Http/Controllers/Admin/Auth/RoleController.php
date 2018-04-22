@@ -2,20 +2,20 @@
 
 namespace App\Http\Controllers\Admin\Auth;
 
-use App\DataTables\AdministratorDataTable;
+use App\DataTables\RoleDataTable;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class AdministratorController extends Controller
+class RoleController extends Controller
 {
     /**
-     * 列表页
-     * @param AdministratorDataTable $dataTable
-     * @return mixed
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
      */
-    public function index(AdministratorDataTable $dataTable)
+    public function index(RoleDataTable $dataTable)
     {
-        return $dataTable->render(admin_view_path('auth.administrator.index'));
+        return $dataTable->render(admin_view_path('auth.role.index'));
     }
 
     /**
@@ -25,7 +25,7 @@ class AdministratorController extends Controller
      */
     public function create()
     {
-        return view(admin_view_path('auth.administrator.create'));
+        return view(admin_view_path('auth.role.create'));
     }
 
     /**
@@ -58,8 +58,7 @@ class AdministratorController extends Controller
      */
     public function edit($id)
     {
-        dump(\Illuminate\Support\Facades\Request::route()->uri());
-        return view(admin_base_path('auth.administrator.edit'));
+        return view(admin_view_path('auth.role.edit'));
     }
 
     /**
@@ -71,7 +70,6 @@ class AdministratorController extends Controller
      */
     public function update(Request $request, $id)
     {
-        dump(\Illuminate\Support\Facades\Request::route()->getName(), $id);
         //
     }
 
@@ -83,6 +81,6 @@ class AdministratorController extends Controller
      */
     public function destroy($id)
     {
-
+        //
     }
 }

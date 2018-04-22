@@ -38,17 +38,34 @@
             <li class="treeview">
                 <a href="#"><i class="fa fa-gear"></i> <span>系统设置</span>
                     <span class="pull-right-container">
-                <i class="fa fa-angle-left pull-right"></i>
-              </span>
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
                 </a>
                 <ul class="treeview-menu">
+                    <li>
+                        <a href="{{ admin_base_path('auth/permissions') }}">
+                            <i class="fa fa-ban"></i>
+                            <span>权限管理</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ admin_base_path('auth/policies') }}">
+                            <i class="fa fa-toggle-on"></i>
+                            <span>权限策略</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ admin_base_path('auth/roles') }}">
+                            <i class="fa fa-group"></i>
+                            <span>角色管理</span>
+                        </a>
+                    </li>
                     <li>
                         <a href="{{ admin_base_path('auth/administrators') }}">
                             <i class="fa fa-user"></i>
                             <span>管理员</span>
                         </a>
                     </li>
-                    <li><a href="#">Link in level 2</a></li>
                 </ul>
             </li>
         </ul>

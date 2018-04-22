@@ -5,11 +5,11 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
         <h1>
-            管理员
+            角色
             <small>列表</small>
         </h1>
         <ol class="breadcrumb">
-            <li><a href="#"><i class="fa fa-home"></i> administrators</a></li>
+            <li><a href="#"><i class="fa fa-home"></i> roles</a></li>
             <li class="active"> index</li>
         </ol>
     </section>
@@ -30,7 +30,7 @@
 
     {!! $dataTable->scripts() !!}
 
-    <script>
+    <script type="text/javascript" charset="utf-8">
         $('.table-block').on('click', '.row-delete', function () {
             var id = $(this).data('id');
             swal({
@@ -44,7 +44,7 @@
             }, function(){
                 $.ajax({
                     method: 'post',
-                    url: '{{ admin_base_path('auth/administrators') }}' + '/' + id,
+                    url: '{{ admin_base_path('auth/roles') }}' + '/' + id,
                     data: {
                         _method:'delete',
                         _token:'{{ csrf_token() }}',

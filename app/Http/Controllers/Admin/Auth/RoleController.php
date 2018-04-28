@@ -3,14 +3,16 @@
 namespace App\Http\Controllers\Admin\Auth;
 
 use App\DataTables\RoleDataTable;
+use App\Http\Controllers\Admin\BaseController;
+use App\Models\Permission;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class RoleController extends Controller
+class RoleController extends BaseController
 {
     /**
      * Display a listing of the resource.
-     *
+     * @param RoleDataTable $dataTable
      * @return \Illuminate\Http\Response
      */
     public function index(RoleDataTable $dataTable)
@@ -25,7 +27,10 @@ class RoleController extends Controller
      */
     public function create()
     {
-        return view(admin_view_path('auth.role.create'));
+        $permissionList = Permission::all();
+        return view(admin_view_path('auth.role.create'))->with([
+            'permissionList' => $permissionList
+        ]);
     }
 
     /**

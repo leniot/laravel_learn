@@ -3,13 +3,14 @@
 namespace App\Http\Controllers\Admin\Auth;
 
 use App\DataTables\PermissionDataTable;
+use App\Http\Controllers\Admin\BaseController;
 use App\Http\Requests\Admin\PermissionStoreRequest;
 use App\Models\Permission;
 use App\Models\Policy;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class PermissionController extends Controller
+class PermissionController extends BaseController
 {
     /**
      * Display a listing of the resource.

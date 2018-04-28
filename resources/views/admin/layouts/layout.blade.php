@@ -115,6 +115,9 @@
 <script src="{{ asset('js_expand/sweetalert/dist/sweetalert.min.js') }}"></script>
 <!-- admin.base -->
 <script src="{{ asset('js_expand/laravel-admin/admin.base.js') }}"></script>
-
+<!-- custom script-->
+<script>
+    var selectedMenu = "{!! $requestUri !!}";
+</script>
 </body>
 </html>

@@ -6,7 +6,7 @@
     <section class="content-header">
         <h1>
             角色
-            <small>列表</small>
+            <small>列表{!! $requestUri !!}</small>
         </h1>
         <ol class="breadcrumb">
             <li><a href="#"><i class="fa fa-home"></i> roles</a></li>

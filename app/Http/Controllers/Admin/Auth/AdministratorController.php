@@ -3,10 +3,11 @@
 namespace App\Http\Controllers\Admin\Auth;
 
 use App\DataTables\AdministratorDataTable;
+use App\Http\Controllers\Admin\BaseController;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class AdministratorController extends Controller
+class AdministratorController extends BaseController
 {
     /**
      * 列表页

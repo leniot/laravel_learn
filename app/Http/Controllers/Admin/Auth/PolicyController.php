@@ -3,13 +3,14 @@
 namespace App\Http\Controllers\Admin\Auth;
 
 use App\DataTables\PolicyDataTable;
+use App\Http\Controllers\Admin\BaseController;
 use App\Models\Permission;
 use App\Models\Policy;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 
-class PolicyController extends Controller
+class PolicyController extends BaseController
 {
     /**
      * Display a listing of the resource.

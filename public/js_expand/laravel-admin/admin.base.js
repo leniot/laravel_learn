@@ -59,4 +59,6 @@ $(function () {
     });
 
     $('[data-toggle="popover"]').popover();
+    var selector = 'a[href="/'+ selectedMenu +'"]';
+    $('.sidebar-menu').find(selector).parent().addClass('active');
 });

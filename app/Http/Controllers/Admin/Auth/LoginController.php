@@ -39,11 +39,11 @@ class LoginController extends Controller
         ]);
         $postData = $request->only('login_name', 'password');
 
-        $result = Auth::guard('administrator')->attempt($postData, $loginRequest->filled('remember'));
+        $result = Auth::guard('administrator')->attempt($postData, $request->filled('remember'));
 
         if ($result) {
             admin_toastr('登录成功');
-            $loginRequest->session()->regenerate();
+            $request->session()->regenerate();
             return redirect()->intended(config('admin.route.prefix'));
         }else{
             return redirect()->back()->withInput()

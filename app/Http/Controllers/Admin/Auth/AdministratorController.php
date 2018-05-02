@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin\Auth;
 
 use App\DataTables\AdministratorDataTable;
 use App\Http\Controllers\Admin\BaseController;
+use App\Models\Administrator;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -37,7 +38,31 @@ class AdministratorController extends BaseController
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'login_name' => 'required|unique:administrators',
+            'display_name' => 'required',
+            'password' => 'required|min:6|confirmed',
+            'password_confirmation' => 'required|min:6',
+        ],[
+            'login_name.required' => '请输入登录名',
+            'login_name.unique' => '该登录名已存在',
+            'display_name.required' => '请输入显示名',
+            'password.required' => '请输入密码',
+            'password.min' => '密码至少6位',
+            'password.confirmed' => '两次输入密码不一致',
+            'password_confirmation.required' => '请输入确认密码',
+            'password_confirmation.min' => '密码至少6位',
+        ]);
+        $administrator = new Administrator();
+        $administrator->login_name = $request->get('login_name');
+        $administrator->display_name = $request->get('display_name');
+        $administrator->password = $request->get('password');
+        if ($administrator->save()) {
+            admin_toastr('创建成功！');
+            return redirect(admin_base_path('auth/permissions'));
+        } else {
+            return redirect()->back()->withInput()->withErrors('保存失败！');
+        }
     }
 
     /**

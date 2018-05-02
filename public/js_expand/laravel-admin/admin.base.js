@@ -59,6 +59,10 @@ $(function () {
     });
 
     $('[data-toggle="popover"]').popover();
-    var selector = 'a[href="/'+ selectedMenu +'"]';
-    $('.sidebar-menu').find(selector).parent().addClass('active');
+
+    //整页刷新时，菜单显示
+    var selector = $('.sidebar-menu').find('a[href="/'+ selectedMenu +'"]');
+    selector.parent().addClass('active');
+    selector.parents('ul.treeview-menu').css('display', 'block');
+    selector.parents('li.treeview').addClass('menu-open');
 });

@@ -24,7 +24,7 @@
                             <i class="fa fa-arrow-left"></i> 返 回
                         </a>
                     </div>
-                    <form class="form-horizontal" pjax-container action="{{ admin_base_path('auth/policies') }}" method="post">
+                    <form class="form-horizontal" pjax-container action="{{ admin_base_path('auth/policies').'/'.$policy->id }}" method="post">
                         @csrf
                         {{ method_field('PATCH') }}
                         <div class="box-body">

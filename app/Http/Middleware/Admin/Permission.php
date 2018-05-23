@@ -15,7 +15,7 @@ class Permission
      */
     public function handle($request, Closure $next)
     {
-//        dump($request->route()->getActionName());
+//        dump($request->route()->getName());
 //        if ($request->route()->getName() == 'administrators.create') {
 //            admin_toastr('未授权操作', 'error');
 //            return redirect()->back();

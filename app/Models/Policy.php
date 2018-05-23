@@ -39,7 +39,7 @@ class Policy extends Model
      * @param $permissions
      * @return array
      */
-    public function updateRelation($permissions)
+    public function updateRelation(array $permissions)
     {
         return $this->permissions()->sync($permissions);
     }

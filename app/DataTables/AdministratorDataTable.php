@@ -17,11 +17,20 @@ class AdministratorDataTable extends DataTable
     {
         return datatables($query)
             ->setRowClass('text-center')
+            ->editColumn('status', function (Administrator $administrator) {
+                if ($administrator->status == 1) {
+                    return '<span class="label label-primary">正常</span>';
+                }
+
+                return '<span class="label label-warning">禁用</span>';
+            })
+            ->rawColumns(['status', 'action'])
             ->addColumn('action', function (Administrator $administrator) {
                 $edit_path = admin_base_path('auth/administrators/'.$administrator->id.'/edit');
+                $delete_path = admin_base_path('auth/administrators/'.$administrator->id);
                 return '<a href="'.$edit_path.'" class="btn btn-xs btn-primary margin-r-5">'.
                         '<i class="fa fa-edit"></i> 编辑</a>'.
-                    '<a class="btn btn-xs btn-danger margin-r-5 row-delete" data-id="'.$administrator->id.'">'.
+                    '<a class="btn btn-xs btn-danger margin-r-5 row-delete" data-url="'.$delete_path.'">'.
                     '<i class="fa fa-trash"></i> 删除</a>';
             });
     }

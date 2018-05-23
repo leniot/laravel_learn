@@ -13,9 +13,8 @@ use Illuminate\Support\Facades\DB;
 class PolicyController extends BaseController
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+     * @param PolicyDataTable $dataTable
+     * @return mixed
      */
     public function index(PolicyDataTable $dataTable)
     {
@@ -36,10 +35,10 @@ class PolicyController extends BaseController
     }
 
     /**
-     * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @throws \Exception
      */
     public function store(Request $request)
     {
@@ -77,7 +76,7 @@ class PolicyController extends BaseController
             $error = $e->getMessage();
             admin_toastr($error, 'error');
             DB::rollBack();
-            return redirect()->back()->withInput();
+            return redirect()->back();
         }
     }
 
@@ -109,11 +108,10 @@ class PolicyController extends BaseController
     }
 
     /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @throws \Exception
      */
     public function update(Request $request, $id)
     {
@@ -135,12 +133,23 @@ class PolicyController extends BaseController
         $policy->identifier = $request->get('identifier');
         $policy->name = $request->get('name');
         $policy->desc = $request->get('desc');
-        $policy->permissions = $permissions ? json_encode($permissions, JSON_UNESCAPED_UNICODE) : '';
 
-        if ($policy->save()) {
+        DB::beginTransaction();
+        try {
+            if (!$policy->save()) {
+                throw new \Exception('策略更新失败，请重试！');
+            }
+            if (!$policy->updateRelation($permissions)) {
+                throw new \Exception('保存失败，请重试！');
+            }
+            admin_toastr('更新成功！');
+            DB::commit();
             return redirect(admin_base_path('auth/policies'));
-        } else {
-            return redirect()->back()->withInput()->withErrors('更新失败！');
+        } catch (\Exception $e) {
+            $error = $e->getMessage();
+            admin_toastr($error, 'error');
+            DB::rollBack();
+            return redirect()->back();
         }
     }
 
@@ -152,6 +161,16 @@ class PolicyController extends BaseController
      */
     public function destroy($id)
     {
-        //
+        if (Policy::find($id)->delete()) {
+            return response()->json([
+                'status' => true,
+                'message' => '删除成功！'
+            ]);
+        }else{
+            return response()->json([
+               'status' => false,
+               'message' => '删除失败，请重试！'
+            ]);
+        }
     }
 }

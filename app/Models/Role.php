@@ -34,4 +34,14 @@ class Role extends Model
 
         return $this->belongsToMany($relatedModel, $pivotTable, 'role_id', 'policy_id');
     }
+
+    /**
+     * 同步中间表
+     * @param array $policies
+     * @return array
+     */
+    public function updateRelation(array $policies)
+    {
+        return $this->policies()->sync($policies);
+    }
 }

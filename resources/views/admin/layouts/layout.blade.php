@@ -105,6 +105,10 @@
 </div>
 <!-- ./wrapper -->
 
+<script>
+    var csrf_token = '{{ csrf_token() }}';
+</script>
+
 <!-- nprogress -->
 <script src="{{ asset('js_expand/nprogress/nprogress.js') }}"></script>
 <!-- pjax -->

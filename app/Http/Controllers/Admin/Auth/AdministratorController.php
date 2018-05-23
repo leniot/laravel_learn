@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\BaseController;
 use App\Models\Administrator;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Hash;
 
 class AdministratorController extends BaseController
 {
@@ -56,10 +57,10 @@ class AdministratorController extends BaseController
         $administrator = new Administrator();
         $administrator->login_name = $request->get('login_name');
         $administrator->display_name = $request->get('display_name');
-        $administrator->password = $request->get('password');
+        $administrator->password = Hash::make($request->get('password'));
         if ($administrator->save()) {
             admin_toastr('创建成功！');
-            return redirect(admin_base_path('auth/permissions'));
+            return redirect(admin_base_path('auth/administrators'));
         } else {
             return redirect()->back()->withInput()->withErrors('保存失败！');
         }
@@ -73,7 +74,7 @@ class AdministratorController extends BaseController
      */
     public function show($id)
     {
-        //
+
     }
 
     /**
@@ -84,7 +85,7 @@ class AdministratorController extends BaseController
      */
     public function edit($id)
     {
-        dump(\Illuminate\Support\Facades\Request::route()->uri());
+
         return view(admin_base_path('auth.administrator.edit'));
     }
 
@@ -97,8 +98,7 @@ class AdministratorController extends BaseController
      */
     public function update(Request $request, $id)
     {
-        dump(\Illuminate\Support\Facades\Request::route()->getName(), $id);
-        //
+
     }
 
     /**
@@ -109,6 +109,16 @@ class AdministratorController extends BaseController
      */
     public function destroy($id)
     {
-
+        if (Administrator::find($id)->delete()) {
+            return response()->json([
+                'status'  => true,
+                'message' => '删除成功！',
+            ]);
+        } else {
+            return response()->json([
+                'status'  => false,
+                'message' => '删除失败，请重试！',
+            ]);
+        }
     }
 }

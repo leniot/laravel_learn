@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Admin\Auth;
 
 use App\DataTables\PermissionDataTable;
 use App\Http\Controllers\Admin\BaseController;
-use App\Http\Requests\Admin\PermissionStoreRequest;
 use App\Models\Permission;
 use App\Models\Policy;
 use Illuminate\Http\Request;
@@ -13,9 +12,9 @@ use App\Http\Controllers\Controller;
 class PermissionController extends BaseController
 {
     /**
-     * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @param PermissionDataTable $dataTable
+     * @return mixed
      */
     public function index(PermissionDataTable $dataTable)
     {
@@ -129,16 +128,15 @@ class PermissionController extends BaseController
      */
     public function destroy($id)
     {
-
-        if (Policy::find($id)->delete()) {
+        if (Permission::find($id)->delete()) {
             return response()->json([
                 'status'  => true,
-                'message' => '成功删除！',
+                'message' => '删除成功！',
             ]);
         } else {
             return response()->json([
                 'status'  => false,
-                'message' => '删除失败！',
+                'message' => '删除失败，请重试！',
             ]);
         }
     }

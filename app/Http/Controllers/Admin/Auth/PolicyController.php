@@ -69,13 +69,13 @@ class PolicyController extends BaseController
             if (!$policy->updateRelation($permissions)) {
                 throw new \Exception('保存失败');
             }
-            admin_toastr('创建成功！');
             DB::commit();
+            admin_toastr('创建成功！');
             return redirect(admin_base_path('auth/policies'));
         } catch (\Exception $e) {
             $error = $e->getMessage();
-            admin_toastr($error, 'error');
             DB::rollBack();
+            admin_toastr($error, 'error');
             return redirect()->back();
         }
     }
@@ -142,13 +142,13 @@ class PolicyController extends BaseController
             if (!$policy->updateRelation($permissions)) {
                 throw new \Exception('保存失败，请重试！');
             }
-            admin_toastr('更新成功！');
             DB::commit();
+            admin_toastr('更新成功！');
             return redirect(admin_base_path('auth/policies'));
         } catch (\Exception $e) {
             $error = $e->getMessage();
-            admin_toastr($error, 'error');
             DB::rollBack();
+            admin_toastr($error, 'error');
             return redirect()->back();
         }
     }

@@ -24,10 +24,10 @@ class PolicyDataTable extends DataTable
             })
             ->editColumn('action', function (Policy $policy) {
                 $edit_path = admin_base_path('auth/policies/'.$policy->id.'/edit');
-
+                $delete_path = admin_base_path('auth/policies/'.$policy->id);
                 return '<a href="'.$edit_path.'" class="btn btn-xs btn-primary margin-r-5">'.
                     '<i class="fa fa-edit"></i> 编辑</a>'.
-                    '<a class="btn btn-xs btn-danger margin-r-5 row-delete" data-id="'.$policy->id.'">'.
+                    '<a class="btn btn-xs btn-danger margin-r-5 row-delete" data-url="'.$delete_path.'">'.
                     '<i class="fa fa-trash"></i> 删除</a>';
             })
             ->rawColumns(['permissions', 'action']);

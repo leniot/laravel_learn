@@ -60,6 +60,7 @@ class PermissionController extends BaseController
             admin_toastr('创建成功！');
             return redirect(admin_base_path('auth/permissions'));
         } else {
+            admin_toastr('创建失败，请重试！', 'error');
             return redirect()->back()->withInput()->withErrors('保存失败！');
         }
     }
@@ -114,8 +115,10 @@ class PermissionController extends BaseController
         $permission->type = $request->get('type');
         $permission->desc = $request->get('desc');
         if ($permission->save()) {
+            admin_toastr('权限更新成功！');
             return redirect(admin_base_path('auth/permissions'));
         } else {
+            admin_toastr('权限更新失败，请重试！', 'error');
             return redirect()->back()->withInput()->withErrors('更新失败！');
         }
     }

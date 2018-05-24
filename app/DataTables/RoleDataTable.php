@@ -2,6 +2,7 @@
 
 namespace App\DataTables;
 
+use App\Models\Policy;
 use App\Models\Role;
 use Yajra\DataTables\Services\DataTable;
 
@@ -17,15 +18,20 @@ class RoleDataTable extends DataTable
     {
         return datatables($query)
             ->setRowClass('text-center')
+            ->editColumn('policies', function (Role $role) {
+                return $role->policies->map(function ($policy) {
+                    return '<span class="label label-info margin-r-5">'.$policy->identifier.'</span>';
+                })->implode('');
+            })
             ->editColumn('action', function (Role $role) {
                 $edit_path = admin_base_path('auth/roles/'.$role->id.'/edit');
-
+                $delete_path = admin_base_path('auth/roles/'.$role->id);
                 return '<a href="'.$edit_path.'" class="btn btn-xs btn-primary margin-r-5">'.
                     '<i class="fa fa-edit"></i> 编辑</a>'.
-                    '<a class="btn btn-xs btn-danger margin-r-5 row-delete" data-id="'.$role->id.'">'.
+                    '<a class="btn btn-xs btn-danger margin-r-5 row-delete" data-url="'.$delete_path.'">'.
                     '<i class="fa fa-trash"></i> 删除</a>';
             })
-            ->rawColumns(['permissions', 'action']);
+            ->rawColumns(['policies', 'action']);
     }
 
     /**
@@ -75,7 +81,7 @@ class RoleDataTable extends DataTable
             ['name' => 'identifier', 'data' => 'identifier', 'title' => '标识', 'class' => 'text-center', 'orderable' => false],
             ['name' => 'name', 'data' => 'name', 'title' => '名称', 'class' => 'text-center', 'orderable' => false],
             ['name' => 'desc', 'data' => 'desc', 'title' => '描述', 'class' => 'text-center', 'orderable' => false],
-            ['name' => 'policies', 'data' => 'permissions', 'title' => '权限策略', 'class' => 'text-center', 'orderable' => false],
+            ['name' => 'policies', 'data' => 'policies', 'title' => '权限策略', 'class' => 'text-center', 'orderable' => false],
             ['name' => 'created_at', 'data' => 'created_at', 'title' => '创建时间', 'class' => 'text-center'],
             ['name' => 'updated_at', 'data' => 'updated_at', 'title' => '更新时间', 'class' => 'text-center'],
         ];

@@ -6,6 +6,7 @@ use Illuminate\Auth\Authenticatable;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Support\Facades\Storage;
 
 /**
  * Class Administrator
@@ -40,7 +41,7 @@ class Administrator extends Model implements AuthenticatableContract
      * 管理员-角色多对多关联
      * @return BelongsToMany
      */
-    public function roles() : BelongsToMany
+    public function roles() : BelongsToMany //返回类型声明
     {
         $pivotTable = 'role_administrators';
 
@@ -60,6 +61,20 @@ class Administrator extends Model implements AuthenticatableContract
     }
 
     /**
+     * 获取后台用户头像
+     * @param $avatar
+     * @return mixed
+     */
+    public function getAvatarAttribute($avatar)
+    {
+        if ($avatar) {
+            return Storage::disk(config('admin.upload.disk'))->url($avatar);
+        }
+
+        return admin_asset('AdminLTE/dist/img/user2-160x160.jpg');
+    }
+
+    /**
      * 判断后台用户角色
      * @param string $role
      * @return bool
@@ -76,5 +91,17 @@ class Administrator extends Model implements AuthenticatableContract
     public function isAdministrator() : bool
     {
         return $this->isRole('administrator');
+    }
+
+    public function getPermissions()
+    {
+        $roles = $this->roles()->get();
+
+        $policies = [];
+        foreach ($roles as $role) {
+            $policies = $role->policies()->get();
+        }
+
+        return $policies;
     }
 }

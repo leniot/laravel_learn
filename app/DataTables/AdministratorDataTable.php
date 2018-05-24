@@ -17,14 +17,21 @@ class AdministratorDataTable extends DataTable
     {
         return datatables($query)
             ->setRowClass('text-center')
+            ->editColumn('avatar', function (Administrator $administrator) {
+                return '<img class="img" width="24" height="24" src="'.$administrator->avatar.'">';
+            })
+            ->editColumn('roles', function (Administrator $administrator) {
+                return $administrator->roles->map(function ($role) {
+                    return '<span class="label label-info margin-r-5">'.$role->identifier.'['.$role->name.']'.'</span>';
+                })->implode('');
+            })
             ->editColumn('status', function (Administrator $administrator) {
                 if ($administrator->status == 1) {
                     return '<span class="label label-primary">正常</span>';
                 }
-
                 return '<span class="label label-warning">禁用</span>';
             })
-            ->rawColumns(['status', 'action'])
+            ->rawColumns(['avatar', 'status', 'roles', 'action'])
             ->addColumn('action', function (Administrator $administrator) {
                 $edit_path = admin_base_path('auth/administrators/'.$administrator->id.'/edit');
                 $delete_path = admin_base_path('auth/administrators/'.$administrator->id);
@@ -83,6 +90,7 @@ class AdministratorDataTable extends DataTable
             ['name' => 'display_name', 'data' => 'display_name', 'title' => '显示名', 'class' => 'text-center', 'orderable' => false],
             ['name' => 'avatar', 'data' => 'avatar', 'title' => '头像', 'class' => 'text-center', 'orderable' => false],
             ['name' => 'status', 'data' => 'status', 'title' => '状态', 'class' => 'text-center'],
+            ['name' => 'roles', 'data' => 'roles', 'title' => '角色', 'class' => 'text-center', 'orderable' => false],
             ['name' => 'created_at', 'data' => 'created_at', 'title' => '创建时间', 'class' => 'text-center'],
             ['name' => 'updated_at', 'data' => 'updated_at', 'title' => '更新时间', 'class' => 'text-center'],
         ];

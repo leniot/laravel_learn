@@ -60,3 +60,16 @@ if (!function_exists('admin_toastr')) {
         \Illuminate\Support\Facades\Session::flash('toastr', $toastr);
     }
 }
+
+if (!function_exists('admin_asset')) {
+
+    /**
+     * @param $path
+     *
+     * @return string
+     */
+    function admin_asset($path)
+    {
+        return asset($path, config('admin.secure'));
+    }
+}

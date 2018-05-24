@@ -7,7 +7,6 @@ use App\Http\Controllers\Admin\BaseController;
 use App\Models\Administrator;
 use App\Models\Role;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
@@ -20,6 +19,8 @@ class AdministratorController extends BaseController
      */
     public function index(AdministratorDataTable $dataTable)
     {
+        dump(Administrator::find(2)->getPermissions());
+        die;
         return $dataTable->render(admin_view_path('auth.administrator.index'));
     }
 

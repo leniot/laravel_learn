@@ -8,7 +8,6 @@
 
 return [
 
-
     'auth' => [
         'guards' => [
             'administrator' => [
@@ -35,5 +34,23 @@ return [
         'namespace' => 'App\\Http\\Controllers\\Admin',
 
         'middleware' => ['web', 'admin'],
+    ],
+
+    /*
+     * Use `https`.
+     */
+    'secure' => false,
+
+    /*
+     * Laravel-admin upload setting.
+     */
+    'upload' => [
+
+        'disk' => 'admin',
+
+        'directory' => [
+            'image' => 'images',
+            'file'  => 'files',
+        ],
     ],
 ];

@@ -10,7 +10,7 @@ class Permission
 {
     /**
      * 截断请求，进行权限验证
-     * 通过验证方可通过
+     * 通过验证执行请求
      * @param  \Illuminate\Http\Request  $request
      * @param  \Closure  $next
      * @return mixed

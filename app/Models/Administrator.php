@@ -17,11 +17,7 @@ class Administrator extends Model implements AuthenticatableContract
 {
     use Authenticatable;
 
-//    public function __construct(array $attributes = [])
-//    {
-//        $this->setTable('administrator');
-//        parent::__construct($attributes);
-//    }
+    protected $table = 'administrators';
 
     /**
      * @var array
@@ -43,8 +39,9 @@ class Administrator extends Model implements AuthenticatableContract
      */
     public function roles() : BelongsToMany //返回类型声明
     {
+        //中间表
         $pivotTable = 'role_administrators';
-
+        //关联模型
         $relatedModel = Role::class;
 
         return $this->belongsToMany($relatedModel, $pivotTable, 'administrator_id', 'role_id');
@@ -67,10 +64,11 @@ class Administrator extends Model implements AuthenticatableContract
      */
     public function getAvatarAttribute($avatar)
     {
+        //若设置了头像则直接返回头像url
         if ($avatar) {
             return Storage::disk(config('admin.upload.disk'))->url($avatar);
         }
-
+        //未设置头像时返回默认
         return admin_asset('AdminLTE/dist/img/user2-160x160.jpg');
     }
 
@@ -93,15 +91,29 @@ class Administrator extends Model implements AuthenticatableContract
         return $this->isRole('administrator');
     }
 
+    /**
+     * 获取当前登录用户的所有权限
+     * @return array
+     */
     public function getPermissions()
     {
+        //获取用户所有角色
         $roles = $this->roles()->get();
 
+        //获取用户所有策略
         $policies = [];
         foreach ($roles as $role) {
             $policies = $role->policies()->get();
         }
-
-        return $policies;
+        //获取用户所有权限
+        $permissions = [];
+        foreach ($policies as $policy) {
+            $permissions_obj = $policy->permissions()->get()->toArray();
+            foreach ($permissions_obj as $value) {
+                $permissions[] = $value['route'];
+            }
+        }
+        //权限去重
+        return array_unique($permissions);
     }
 }

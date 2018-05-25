@@ -16,9 +16,11 @@ class Authenticate
      */
     public function handle($request, Closure $next)
     {
+        //未登录用户访问后台直接跳转至登录页面
         if (Auth::guard('administrator')->guest() && !$this->shouldPassThrough($request)) {
             return redirect()->guest(admin_base_path('login'));
         }
+        //完成认证，执行请求
         return $next($request);
     }
 

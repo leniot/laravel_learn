@@ -53,4 +53,14 @@ return [
             'file'  => 'files',
         ],
     ],
+
+    /*
+     * 无需验证权限的路由
+     */
+    'permission_except' => [
+        'login.getLogin',
+        'login.postLogin',
+        'login.logout',
+        'home.index'
+    ]
 ];

@@ -73,3 +73,28 @@ if (!function_exists('admin_asset')) {
         return asset($path, config('admin.secure'));
     }
 }
+
+if (!function_exists('strCut')) {
+    //$str为要进行截取的字符串，$length为截取长度（汉字算一个字，字母算半个字）
+    function strCut($str, $length)
+    {
+        $str = trim($str);
+        $string = "";
+        if(strlen($str) > $length)
+        {
+            for($i = 0 ; $i < $length ; $i++)
+            {
+                if (ord($str) > 127) {
+                    $string .= $str[$i] . $str[$i+1] . $str[$i+2];
+                    $i = $i + 2;
+                } else{
+                    $string .= $str[$i];
+                }
+            }
+            $string .= "...";
+
+            return $string;
+        }
+        return $str;
+    }
+}

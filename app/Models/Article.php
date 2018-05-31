@@ -27,7 +27,12 @@ class Article extends Model
      */
     public function tags() : BelongsToMany
     {
-        return $this->belongsToMany(Tag::class);
+        //中间表
+        $pivotTable = 'article_tags';
+        //关联模型
+        $relatedModel = Tag::class;
+
+        return $this->belongsToMany($relatedModel, $pivotTable, 'article_id', 'tag_id');
     }
 
     /**
@@ -37,5 +42,15 @@ class Article extends Model
     public function category() : BelongsTo
     {
         return $this->belongsTo(Category::class);
+    }
+
+    /**
+     * 同步中间表
+     * @param array $tags
+     * @return array
+     */
+    public function updateTagRelation(array $tags)
+    {
+        return $this->tags()->sync($tags);
     }
 }

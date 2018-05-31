@@ -23,6 +23,8 @@
     <!-- AdminLTE Skins -->
     <link rel="stylesheet" href="{{ asset('AdminLTE/dist/css/skins/skin-blue.min.css') }}">
 
+    <link rel="stylesheet" href="{{ asset('AdminLTE/plugins/iCheck/all.css') }}">
+
     <!-- nprogress -->
     <link rel="stylesheet" href="{{ asset('js_expand/nprogress/nprogress.css') }}">
     <!-- toastr -->
@@ -31,6 +33,8 @@
     <link rel="stylesheet" href="{{ asset('js_expand/sweetalert/dist/sweetalert.css') }}">
     <!-- editormd -->
     <link rel="stylesheet" href="{{ asset('js_expand/editormd/css/editormd.min.css') }}">
+    <!--jasny-bootstrap-->
+    <link rel="stylesheet" href="{{ asset('js_expand/jasny-bootstrap/css/jasny-bootstrap.min.css') }}">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -60,6 +64,10 @@
     <script src="{{ asset('js_expand/dataTables.lan.js') }}"></script>
     <script src="{{ asset('js_expand/dataTables.buttons/dataTables.buttons.min.js') }}"></script>
     <script src="{{ asset('vendor/datatables/buttons.server-side.js') }}"></script>
+
+    <script src="{{ asset('js_expand/editormd/editormd.min.js') }}"></script>
+    <script src="{{ asset('AdminLTE/plugins/iCheck/icheck.min.js') }}"></script>
+    <script src="{{ asset('js_expand/jasny-bootstrap/js/jasny-bootstrap.min.js') }}"></script>
 </head>
 
 <body class="hold-transition skin-blue sidebar-mini">
@@ -88,7 +96,7 @@
                 @endphp
                 <script>
                     $(function () {
-                        toastr.{{$type}}('{!!  $message  !!}', null, {!! $options !!});
+                        toastr.{{ $type }}('{!!  $message  !!}', null, {!! $options !!});
                     });
                 </script>
             @endif
@@ -108,6 +116,8 @@
 <!-- ./wrapper -->
 
 <script>
+    var selectedMenu = "{!! $requestUri !!}";
+
     var csrf_token = '{{ csrf_token() }}';
 </script>
 
@@ -122,8 +132,5 @@
 <!-- admin.base -->
 <script src="{{ asset('js_expand/laravel-admin/admin.base.js') }}"></script>
 <!-- custom script-->
-<script>
-    var selectedMenu = "{!! $requestUri !!}";
-</script>
 </body>
 </html>

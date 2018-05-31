@@ -52,6 +52,13 @@ $(document).on('pjax:complete', function (xhr) {
 });
 
 $(function () {
+    //ajax自动携带csrf_tocken
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': csrf_token,
+        }
+    });
+
     $('.sidebar-menu li:not(.treeview) > a').on('click', function () {
         var $parent = $(this).parent().addClass('active');
         $parent.siblings('.treeview.active').find('> a').trigger('click');

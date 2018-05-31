@@ -50,8 +50,9 @@
 
                                     <div class="col-sm-8">
                                         <select class="form-control select2" style="width: 100%;" name="category">
+                                            <option value="">-- 选 择 文 章 类 别 --</option>
                                             @foreach($categoryList as $category)
-                                                <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                                <option value="{{ $category->id }}" @if(old('category') == $category->id) {{ 'selected' }} @endif>{{ $category->name }}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -69,7 +70,7 @@
                                     <label for="tags" class="col-sm-3 control-label">标 签：</label>
 
                                     <div class="col-sm-8">
-                                        <select class="form-control select2" style="width: 100%;" name="tags" multiple>
+                                        <select class="form-control select2" style="width: 100%;" name="tags[]" data-placeholder="选 择 标 签" multiple>
                                             @foreach($tagList as $tag)
                                                 <option value="{{ $tag->id }}">{{ $tag->name }}</option>
                                             @endforeach
@@ -89,29 +90,96 @@
                                     <label for="keywords" class="col-sm-3 control-label">关 键 词：</label>
 
                                     <div class="col-sm-8">
-                                        <input id="keywords" class="form-control" name="keywords" value="{{ old('keywords') }}" placeholder="多个关键词使用英文逗号（;）隔开">
+                                        <input id="keywords" class="form-control" name="keywords" value="{{ old('keywords') }}"
+                                               placeholder="多个关键词使用符号（&）隔开">
                                     </div>
 
-                                    @if ($errors->has('tags'))
+                                    @if ($errors->has('keywords'))
                                         <div class="col-sm-offset-3 col-sm-8">
                                             <span class="invalid-feedback">
-                                                <strong class="text-danger">{{ $errors->first('tags') }}</strong>
+                                                <strong class="text-danger">{{ $errors->first('keywords') }}</strong>
+                                            </span>
+                                        </div>
+                                    @endif
+                                </div>
+
+                                <div class="form-group {{ $errors->has('cover_image') ? ' has-error' : '' }}">
+                                    <label for="keywords" class="col-sm-3 control-label">封 面 图：</label>
+
+                                    <div class="col-sm-8">
+                                        <div class="bs-example">
+                                            <div class="fileinput fileinput-new" data-provides="fileinput">
+                                                <div class="fileinput-new thumbnail" style="width: 200px; height: 150px;">
+                                                    <img data-src="holder.js/100%x100%" alt="cover_image">
+                                                </div>
+                                                <div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 200px; max-height: 150px;"></div>
+                                                <div>
+                                                    <span class="btn btn-default btn-file">
+                                                        <span class="fileinput-new">选 择 图 片</span>
+                                                        <span class="fileinput-exists">更 换</span>
+                                                        <input type="file" name="cover_image">
+                                                    </span>
+                                                    <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">移 除</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {{--<input id="cover_image" class="form-control" name="cover_image" value="{{ old('cover_image') }}" placeholder="">--}}
+                                    </div>
+
+                                    @if ($errors->has('cover_image'))
+                                        <div class="col-sm-offset-3 col-sm-8">
+                                            <span class="invalid-feedback">
+                                                <strong class="text-danger">{{ $errors->first('cover_image') }}</strong>
+                                            </span>
+                                        </div>
+                                    @endif
+                                </div>
+
+                                <div class="form-group {{ $errors->has('description') ? ' has-error' : '' }}">
+                                    <label for="description" class="col-sm-3 control-label">描 述：</label>
+
+                                    <div class="col-sm-8">
+                                        <textarea id="description" class="form-control" name="description" value="{{ old('description') }}" placeholder="文 章 描 述"></textarea>
+                                    </div>
+
+                                    @if ($errors->has('description'))
+                                        <div class="col-sm-offset-3 col-sm-8">
+                                            <span class="invalid-feedback">
+                                                <strong class="text-danger">{{ $errors->first('description') }}</strong>
                                             </span>
                                         </div>
                                     @endif
                                 </div>
 
                                 <div class="form-group {{ $errors->has('content') ? ' has-error' : '' }}">
-                                    <label for="keywords" class="col-sm-3 control-label">正 文：</label>
+                                    <label for="content" class="col-sm-3 control-label">正 文：</label>
 
-                                    <div class="col-sm-8" id="test-editormd">
-                                        <textarea type="text" class="markdown" id="content" name="content" placeholder="描述">{{ old('content') }}</textarea>
+                                    <div class="col-sm-8">
+                                        <div id="test-editormd" style="z-index: 1000;">
+                                            <textarea type="text" class="markdown hide" id="content" name="content">{{ old('content') }}</textarea>
+                                        </div>
                                     </div>
 
                                     @if ($errors->has('content'))
                                         <div class="col-sm-offset-3 col-sm-8">
                                             <span class="invalid-feedback">
                                                 <strong class="text-danger">{{ $errors->first('content') }}</strong>
+                                            </span>
+                                        </div>
+                                    @endif
+                                </div>
+
+                                <div class="form-group {{ $errors->has('is_top') ? ' has-error' : '' }}">
+                                    <label for="is_top" class="col-sm-3 control-label">是 否 置 顶：</label>
+
+                                    <div class="col-sm-8">
+                                        <input id="is_top" name="is_top" type="checkbox" class="minimal-red" @if(old('is_top', 0) == 1) checked="checked" @endif>
+                                    </div>
+
+                                    @if ($errors->has('is_top'))
+                                        <div class="col-sm-offset-3 col-sm-8">
+                                            <span class="invalid-feedback">
+                                                <strong class="text-danger">{{ $errors->first('is_top') }}</strong>
                                             </span>
                                         </div>
                                     @endif
@@ -138,59 +206,36 @@
     </section>
     <!-- /.content -->
 
-    <script src="{{ asset('js_expand/editormd/editormd.min.js') }}"></script>
-    <script>
-        var testEditor;
-
+    <script type="text/javascript" charset="UTF-8">
         $(function () {
             //select2
             $('.select2').select2();
+        });
 
-            //editormd
-            $.get('test.md', function(md){
-                testEditor = editormd("test-editormd", {
-                    width: "90%",
-                    height: 740,
-                    path : '../lib/',
-                    theme : "dark",
-                    previewTheme : "dark",
-                    editorTheme : "pastel-on-dark",
-                    markdown : md,
-                    codeFold : true,
-                    //syncScrolling : false,
-                    saveHTMLToTextarea : true,    // 保存 HTML 到 Textarea
-                    searchReplace : true,
-                    //watch : false,                // 关闭实时预览
-                    htmlDecode : "style,script,iframe|on*",            // 开启 HTML 标签解析，为了安全性，默认不开启
-                    //toolbar  : false,             //关闭工具栏
-                    //previewCodeHighlight : false, // 关闭预览 HTML 的代码块高亮，默认开启
-                    emoji : true,
-                    taskList : true,
-                    tocm            : true,         // Using [TOCM]
-                    tex : true,                   // 开启科学公式TeX语言支持，默认关闭
-                    flowChart : true,             // 开启流程图支持，默认关闭
-                    sequenceDiagram : true,       // 开启时序/序列图支持，默认关闭,
-                    //dialogLockScreen : false,   // 设置弹出层对话框不锁屏，全局通用，默认为true
-                    //dialogShowMask : false,     // 设置弹出层对话框显示透明遮罩层，全局通用，默认为true
-                    //dialogDraggable : false,    // 设置弹出层对话框不可拖动，全局通用，默认为true
-                    //dialogMaskOpacity : 0.4,    // 设置透明遮罩层的透明度，全局通用，默认值为0.1
-                    //dialogMaskBgColor : "#000", // 设置透明遮罩层的背景颜色，全局通用，默认为#fff
-                    imageUpload : true,
-                    imageFormats : ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
-                    imageUploadURL : "./php/upload.php",
-                    onload : function() {
-                        console.log('onload', this);
-                        //this.fullscreen();
-                        //this.unwatch();
-                        //this.watch().fullscreen();
+        var testEditor;
 
-                        //this.setMarkdown("#PHP");
-                        //this.width("100%");
-                        //this.height(480);
-                        //this.resize("100%", 640);
-                    }
-                });
-            });
+        testEditor = editormd("test-editormd", {
+            width     : "100%",
+            height    : 350,
+            toc       : true,
+            //atLink    : false,    // disable @link
+            //emailLink : false,    // disable email address auto link
+            todoList  : true,
+            // placeholder: '输入文章内容',
+            toolbarAutoFixed: false,
+            path      : '{{ asset('/js_expand/editormd/lib') }}/',
+            // emoji: true,
+            toolbarIcons : ['undo', 'redo', 'bold', 'del', 'italic', 'quote', 'uppercase', 'h1',
+                'h2', 'h3', 'h4', 'h5', 'h6', 'list-ul', 'list-ol', 'hr', 'link', 'reference-link',
+                'image', 'code', 'code-block', 'table', 'html-entities', 'watch', 'preview', 'search'],
+            imageUpload: true,
+            imageUploadURL : '{{ admin_base_path('blog/articles/uploadImage') }}',
+        });
+
+        //Red color scheme for iCheck
+        $('input[type="checkbox"].minimal-red').iCheck({
+            checkboxClass: 'icheckbox_minimal-red',
+            radioClass   : 'iradio_minimal-red'
         })
     </script>
 

@@ -41,7 +41,7 @@ class ArticleDataTable extends DataTable
                 }
                 return $html;
             })
-            ->editColumn('status', function (Article $article) {
+            ->editColumn('is_top', function (Article $article) {
                 if ($article->is_top == 1) {
                     return '<span class="label label-success">是</span>';
                 }
@@ -106,7 +106,7 @@ class ArticleDataTable extends DataTable
             ['name' => 'title', 'data' => 'title', 'title' => '文章标题', 'class' => 'text-center', 'orderable' => false],
             ['name' => 'cover_image', 'data' => 'cover_image', 'title' => '封面', 'class' => 'text-center', 'orderable' => false],
             ['name' => 'category_id', 'data' => 'category_id', 'title' => '文章分类', 'class' => 'text-center', 'orderable' => false],
-            ['name' => 'description', 'data' => 'description', 'title' => '文章描述', 'class' => 'text-center', 'orderable' => false],
+//            ['name' => 'description', 'data' => 'description', 'title' => '文章描述', 'class' => 'text-center', 'orderable' => false],
             ['name' => 'keywords', 'data' => 'keywords', 'title' => '关键词', 'class' => 'text-center', 'orderable' => false],
             ['name' => 'author', 'data' => 'author', 'title' => '作者', 'class' => 'text-center', 'orderable' => false],
             ['name' => 'status', 'data' => 'status', 'title' => '状态', 'class' => 'text-center'],

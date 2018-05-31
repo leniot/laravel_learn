@@ -42,6 +42,10 @@ Route::group([
      */
     //文章管理
     $router->resource('blog/articles', 'Blog\ArticleController');
+//    $router->post('blog/articles/uploadImage', 'Blog\ArticleController@uploadImage')->name('articles.uploadImage');
+    $router->post('blog/articles/uploadImage', function () {
+        return 123;
+    });
     $router->resource('blog/tags', 'Blog\TagController');
     $router->resource('blog/categories', 'Blog\CategoryController');
 

@@ -20,7 +20,7 @@ class ArticleDataTable extends DataTable
             ->setRowClass('text-center')
             ->editColumn('title', function (Article $article) {
                 $title = strCut($article->title, 30);
-                $edit_path = admin_base_path('auth/administrators/'.$article->id.'/edit');
+                $edit_path = admin_base_path('blog/articles/'.$article->id.'/edit');
                 return '<a href="'.$edit_path.'">'.$title.'</a>';
 
             })
@@ -50,8 +50,8 @@ class ArticleDataTable extends DataTable
             })
             ->rawColumns(['title', 'cover_image', 'status', 'is_top', 'action'])
             ->addColumn('action', function (Article $article) {
-                $edit_path = admin_base_path('auth/administrators/'.$article->id.'/edit');
-                $delete_path = admin_base_path('auth/administrators/'.$article->id);
+                $edit_path = admin_base_path('blog/articles/'.$article->id.'/edit');
+                $delete_path = admin_base_path('blog/articles/'.$article->id);
                 return '<a href="'.$edit_path.'" class="btn btn-xs btn-primary margin-r-5">'.
                     '<i class="fa fa-edit"></i> 编辑</a>'.
                     '<a class="btn btn-xs btn-danger margin-r-5 row-delete" data-url="'.$delete_path.'">'.
@@ -62,10 +62,10 @@ class ArticleDataTable extends DataTable
     /**
      * Get query source of dataTable.
      *
-     * @param \App\User $model
+     * @param \App\Models\Article $model
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function query(User $model)
+    public function query(Article $model)
     {
         return $model->newQuery()->select('id', 'title', 'status', 'author',
             'is_top', 'description', 'cover_image', 'category_id', 'keywords', 'created_at', 'updated_at');

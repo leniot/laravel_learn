@@ -43,7 +43,7 @@ class RoleController extends BaseController
     public function store(Request $request)
     {
         $this->validate($request, [
-            'identifier' => 'required|unique:policies',
+            'identifier' => 'required|unique:roles',
             'name' => 'required',
             'desc' => 'required',
             'policies' => 'required|array',
@@ -117,7 +117,7 @@ class RoleController extends BaseController
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'identifier' => 'required|unique:policies',
+            'identifier' => 'required|unique:roles,identifier,'.$id,
             'name' => 'required',
             'desc' => 'required',
             'policies' => 'required|array',

@@ -78,7 +78,7 @@ class AdministratorDataTable extends DataTable
     }
 
     /**
-     * Get columns.
+     * 获取数据列
      *
      * @return array
      */
@@ -97,7 +97,7 @@ class AdministratorDataTable extends DataTable
     }
 
     /**
-     * Get filename for export.
+     * 设置导出文件名
      *
      * @return string
      */

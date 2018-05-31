@@ -16,7 +16,7 @@ class CreateCategoriesTable extends Migration
         Schema::create('categories', function (Blueprint $table) {
             $table->increments('id')->comment('自增id');
             $table->string('name', 20)->commen('分类名称');
-            $table->string('description')->commen('分类描述');
+            $table->string('description')->default('')->commen('分类描述');
             $table->string('keywords')->default('')->comment('关键词');
             $table->timestamps();
             $table->softDeletes();

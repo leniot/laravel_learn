@@ -2,19 +2,22 @@
 
 namespace App\Http\Controllers\Admin\Blog;
 
+use App\DataTables\ArticleDataTable;
+use App\Http\Controllers\Admin\BaseController;
+use App\Models\Category;
+use App\Models\Tag;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 
-class ArticleController extends Controller
+class ArticleController extends BaseController
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+     * 文章列表
+     * @param ArticleDataTable $dataTable
+     * @return mixed
      */
-    public function index()
+    public function index(ArticleDataTable $dataTable)
     {
-        //
+        return $dataTable->render(admin_view_path('blog.article.index'));
     }
 
     /**
@@ -24,7 +27,12 @@ class ArticleController extends Controller
      */
     public function create()
     {
-        //
+        $categoryList = Category::all();
+        $tagList = Tag::all();
+        return view(admin_view_path('blog.article.create'))->with([
+            'categoryList' => $categoryList,
+            'tagList' => $tagList,
+        ]);
     }
 
     /**

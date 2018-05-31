@@ -29,6 +29,8 @@
     <link rel="stylesheet" href="{{ asset('js_expand/toastr/build/toastr.min.css') }}">
     <!-- sweetalert -->
     <link rel="stylesheet" href="{{ asset('js_expand/sweetalert/dist/sweetalert.css') }}">
+    <!-- editormd -->
+    <link rel="stylesheet" href="{{ asset('js_expand/editormd/css/editormd.min.css') }}">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->

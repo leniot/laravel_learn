@@ -32,7 +32,25 @@
         <ul class="sidebar-menu" data-widget="tree">
             <li class="header">菜 单</li>
             <!-- Optionally, you can add icons to the links -->
-            {{--<li class="active"><a href="#"><i class="fa fa-link"></i> <span>Link</span></a></li>--}}
+            <li>
+                <a href="{{ admin_base_path('blog/articles') }}">
+                    <i class="fa fa-book"></i>
+                    <span>文章管理</span>
+                </a>
+            </li>
+            <li>
+                <a href="{{ admin_base_path('blog/tags') }}">
+                    <i class="fa fa-book"></i>
+                    <span>标签管理</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="{{ admin_base_path('blog/categories') }}">
+                    <i class="fa fa-book"></i>
+                    <span>类别管理</span>
+                </a>
+            </li>
             {{--<li><a href="#"><i class="fa fa-link"></i> <span>Another Link</span></a></li>--}}
 
             <li class="treeview">
@@ -68,6 +86,7 @@
                     </li>
                 </ul>
             </li>
+
         </ul>
         <!-- /.sidebar-menu -->
     </section>

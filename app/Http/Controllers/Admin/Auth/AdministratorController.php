@@ -77,7 +77,7 @@ class AdministratorController extends BaseController
             }
             DB::commit();
             admin_toastr('角色更新成功！');
-            return redirect(admin_base_path('auth/administrator'));
+            return redirect(admin_base_path('auth/administrators'));
         } catch (\Exception $e) {
             $error = $e->getMessage();
             DB::rollBack();
@@ -124,7 +124,7 @@ class AdministratorController extends BaseController
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'login_name' => 'required|unique:administrators',
+            'login_name' => 'required|unique:administrators,login_name,'.$id,
             'display_name' => 'required',
             'roles' => 'required',
         ],[
@@ -148,7 +148,7 @@ class AdministratorController extends BaseController
             }
             DB::commit();
             admin_toastr('角色更新成功！');
-            return redirect(admin_base_path('auth/administrator'));
+            return redirect(admin_base_path('auth/administrators'));
         } catch (\Exception $e) {
             $error = $e->getMessage();
             DB::rollBack();

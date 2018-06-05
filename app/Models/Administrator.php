@@ -6,6 +6,7 @@ use Illuminate\Auth\Authenticatable;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Storage;
 
 /**
@@ -97,6 +98,11 @@ class Administrator extends Model implements AuthenticatableContract
      */
     public function getPermissions()
     {
+        $key = 'user_permissions';
+        if (Redis::exists($key)) {
+            return json_decode(gzuncompress(base64_decode(Redis::get($key))));
+        }
+
         //获取用户所有角色
         $roles = $this->roles()->get();
 
@@ -114,6 +120,8 @@ class Administrator extends Model implements AuthenticatableContract
             }
         }
         //权限去重
-        return array_unique($permissions);
+        $data = array_unique($permissions);
+        Redis::set($key, base64_encode(gzcompress(json_encode($data))));
+        return $data;
     }
 }

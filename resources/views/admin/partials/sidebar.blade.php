@@ -84,6 +84,12 @@
                             <span>管理员</span>
                         </a>
                     </li>
+                    <li>
+                        <a href="{{ admin_base_path('auth/menus') }}">
+                            <i class="fa fa-bars"></i>
+                            <span>系统菜单</span>
+                        </a>
+                    </li>
                 </ul>
             </li>
 

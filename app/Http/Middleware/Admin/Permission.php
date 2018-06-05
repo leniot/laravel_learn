@@ -5,6 +5,7 @@ namespace App\Http\Middleware\Admin;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redis;
 
 class Permission
 {
@@ -38,10 +39,12 @@ class Permission
         if (in_array($request->route()->getName(), $permission_except)) {
             return true;
         }
+
         //超级管理员跳过验证
         if (Auth::guard('administrator')->user()->isRole('administrator')) {
             return true;
         }
+
         //校验权限
         $permissions = Auth::guard('administrator')->user()->getPermissions();
         if (in_array($request->route()->getName(), $permissions)) {

@@ -15,12 +15,13 @@ class CreateMenusTable extends Migration
     {
         Schema::create('menus', function (Blueprint $table) {
             $table->engine = 'InnoDB';
-            $table->increments('id');
-            $table->integer('pid');
-            $table->string('title');
-            $table->string('icon');
-            $table->integer('order');
-            $table->string('uri');
+            $table->increments('id')->comment('自增id');
+            $table->integer('pid')->default(0)->comment('父级id');
+            $table->string('title', 50)->comment('菜单标题');
+            $table->string('icon', 50)->comment('图标');
+            $table->integer('order')->default(0)->comment('排序号');
+            $table->string('uri', 100)->comment('路径');
+            $table->string('route')->comment('路由');
             $table->timestamps();
         });
     }

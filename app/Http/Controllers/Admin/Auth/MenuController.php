@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin\Auth;
 
 use App\Http\Controllers\Admin\BaseController;
+use App\Models\Menu;
 use Illuminate\Http\Request;
 
 class MenuController extends BaseController
@@ -57,7 +58,10 @@ class MenuController extends BaseController
      */
     public function edit($id)
     {
-        //
+        $menu = Menu::find($id);
+        return view(admin_view_path('auth.menu.edit'))->with([
+            'menu' => $menu,
+        ]);
     }
 
     /**

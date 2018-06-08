@@ -32,12 +32,12 @@
                                  编 辑
                             </span>
                         </a>
-                        <button class="btn btn-default">
+                        <a class="btn btn-default menu-del">
                             <span>
                                 <i class="fa fa-trash"></i>
                                  删 除
                             </span>
-                        </button>
+                        </a>
                     </div>
                     <div class="box-body">
                         <div id="treeview" class=""></div>
@@ -106,7 +106,9 @@
                 data: buildDomTree(),
                 onNodeSelected: function(event, node) {
                     var nodeId = node.nodeId;
-                    $('a.menu-edit').attr('href', {{ admin_base_path('') }})
+                    var base_path = '{{ admin_base_path('auth/menus/') }}/';
+                    $('a.menu-edit').attr('href', base_path + nodeId + '/edit');
+                    $('a.menu-del').attr('data-id', nodeId);
                 },
             };
 

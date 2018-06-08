@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Admin\Auth;
 
 use App\Http\Controllers\Admin\BaseController;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 
 class MenuController extends BaseController
 {
@@ -25,7 +24,7 @@ class MenuController extends BaseController
      */
     public function create()
     {
-        //
+        return view(admin_base_path('auth.menu.create'));
     }
 
     /**

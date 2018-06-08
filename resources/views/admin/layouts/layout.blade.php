@@ -35,6 +35,9 @@
     <link rel="stylesheet" href="{{ asset('js_expand/editormd/css/editormd.min.css') }}">
     <!--jasny-bootstrap-->
     <link rel="stylesheet" href="{{ asset('js_expand/jasny-bootstrap/css/jasny-bootstrap.min.css') }}">
+    <!--bootstrap-duallistbox-->
+    <link rel="stylesheet" href="{{ asset('js_expand/bootstrap-duallistbox-master/dist/bootstrap-duallistbox.css') }}">
+    <link rel="stylesheet" href="{{ asset('js_expand/bootstrap-treeview/src/css/bootstrap-treeview.css') }}">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -68,6 +71,8 @@
     <script src="{{ asset('js_expand/editormd/editormd.min.js') }}"></script>
     <script src="{{ asset('AdminLTE/plugins/iCheck/icheck.min.js') }}"></script>
     <script src="{{ asset('js_expand/jasny-bootstrap/js/jasny-bootstrap.min.js') }}"></script>
+    <script src="{{ asset('js_expand/bootstrap-duallistbox-master/dist/jquery.bootstrap-duallistbox.js') }}"></script>
+    <script src="{{ asset('js_expand/bootstrap-treeview/src/js/bootstrap-treeview.js') }}"></script>
 </head>
 
 <body class="hold-transition skin-blue sidebar-mini">
@@ -133,4 +138,5 @@
 <script src="{{ asset('js_expand/laravel-admin/admin.base.js') }}"></script>
 <!-- custom script-->
 </body>
+
 </html>

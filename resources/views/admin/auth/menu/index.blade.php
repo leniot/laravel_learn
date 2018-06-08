@@ -19,13 +19,99 @@
         <div class="row">
             <div class="col-sm-12">
                 <div class="box box-widget">
+                    <div class="box-header">
+                        <a class="btn btn-default" href="{{ admin_base_path('auth/menus/create') }}">
+                            <span>
+                                <i class="fa fa-plus"></i>
+                                 添 加
+                            </span>
+                        </a>
+                        <a class="btn btn-default menu-edit">
+                            <span>
+                                <i class="fa fa-edit"></i>
+                                 编 辑
+                            </span>
+                        </a>
+                        <button class="btn btn-default">
+                            <span>
+                                <i class="fa fa-trash"></i>
+                                 删 除
+                            </span>
+                        </button>
+                    </div>
                     <div class="box-body">
-                        <h3>fuck</h3>
+                        <div id="treeview" class=""></div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
     <!-- /.content -->
+
+    <script>
+        function buildDomTree() {
+
+            var defaultData = [
+                {
+                    text: 'Parent 1',
+                    href: '#parent1',
+                    icon: 'fa fa-user',
+                    nodes: [
+                        {
+                            text: 'Child 1',
+                            href: '#child1',
+                            nodes: [
+                                {
+                                    text: 'Grandchild 1',
+                                    href: '#grandchild1',
+                                },
+                                {
+                                    text: 'Grandchild 2',
+                                    href: '#grandchild2',
+                                }
+                            ]
+                        },
+                        {
+                            text: 'Child 2',
+                            href: '#child2',
+                        }
+                    ]
+                },
+                {
+                    text: 'Parent 2',
+                    href: '#parent2',
+                },
+                {
+                    text: 'Parent 3',
+                    href: '#parent3',
+                },
+                {
+                    text: 'Parent 4',
+                    href: '#parent4',
+                },
+                {
+                    text: 'Parent 5',
+                    href: '#parent5'  ,
+                }
+            ];
+            return defaultData;
+        }
+
+        $(function() {
+
+            var options = {
+                bootstrap2: true,
+                showTags: true,
+                levels: 5,
+                data: buildDomTree(),
+                onNodeSelected: function(event, node) {
+                    var nodeId = node.nodeId;
+                    $('a.menu-edit').attr('href', {{ admin_base_path('') }})
+                },
+            };
+
+            $('#treeview').treeview(options);
+        });
+    </script>
 
 @endsection

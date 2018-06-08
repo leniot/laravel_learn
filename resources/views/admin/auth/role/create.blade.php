@@ -64,14 +64,23 @@
                                     <label for="method" class="col-sm-3 control-label">权 限 策 略：</label>
 
                                     <div class="col-sm-8">
-                                        <select class="form-control select2" style="width: 100%;" name="policies[]" multiple>
+                                        <select multiple="multiple" size="10" name="policies[]">
                                             @foreach ($policyList as $policy)
                                                 <option value="{{ $policy->id }}">
-                                                    {{ $policy->identifier.' ['.$policy->name.']' }}
+                                                {{ $policy->identifier.' ['.$policy->name.']' }}
                                                 </option>
                                             @endforeach
                                         </select>
                                     </div>
+                                    {{--<div class="col-sm-8">--}}
+                                        {{--<select class="form-control select2" style="width: 100%;" name="policies[]" multiple>--}}
+                                            {{--@foreach ($policyList as $policy)--}}
+                                                {{--<option value="{{ $policy->id }}">--}}
+                                                    {{--{{ $policy->identifier.' ['.$policy->name.']' }}--}}
+                                                {{--</option>--}}
+                                            {{--@endforeach--}}
+                                        {{--</select>--}}
+                                    {{--</div>--}}
 
                                     @if ($errors->has('policies'))
                                         <div class="col-sm-offset-3 col-sm-8">
@@ -122,7 +131,8 @@
     <!-- /.content -->
 
     <script>
-        $('.select2').select2()
+        // $('.select2').select2()
+        $('select[name="policies[]"]').bootstrapDualListbox();
     </script>
 
 @endsection

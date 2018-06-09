@@ -40,7 +40,7 @@
                         </a>
                     </div>
                     <div class="box-body">
-                        <div id="treeview" class=""></div>
+                        <div id="menuTreeView" class=""></div>
                     </div>
                 </div>
             </div>
@@ -48,71 +48,23 @@
     </section>
     <!-- /.content -->
 
-    <script>
-        function buildDomTree() {
-
-            var defaultData = [
-                {
-                    text: 'Parent 1',
-                    href: '#parent1',
-                    icon: 'fa fa-user',
-                    nodes: [
-                        {
-                            text: 'Child 1',
-                            href: '#child1',
-                            nodes: [
-                                {
-                                    text: 'Grandchild 1',
-                                    href: '#grandchild1',
-                                },
-                                {
-                                    text: 'Grandchild 2',
-                                    href: '#grandchild2',
-                                }
-                            ]
-                        },
-                        {
-                            text: 'Child 2',
-                            href: '#child2',
-                        }
-                    ]
-                },
-                {
-                    text: 'Parent 2',
-                    href: '#parent2',
-                },
-                {
-                    text: 'Parent 3',
-                    href: '#parent3',
-                },
-                {
-                    text: 'Parent 4',
-                    href: '#parent4',
-                },
-                {
-                    text: 'Parent 5',
-                    href: '#parent5'  ,
-                }
-            ];
-            return defaultData;
-        }
-
+    <script charset="utf-8">
         $(function() {
 
             var options = {
                 bootstrap2: true,
                 showTags: true,
-                levels: 5,
-                data: buildDomTree(),
+                levels: 1,
+                data: '{!! $menuTree !!}',
                 onNodeSelected: function(event, node) {
-                    var nodeId = node.nodeId;
+                    var menuId = node.id;
                     var base_path = '{{ admin_base_path('auth/menus/') }}/';
-                    $('a.menu-edit').attr('href', base_path + nodeId + '/edit');
-                    $('a.menu-del').attr('data-id', nodeId);
+                    $('a.menu-edit').attr('href', base_path + menuId + '/edit');
+                    $('a.menu-del').attr('data-id', menuId);
                 },
             };
 
-            $('#treeview').treeview(options);
+            $('#menuTreeView').treeview(options);
         });
     </script>
 

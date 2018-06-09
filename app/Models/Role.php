@@ -56,4 +56,14 @@ class Role extends Model
     {
         return $this->policies()->sync($policies);
     }
+
+    /**
+     * 更新角色-菜单中间表
+     * @param array $menus
+     * @return array
+     */
+    public function updateMenusRelation(array $menus)
+    {
+        return $this->menus()->sync($menus);
+    }
 }

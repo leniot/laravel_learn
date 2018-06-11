@@ -6,6 +6,7 @@ use App\DataTables\AdministratorDataTable;
 use App\Http\Controllers\Admin\BaseController;
 use App\Models\Administrator;
 use App\Models\Role;
+use App\Models\RoleAdministrator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -167,7 +168,7 @@ class AdministratorController extends BaseController
      */
     public function destroy($id)
     {
-        if (Administrator::find($id)->delete()) {
+        if (Administrator::find($id)->delete() && RoleAdministrator::syncDelAdministrator($id)) {
             return response()->json([
                 'status'  => true,
                 'message' => '删除成功！',

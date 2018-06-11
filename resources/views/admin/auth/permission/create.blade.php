@@ -48,7 +48,8 @@
                                     <label for="method" class="col-sm-3 control-label">请 求 方 式：</label>
 
                                     <div class="col-sm-8">
-                                        <select class="form-control select2" style="width: 100%;" name="method">
+                                        <select class="form-control select2" style="width: 100%;" name="method" data-placeholder="请选择请求方法">
+                                            <option value=""></option>
                                             <option value="GET">GET</option>
                                             <option value="POST">POST</option>
                                             <option value="PUT/PATCH">PUT/PATCH</option>

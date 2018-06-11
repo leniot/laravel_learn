@@ -37,6 +37,7 @@
     <link rel="stylesheet" href="{{ asset('js_expand/jasny-bootstrap/css/jasny-bootstrap.min.css') }}">
     <!--bootstrap-duallistbox-->
     <link rel="stylesheet" href="{{ asset('js_expand/bootstrap-duallistbox-master/dist/bootstrap-duallistbox.css') }}">
+    <!--bootstrap-treeview-->
     <link rel="stylesheet" href="{{ asset('js_expand/bootstrap-treeview/src/css/bootstrap-treeview.css') }}">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -73,6 +74,7 @@
     <script src="{{ asset('js_expand/jasny-bootstrap/js/jasny-bootstrap.min.js') }}"></script>
     <script src="{{ asset('js_expand/bootstrap-duallistbox-master/dist/jquery.bootstrap-duallistbox.js') }}"></script>
     <script src="{{ asset('js_expand/bootstrap-treeview/src/js/bootstrap-treeview.js') }}"></script>
+    <script src="{{ asset('js_expand/bootbox/bootbox.min.js') }}"></script>
 </head>
 
 <body class="hold-transition skin-blue sidebar-mini">

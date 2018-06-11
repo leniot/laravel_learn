@@ -44,6 +44,7 @@ class LoginController extends Controller
         if ($result) {
             admin_toastr('登录成功');
             $request->session()->regenerate();
+            Auth::guard('administrator')->user()->setPermissions();
             return redirect()->intended(config('admin.route.prefix'));
         }else{
             return redirect()->back()->withInput()

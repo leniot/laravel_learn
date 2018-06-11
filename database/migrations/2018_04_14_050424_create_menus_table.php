@@ -19,9 +19,10 @@ class CreateMenusTable extends Migration
             $table->integer('pid')->default(0)->comment('父级id');
             $table->string('title', 50)->comment('菜单标题');
             $table->string('icon', 50)->comment('图标');
+            $table->string('type', 50)->default(0)->comment('图标:0节点，uri');
+            $table->string('uri', 100)->nullable()->comment('路径');
+            $table->string('route')->nullable()->comment('路由');
             $table->integer('order')->default(0)->comment('排序号');
-            $table->string('uri', 100)->comment('路径');
-            $table->string('route')->comment('路由');
             $table->timestamps();
         });
     }

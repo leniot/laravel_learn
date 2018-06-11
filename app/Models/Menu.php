@@ -15,9 +15,9 @@ class Menu extends Model
     {
         $pivotTable = 'role_menus';
 
-        $relatedModel = Menu::class;
+        $relatedModel = Role::class;
 
-        return $this->belongsToMany($relatedModel, $pivotTable, 'role_id', 'menu_id');
+        return $this->belongsToMany($relatedModel, $pivotTable, 'menu_id', 'role_id');
     }
 
     /**

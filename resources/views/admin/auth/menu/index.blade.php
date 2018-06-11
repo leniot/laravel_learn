@@ -49,23 +49,9 @@
     <!-- /.content -->
 
     <script charset="utf-8">
-        $(function() {
-
-            var options = {
-                bootstrap2: true,
-                showTags: true,
-                levels: 1,
-                data: '{!! $menuTree !!}',
-                onNodeSelected: function(event, node) {
-                    var menuId = node.id;
-                    var base_path = '{{ admin_base_path('auth/menus/') }}/';
-                    $('a.menu-edit').attr('href', base_path + menuId + '/edit');
-                    $('a.menu-del').attr('data-id', menuId);
-                },
-            };
-
-            $('#menuTreeView').treeview(options);
-        });
+        var base_path = '{{ admin_base_path('auth/menus/') }}/';
+        var menuTree = '{!! $menuTree !!}';
+        $.getScript('{{ asset('js_expand/views-script/menu-index.js') }}');
     </script>
 
 @endsection

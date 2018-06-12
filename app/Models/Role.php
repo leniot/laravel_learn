@@ -48,7 +48,7 @@ class Role extends Model
     }
 
     /**
-     * 同步中间表
+     * 同步角色-权限策略中间表
      * @param array $policies
      * @return array
      */

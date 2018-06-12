@@ -6,6 +6,7 @@ use App\Http\Requests\AdministratorLoginRequest;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redis;
 
 class LoginController extends Controller
 {
@@ -63,6 +64,8 @@ class LoginController extends Controller
         Auth::guard('administrator')->logout();
 
         session()->forget('url.intented');
+
+        Redis::clearResolvedInstances();
 
         return redirect(config('admin.route.prefix'));
     }

@@ -75,6 +75,7 @@ class MenuController extends BaseController
         $menu->pid = $request->get('pid');
         $menu->title = $request->get('title');
         $menu->icon = $request->get('icon');
+        $menu->type = $request->get('type');
         $menu->order = $request->get('order');
         $menu->route = $request->get('route');
         $menu->uri = $request->get('uri');

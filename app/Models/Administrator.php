@@ -103,15 +103,16 @@ class Administrator extends Model implements AuthenticatableContract
             return json_decode(gzuncompress(base64_decode(Redis::get($key))));
         }
 
-        $data = $this->setPermission();
+        $data = [];
+        $this->setPermission($data);
         return $data;
     }
 
     /**
      * 设置用户权限缓存
-     * @return array
+     * @param array $data
      */
-    public function setPermission()
+    public function setPermissions(&$data = [])
     {
         //获取用户所有角色
         $roles = $this->roles()->get();
@@ -132,14 +133,13 @@ class Administrator extends Model implements AuthenticatableContract
         //权限去重
         $data = array_unique($permissions);
         Redis::set('user_permissions', base64_encode(gzcompress(json_encode($data))));
-
-        return $data;
     }
 
     /**
+     * 获取当前登录用户菜单
      * @return array|mixed
      */
-    public function getMenu()
+    public function getMenus()
     {
         $key = 'user_menus';
         if (Redis::exists($key)) {
@@ -151,6 +151,7 @@ class Administrator extends Model implements AuthenticatableContract
     }
 
     /**
+     * 设置当前登录用户菜单
      * @return array
      */
     public function setMenus()

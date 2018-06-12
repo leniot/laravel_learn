@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\BaseController;
 use App\Models\Policy;
 use App\Models\Role;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class RoleController extends BaseController

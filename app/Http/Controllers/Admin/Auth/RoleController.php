@@ -163,6 +163,7 @@ class RoleController extends BaseController
      */
     public function destroy($id)
     {
+        //TODO：删除所有与之的关联关系
         if (Role::find($id)->delete()) {
             return response()->json([
                 'status' => true,

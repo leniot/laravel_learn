@@ -117,7 +117,7 @@ class MenuController extends BaseController
         $menu = Menu::find($id);
         $pmenu = Menu::find($menu->pid);
         $permissionList = Permission::all()->where('type', '=', 1);
-        $menuTree = $this->formatTreeViewArr($menuList);
+        $menuTree = $this->treeViewForEdit($menuList, $id);
         $roleList = Role::all();
         return view(admin_view_path('auth.menu.edit'))->with([
             'pmenu' => $pmenu,
@@ -228,4 +228,58 @@ class MenuController extends BaseController
 
         return $tree;
     }
+
+    /**
+     * 编辑页Modal菜单树（自身与子菜单不可选做父级）
+     * @param $menuList
+     * @param $id
+     * @param int $pid
+     * @return array
+     */
+    public function treeViewForEdit($menuList, $id, $pid = 0)
+    {
+        $tree = [];
+        foreach ($menuList as $key => $value) {
+            $tem = [];
+
+            if ($value['pid'] == $pid) {
+                $tem['id'] = $value['id'];
+                $tem['text'] = $value['title'];
+                $tem['icon'] = $value['icon'];
+                if ($value['id'] == $id || $value['pid'] == $id) {
+                    $tem['state'] = [
+                        'disabled' => true,
+                    ];
+                }
+                $nodes = self::treeViewForEdit($menuList, $id, $value['id']);
+                !empty($nodes) && $tem['nodes'] = $nodes;
+                $tree[] = $tem;
+                unset($menuList[$key]);
+            }
+        }
+
+        return $tree;
+    }
+
+    /**
+     * 获取给定菜单所有父级id
+     * @param $menuList
+     * @param $id
+     * @return array
+     */
+    public function getMenuParents($menuList, $id)
+    {
+        $parents = [];
+        foreach ($menuList as $key => $menu) {
+            if ($menu['id'] == $id && $menu['pid']) {
+                $parents[] = $menu['pid'];
+                self::getMenuParents($menuList, $menu['pid']);
+            }
+        }
+
+        return $parents;
+    }
+
+    //TODO:图标选择
+    //TODO:为菜单设置角色可见时同时设置其父级（直接父级，父级的父级...）
 }

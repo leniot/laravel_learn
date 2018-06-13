@@ -131,6 +131,7 @@ class PermissionController extends BaseController
      */
     public function destroy($id)
     {
+        //TODO:删除权限时删除所有与之的关联关系(policy_permissions)
         if (Permission::find($id)->delete()) {
             return response()->json([
                 'status'  => true,

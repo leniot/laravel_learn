@@ -161,6 +161,7 @@ class PolicyController extends BaseController
      */
     public function destroy($id)
     {
+        //TODO:删除权限策略时删除所有与之的关联关系（）
         if (Policy::find($id)->delete()) {
             return response()->json([
                 'status' => true,

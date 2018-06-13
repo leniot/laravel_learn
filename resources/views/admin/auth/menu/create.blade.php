@@ -24,10 +24,10 @@
                             <i class="fa fa-arrow-left"></i> 返 回
                         </a>
                     </div>
-                    <div class="box-body">
-                        <form class="form-horizontal" pjax-container action="{{ admin_base_path('auth/menus') }}" method="post">
-                            @csrf
 
+                    <form class="form-horizontal" pjax-container action="{{ admin_base_path('auth/menus') }}" method="post">
+                        @csrf
+                        <div class="box-body">
                             <div class="fields-group">
 
                                 <div class="form-group {{ $errors->has('pid') ? ' has-error' : '' }}">
@@ -180,19 +180,20 @@
                                 </div>
 
                             </div>
+                        </div>
 
-                            <div class="box-footer">
-                                <div class="col-sm-offset-3 col-sm-8">
-                                    <button type="reset" class="btn btn-warning pull-left">
-                                        <i class="fa fa-rotate-left"></i> 撤 销
-                                    </button>
-                                    <button type="submit" class="btn btn-primary pull-right">
-                                        <i class="fa fa-save"></i> 提 交
-                                    </button>
-                                </div>
+                        <div class="box-footer">
+                            <div class="col-sm-offset-3 col-sm-8">
+                                <button type="reset" class="btn btn-warning pull-left">
+                                    <i class="fa fa-rotate-left"></i> 撤 销
+                                </button>
+                                <button type="submit" class="btn btn-primary pull-right">
+                                    <i class="fa fa-save"></i> 提 交
+                                </button>
                             </div>
-                        </form>
-                    </div>
+                        </div>
+                    </form>
+
                 </div>
             </div>
         </div>
@@ -271,16 +272,6 @@
             };
 
             $('#p_menuTreeView').treeview(options);
-
-            function UnicodeToAscii(content) {
-                var code = content.match(/&#(\d+);/g);
-                result= '';
-                for (var i=0; i < code.length; i++){
-                    result += String.fromCharCode(code[i].replace(/[&#;]/g, ''));
-                }
-
-                return result;
-            }
 
         });
     </script>

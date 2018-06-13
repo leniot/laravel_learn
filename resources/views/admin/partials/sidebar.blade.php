@@ -31,67 +31,9 @@
         <!-- Sidebar Menu -->
         <ul class="sidebar-menu" data-widget="tree">
             <li class="header">菜 单</li>
+
             <!-- Optionally, you can add icons to the links -->
-            <li>
-                <a href="{{ admin_base_path('blog/articles') }}">
-                    <i class="fa fa-book"></i>
-                    <span>文章管理</span>
-                </a>
-            </li>
-            <li>
-                <a href="{{ admin_base_path('blog/tags') }}">
-                    <i class="fa fa-book"></i>
-                    <span>标签管理</span>
-                </a>
-            </li>
-
-            <li>
-                <a href="{{ admin_base_path('blog/categories') }}">
-                    <i class="fa fa-book"></i>
-                    <span>类别管理</span>
-                </a>
-            </li>
-            {{--<li><a href="#"><i class="fa fa-link"></i> <span>Another Link</span></a></li>--}}
-
-            <li class="treeview">
-                <a href="#"><i class="fa fa-gear"></i> <span>系统设置</span>
-                    <span class="pull-right-container">
-                        <i class="fa fa-angle-left pull-right"></i>
-                    </span>
-                </a>
-                <ul class="treeview-menu">
-                    <li>
-                        <a href="{{ admin_base_path('auth/permissions') }}">
-                            <i class="fa fa-ban"></i>
-                            <span>权限管理</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="{{ admin_base_path('auth/policies') }}">
-                            <i class="fa fa-toggle-on"></i>
-                            <span>权限策略</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="{{ admin_base_path('auth/roles') }}">
-                            <i class="fa fa-group"></i>
-                            <span>角色管理</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="{{ admin_base_path('auth/administrators') }}">
-                            <i class="fa fa-user"></i>
-                            <span>管理员</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="{{ admin_base_path('auth/menus') }}">
-                            <i class="fa fa-bars"></i>
-                            <span>系统菜单</span>
-                        </a>
-                    </li>
-                </ul>
-            </li>
+            @each('admin::partials.menu', Admin::menu(), 'item')
 
         </ul>
         <!-- /.sidebar-menu -->

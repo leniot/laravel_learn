@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Auth;
 
-use App\Http\Requests\AdministratorLoginRequest;
+use App\Facades\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -16,7 +16,7 @@ class LoginController extends Controller
      */
     public function getLogin()
     {
-        if (!Auth::guard('administrator')->guest()) {
+        if (!$this->guard()->guest()) {
             return redirect(config('admin.route.prefix'));
         }
 
@@ -40,12 +40,15 @@ class LoginController extends Controller
         ]);
         $postData = $request->only('login_name', 'password');
 
-        $result = Auth::guard('administrator')->attempt($postData, $request->filled('remember'));
+        $result = $this->guard()->attempt($postData, $request->filled('remember'));
 
         if ($result) {
             admin_toastr('登录成功');
+            //设置session
             $request->session()->regenerate();
-            Auth::guard('administrator')->user()->setPermissions();
+            //缓存当前登录用户权限及菜单
+            Admin::currentLogin()->setPermissions();
+            Admin::currentLogin()->setMenus();
             return redirect()->intended(config('admin.route.prefix'));
         }else{
             return redirect()->back()->withInput()
@@ -61,12 +64,21 @@ class LoginController extends Controller
      */
     public function postLogout()
     {
-        Auth::guard('administrator')->logout();
+        $this->guard()->logout();
 
         session()->forget('url.intented');
 
-        Redis::clearResolvedInstances();
+        Redis::flushAll();
 
         return redirect(config('admin.route.prefix'));
+    }
+
+    /**
+     *
+     * @return \Illuminate\Contracts\Auth\Guard|\Illuminate\Contracts\Auth\StatefulGuard|mixed
+     */
+    protected function guard()
+    {
+        return Auth::guard('administrator');
     }
 }

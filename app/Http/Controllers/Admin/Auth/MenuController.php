@@ -20,7 +20,7 @@ class MenuController extends BaseController
     {
         $menuList = Menu::all();
         return view(admin_view_path('auth.menu.index'))->with([
-            'menuTree' => json_encode($this->formatMenuTree($menuList)),
+            'menuTree' => json_encode($this->formatTreeViewArr($menuList)),
         ]);
     }
 
@@ -33,7 +33,7 @@ class MenuController extends BaseController
     {
         $menuList = Menu::all();
         $permissionList = Permission::all()->where('type', '=', 1);
-        $menuTree = $this->formatMenuTree($menuList);
+        $menuTree = $this->formatTreeViewArr($menuList);
         $roleList = Role::all();
         return view(admin_base_path('auth.menu.create'))->with([
             'menuTree' => json_encode($menuTree),
@@ -113,9 +113,18 @@ class MenuController extends BaseController
      */
     public function edit($id)
     {
+        $menuList = Menu::all();
         $menu = Menu::find($id);
+        $pmenu = Menu::find($menu->pid);
+        $permissionList = Permission::all()->where('type', '=', 1);
+        $menuTree = $this->formatTreeViewArr($menuList);
+        $roleList = Role::all();
         return view(admin_view_path('auth.menu.edit'))->with([
+            'pmenu' => $pmenu,
             'menu' => $menu,
+            'menuTree' => json_encode($menuTree),
+            'permissionList' => $permissionList,
+            'roleList' => $roleList,
         ]);
     }
 
@@ -128,7 +137,47 @@ class MenuController extends BaseController
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'title' => 'required|unique:menus,title,'.$id,
+            'icon' => 'required',
+            'type' => 'required',
+            'route' => 'required_if:type,1',
+            'uri' => 'required_if:type,1',
+            'order' => 'required|integer',
+            'roles' => 'required',
+        ],[
+            'title.required' => '请输入菜单标题',
+            'title.unique' => '该标题已存在',
+            'icon.required' => '请选择图标',
+            'type.required' => '请选择菜单类型',
+            'order.required' => '请输入菜单排序',
+            'order.integer' => '排序号类型错误',
+            'roles.required' => '请为菜单设置可见角色',
+            'route.required_if' => '请选择路由',
+            'uri.required_if' => '请输入URI',
+        ]);
+
+        $menu = Menu::find($id);
+        $menu->pid = $request->get('pid');
+        $menu->title = $request->get('title');
+        $menu->icon = $request->get('icon');
+        $menu->type = $request->get('type');
+        $menu->uri = $request->get('uri');
+        $menu->route = $request->get('route');
+        $menu->order = $request->get('order');
+
+        if (!$menu->save()) {
+            admin_toastr('菜单更新失败！', 'error');
+            return redirect()->back()->withInput()->withErrors([
+                'error' => ''
+            ]);
+        }
+
+        $roles = $request->get('roles');
+
+        $menu->updateRolesRelation($roles);
+        admin_toastr('菜单更新成功！');
+        return redirect(admin_base_path('auth/menus'));
     }
 
     /**
@@ -139,6 +188,7 @@ class MenuController extends BaseController
      */
     public function destroy($id)
     {
+        $children = Menu::all()->where('pid', '=', $id);
         if (Menu::find($id)->delete() && RoleMenu::syncDelMenu($id)) {
             return response()->json([
                 'status'  => true,
@@ -154,12 +204,12 @@ class MenuController extends BaseController
     }
 
     /**
-     * 生成树形结构
+     * 生成treeview格式菜单树
      * @param $menuList
      * @param int $pid
      * @return array
      */
-    public function formatMenuTree($menuList, $pid = 0)
+    public function formatTreeViewArr($menuList, $pid = 0)
     {
         $tree = [];
 
@@ -169,7 +219,7 @@ class MenuController extends BaseController
                 $tem['id'] = $value['id'];
                 $tem['text'] = $value['title'];
                 $tem['icon'] = $value['icon'];
-                $nodes = self::formatMenuTree($menuList, $value['id']);
+                $nodes = self::formatTreeViewArr($menuList, $value['id']);
                 !empty($nodes) && $tem['nodes'] = $nodes;
                 $tree[] = $tem;
                 unset($menuList[$key]);

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Support\Facades\Redis;
 
 class Menu extends Model
 {
@@ -28,5 +29,33 @@ class Menu extends Model
     public function updateRolesRelation(array $roles)
     {
         return $this->roles()->sync($roles);
+    }
+
+    /**
+     * 生成树形结构
+     * @param array $menuList
+     * @param int $parentId
+     * @return array
+     */
+    public function formatMenuTree($menuList = [], $parentId = 0)
+    {
+        $menuTree = [];
+
+        if (empty($menuList) && Redis::exists('user_menus')) {
+            $menuList = json_decode(gzuncompress(base64_decode(Redis::get('user_menus'))), true);
+        }else{
+            $menuList = Menu::all();
+        }
+
+        foreach ($menuList as $key => $menu) {
+            if ($menu['pid'] == $parentId) {
+                $children = self::formatMenuTree($menuList, $menu['id']);
+                !empty($children) && $menu['children'] = $children;
+                $menuTree[] = $menu;
+                unset($menuList[$key]);
+            }
+        }
+
+        return $menuTree;
     }
 }

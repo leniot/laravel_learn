@@ -100,7 +100,7 @@ class Administrator extends Model implements AuthenticatableContract
     {
         $key = 'user_permissions';
         if (Redis::exists($key)) {
-            return json_decode(gzuncompress(base64_decode(Redis::get($key))));
+            return json_decode(gzuncompress(base64_decode(Redis::get($key))), true);
         }
 
         $data = [];
@@ -125,7 +125,7 @@ class Administrator extends Model implements AuthenticatableContract
         //获取用户所有权限
         $permissions = [];
         foreach ($policies as $policy) {
-            $permissions_obj = $policy->permissions()->get()->toArray();
+            $permissions_obj = $policy->permissions()->get();
             foreach ($permissions_obj as $value) {
                 $permissions[] = $value['route'];
             }
@@ -143,7 +143,7 @@ class Administrator extends Model implements AuthenticatableContract
     {
         $key = 'user_menus';
         if (Redis::exists($key)) {
-            return json_decode(gzuncompress(base64_decode(Redis::get($key))));
+            return json_decode(gzuncompress(base64_decode(Redis::get($key))), true);
         }
 
         $data = $this->setMenus();
@@ -162,11 +162,14 @@ class Administrator extends Model implements AuthenticatableContract
         //获取用户所有策略
         $menus = [];
         foreach ($roles as $role) {
-            $menus = $role->menus()->get();
+            $menus_obj = $role->menus()->get();
+            foreach ($menus_obj as $value) {
+                $menus[] = $value;
+            }
         }
-        //权限去重
-        $data = array_unique($menus);
-        Redis::set('user_permissions', base64_encode(gzcompress(json_encode($data))));
+        //菜单去重
+        $data = array_unique(array_values($menus));
+        Redis::set('user_menus', base64_encode(gzcompress(json_encode($data))));
 
         return $data;
     }

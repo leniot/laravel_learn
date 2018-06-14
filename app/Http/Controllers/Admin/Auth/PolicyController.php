@@ -6,6 +6,9 @@ use App\DataTables\PolicyDataTable;
 use App\Http\Controllers\Admin\BaseController;
 use App\Models\Permission;
 use App\Models\Policy;
+use App\Models\PolicyPermissions;
+use App\Models\Role;
+use App\Models\RolePolicies;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
@@ -161,8 +164,8 @@ class PolicyController extends BaseController
      */
     public function destroy($id)
     {
-        //TODO:删除权限策略时删除所有与之的关联关系（）
-        if (Policy::find($id)->delete()) {
+        if (Policy::find($id)->delete() && RolePolicies::syncDelPolicy($id)
+        && PolicyPermissions::syncDelPolicy($id)) {
             return response()->json([
                 'status' => true,
                 'message' => '删除成功！'

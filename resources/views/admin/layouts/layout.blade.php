@@ -75,6 +75,10 @@
     <script src="{{ asset('js_expand/bootstrap-duallistbox-master/dist/jquery.bootstrap-duallistbox.js') }}"></script>
     <script src="{{ asset('js_expand/bootstrap-treeview/src/js/bootstrap-treeview.js') }}"></script>
     <script src="{{ asset('js_expand/bootbox/bootbox.min.js') }}"></script>
+    <!--iconpicker-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-iconpicker/1.9.0/css/bootstrap-iconpicker.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-iconpicker/1.9.0/js/bootstrap-iconpicker-iconset-all.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-iconpicker/1.9.0/js/bootstrap-iconpicker.min.js"></script>
 </head>
 
 <body class="hold-transition skin-blue sidebar-mini">
@@ -113,9 +117,9 @@
     </div>
     <!-- /.content-wrapper -->
 
-    <!-- Control Sidebar -->
-    @include('admin::partials.control')
-    <!-- /.control-sidebar -->
+    {{--<!-- Control Sidebar -->--}}
+    {{--@include('admin::partials.control')--}}
+    {{--<!-- /.control-sidebar -->--}}
 
     <!-- Main Footer -->
     @include('admin::partials.footer')

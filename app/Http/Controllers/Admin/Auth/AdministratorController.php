@@ -63,6 +63,13 @@ class AdministratorController extends BaseController
             'password_confirmation.min' => '密码至少6位',
         ]);
         $administrator = new Administrator();
+        // 上传封面图
+        if ($request->hasFile('avatar')) {
+            $result = fileUploader('avatar', 'uploads/administrator_avatar');
+            if ($result['status_code'] === 200) {
+                $administrator->avatar = $result['data']['path'].$result['data']['new_name'];
+            }
+        }
         $administrator->login_name = $request->get('login_name');
         $administrator->display_name = $request->get('display_name');
         $administrator->password = Hash::make($request->get('password'));
@@ -135,6 +142,13 @@ class AdministratorController extends BaseController
             'roles.required' => '请选择一个或多个角色',
         ]);
         $administrator = Administrator::find($id);
+        // 上传封面图
+        if ($request->hasFile('avatar')) {
+            $result = fileUploader('avatar', 'uploads/administrator_avatar');
+            if ($result['status_code'] === 200) {
+                $administrator->avatar = $result['data']['path'].$result['data']['new_name'];
+            }
+        }
         $administrator->login_name = $request->get('login_name');
         $administrator->display_name = $request->get('display_name');
         $roles = $request->get('roles');

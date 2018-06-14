@@ -68,7 +68,8 @@
                                     <label for="icon" class="col-sm-3 control-label">图 标：</label>
 
                                     <div class="col-sm-8">
-                                        <input type="text" class="form-control" id="icon" value="{{ $menu->icon }}"
+                                        <button id="menu_icon_picker" class="btn btn-default" data-iconset="fontawesome" data-icon="{{ $menu->icon }}" role="iconpicker" data-rows="3" data-cols="8"></button>
+                                        <input type="hidden" class="form-control" id="icon" value="{{ $menu->icon }}"
                                                name="icon" placeholder="">
                                     </div>
                                     @if ($errors->has('icon'))
@@ -104,26 +105,6 @@
                                     @endif
                                 </div>
                                 <div class="uri-block {{ $menu->type == 0 ? 'hide' : 'show' }}">
-                                    <div class="form-group {{ $errors->has('route') ? ' has-error' : '' }}">
-                                        <label for="route" class="col-sm-3 control-label">路 由：</label>
-
-                                        <div class="col-sm-8">
-                                            <select id="route" class="form-control select2" name="route" data-placeholder="选择菜单路由" style="width: 100%;">
-                                                <option value=""></option>
-                                                @foreach($permissionList as $m_route)
-                                                    <option value="{{ $m_route->route }}"
-                                                    @if($menu->route == $m_route->route) selected @endif>{{ $m_route->route }}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                        @if ($errors->has('route'))
-                                            <div class="col-sm-offset-3 col-sm-8">
-                                            <span class="invalid-feedback">
-                                                <strong class="text-danger">{{ $errors->first('route') }}</strong>
-                                            </span>
-                                            </div>
-                                        @endif
-                                    </div>
 
                                     <div class="form-group {{ $errors->has('uri') ? ' has-error' : '' }}">
                                         <label for="uri" class="col-sm-3 control-label">URI：</label>
@@ -140,6 +121,7 @@
                                             </div>
                                         @endif
                                     </div>
+
                                 </div>
 
                                 <div class="form-group {{ $errors->has('order') ? ' has-error' : '' }}">
@@ -153,31 +135,6 @@
                                         <div class="col-sm-offset-3 col-sm-8">
                                             <span class="invalid-feedback">
                                                 <strong class="text-danger">{{ $errors->first('order') }}</strong>
-                                            </span>
-                                        </div>
-                                    @endif
-                                </div>
-
-                                <div class="form-group {{ $errors->has('roles') ? ' has-error' : '' }}">
-                                    <label for="roles" class="col-sm-3 control-label">角 色：</label>
-
-                                    <div class="col-sm-8">
-                                        <select id="roles" class="form-control select2" name="roles[]" multiple style="width: 100%;"
-                                                data-placeholder="选择角色（此菜单对何角色可见）">
-                                            @foreach($roleList as $role)
-                                                <option @foreach($menu->roles as $m_role)
-                                                        @if($m_role->id == $role->id)
-                                                        {{ 'selected' }}
-                                                        @endif
-                                                        @endforeach
-                                                        value="{{ $role->id }}">{{ $role->identifier.'['.$role->name.']' }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                    @if ($errors->has('roles'))
-                                        <div class="col-sm-offset-3 col-sm-8">
-                                            <span class="invalid-feedback">
-                                                <strong class="text-danger">{{ $errors->first('roles') }}</strong>
                                             </span>
                                         </div>
                                     @endif
@@ -225,7 +182,6 @@
     </div>
 
     <script>
-        $('.select2').select2();
 
         $('input[type="radio"].menu-type').iCheck({
             checkboxClass: 'icheckbox_minimal-red',
@@ -254,6 +210,10 @@
         };
 
         $('#p_menuTreeView').treeview(options);
+
+        $('#menu_icon_picker').iconpicker().on('change', function (e) {
+            $('#icon').val(e.icon);
+        });
     </script>
 
 @endsection

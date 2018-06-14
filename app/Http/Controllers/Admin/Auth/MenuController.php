@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Auth;
 
+use App\Facades\Admin;
 use App\Http\Controllers\Admin\BaseController;
 use App\Models\Menu;
 use App\Models\Permission;
@@ -34,11 +35,9 @@ class MenuController extends BaseController
         $menuList = Menu::all();
         $permissionList = Permission::all()->where('type', '=', 1);
         $menuTree = $this->formatTreeViewArr($menuList);
-        $roleList = Role::all();
         return view(admin_base_path('auth.menu.create'))->with([
             'menuTree' => json_encode($menuTree),
             'permissionList' => $permissionList,
-            'roleList' => $roleList,
         ]);
     }
 
@@ -54,10 +53,8 @@ class MenuController extends BaseController
             'title' => 'required|unique:menus',
             'icon' => 'required',
             'type' => 'required',
-            'route' => 'required_if:type,1',
             'uri' => 'required_if:type,1',
             'order' => 'required|integer',
-            'roles' => 'required',
         ],[
             'title.required' => '请输入菜单标题',
             'title.unique' => '该标题已存在',
@@ -65,8 +62,6 @@ class MenuController extends BaseController
             'type.required' => '请选择菜单类型',
             'order.required' => '请输入菜单排序',
             'order.integer' => '排序号类型错误',
-            'roles.required' => '请为菜单设置可见角色',
-            'route.required_if' => '请选择路由',
             'uri.required_if' => '请输入URI',
         ]);
 
@@ -77,7 +72,6 @@ class MenuController extends BaseController
         $menu->icon = $request->get('icon');
         $menu->type = $request->get('type');
         $menu->order = $request->get('order');
-        $menu->route = $request->get('route');
         $menu->uri = $request->get('uri');
 
         if (!$menu->save()) {
@@ -87,9 +81,8 @@ class MenuController extends BaseController
             ]);
         }
 
-        $roles = $request->get('roles');
-
-        $menu->updateRolesRelation($roles);
+        //重建菜单redis缓存
+        Admin::rebuildMenusCache();
         admin_toastr('菜单创建成功！');
         return redirect(admin_base_path('auth/menus'));
     }
@@ -118,13 +111,11 @@ class MenuController extends BaseController
         $pmenu = Menu::find($menu->pid);
         $permissionList = Permission::all()->where('type', '=', 1);
         $menuTree = $this->treeViewForEdit($menuList, $id);
-        $roleList = Role::all();
         return view(admin_view_path('auth.menu.edit'))->with([
             'pmenu' => $pmenu,
             'menu' => $menu,
             'menuTree' => json_encode($menuTree),
             'permissionList' => $permissionList,
-            'roleList' => $roleList,
         ]);
     }
 
@@ -141,10 +132,8 @@ class MenuController extends BaseController
             'title' => 'required|unique:menus,title,'.$id,
             'icon' => 'required',
             'type' => 'required',
-            'route' => 'required_if:type,1',
             'uri' => 'required_if:type,1',
             'order' => 'required|integer',
-            'roles' => 'required',
         ],[
             'title.required' => '请输入菜单标题',
             'title.unique' => '该标题已存在',
@@ -152,8 +141,6 @@ class MenuController extends BaseController
             'type.required' => '请选择菜单类型',
             'order.required' => '请输入菜单排序',
             'order.integer' => '排序号类型错误',
-            'roles.required' => '请为菜单设置可见角色',
-            'route.required_if' => '请选择路由',
             'uri.required_if' => '请输入URI',
         ]);
 
@@ -163,7 +150,6 @@ class MenuController extends BaseController
         $menu->icon = $request->get('icon');
         $menu->type = $request->get('type');
         $menu->uri = $request->get('uri');
-        $menu->route = $request->get('route');
         $menu->order = $request->get('order');
 
         if (!$menu->save()) {
@@ -172,10 +158,8 @@ class MenuController extends BaseController
                 'error' => ''
             ]);
         }
-
-        $roles = $request->get('roles');
-
-        $menu->updateRolesRelation($roles);
+        //重建菜单redis缓存
+        Admin::rebuildMenusCache();
         admin_toastr('菜单更新成功！');
         return redirect(admin_base_path('auth/menus'));
     }
@@ -188,14 +172,17 @@ class MenuController extends BaseController
      */
     public function destroy($id)
     {
-        $children = Menu::all()->where('pid', '=', $id);
         if (Menu::find($id)->delete() && RoleMenu::syncDelMenu($id)) {
+            //重建菜单redis缓存
+            Admin::rebuildMenusCache();
             return response()->json([
                 'status'  => true,
                 'message' => '删除成功！',
             ]);
         }
 
+        //重建菜单redis缓存
+        Admin::rebuildMenusCache();
         return response()->json([
             'status'  => false,
             'message' => '删除失败！',
@@ -218,7 +205,7 @@ class MenuController extends BaseController
             if ($value['pid'] == $pid) {
                 $tem['id'] = $value['id'];
                 $tem['text'] = $value['title'];
-                $tem['icon'] = $value['icon'];
+                $tem['icon'] = 'fa '.$value['icon'];
                 $nodes = self::formatTreeViewArr($menuList, $value['id']);
                 !empty($nodes) && $tem['nodes'] = $nodes;
                 $tree[] = $tem;
@@ -245,7 +232,7 @@ class MenuController extends BaseController
             if ($value['pid'] == $pid) {
                 $tem['id'] = $value['id'];
                 $tem['text'] = $value['title'];
-                $tem['icon'] = $value['icon'];
+                $tem['icon'] = 'fa '.$value['icon'];
                 if ($value['id'] == $id || $value['pid'] == $id) {
                     $tem['state'] = [
                         'disabled' => true,
@@ -260,26 +247,4 @@ class MenuController extends BaseController
 
         return $tree;
     }
-
-    /**
-     * 获取给定菜单所有父级id
-     * @param $menuList
-     * @param $id
-     * @return array
-     */
-    public function getMenuParents($menuList, $id)
-    {
-        $parents = [];
-        foreach ($menuList as $key => $menu) {
-            if ($menu['id'] == $id && $menu['pid']) {
-                $parents[] = $menu['pid'];
-                self::getMenuParents($menuList, $menu['pid']);
-            }
-        }
-
-        return $parents;
-    }
-
-    //TODO:图标选择
-    //TODO:为菜单设置角色可见时同时设置其父级（直接父级，父级的父级...）
 }

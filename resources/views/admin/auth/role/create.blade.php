@@ -72,15 +72,6 @@
                                             @endforeach
                                         </select>
                                     </div>
-                                    {{--<div class="col-sm-8">--}}
-                                        {{--<select class="form-control select2" style="width: 100%;" name="policies[]" multiple>--}}
-                                            {{--@foreach ($policyList as $policy)--}}
-                                                {{--<option value="{{ $policy->id }}">--}}
-                                                    {{--{{ $policy->identifier.' ['.$policy->name.']' }}--}}
-                                                {{--</option>--}}
-                                            {{--@endforeach--}}
-                                        {{--</select>--}}
-                                    {{--</div>--}}
 
                                     @if ($errors->has('policies'))
                                         <div class="col-sm-offset-3 col-sm-8">
@@ -91,6 +82,22 @@
                                     @endif
                                 </div>
 
+                                <div class="form-group {{ $errors->has('menus') ? ' has-error' : '' }}">
+                                    <label for="menus" class="col-sm-3 control-label">可 见 菜 单：</label>
+
+                                    <div class="col-sm-8">
+                                        <input type="text" class="form-control hide" id="menus" name="menus">
+                                        <a class="btn btn-primary" data-toggle="modal" data-target="#roleMenuModal">设 置</a>
+                                    </div>
+
+                                    @if ($errors->has('menus'))
+                                        <div class="col-sm-offset-3 col-sm-8">
+                                            <span class="invalid-feedback">
+                                                <strong class="text-danger">{{ $errors->first('menus') }}</strong>
+                                            </span>
+                                        </div>
+                                    @endif
+                                </div>
 
                                 <div class="form-group {{ $errors->has('desc') ? ' has-error' : '' }}">
                                     <label for="desc" class="col-sm-3 control-label">角 色 描 述：</label>
@@ -130,9 +137,28 @@
     </section>
     <!-- /.content -->
 
+    <!-- Modal -->
+    <div class="modal fade" id="roleMenuModal" tabindex="-1" role="dialog" aria-labelledby="roleMenuModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title" id="roleMenuModalLabel">可 见 菜 单</h4>
+                </div>
+                <div class="modal-body">
+                    <div id="roleMenuTreeView" class=""></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>
-        // $('.select2').select2()
-        $('select[name="policies[]"]').bootstrapDualListbox();
+
+        var menuTree = '{!! $menuTree !!}';
+        $.getScript('{{ asset('js_expand/views-script/role/role-create.js') }}');
+
     </script>
 
 @endsection

@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\BaseController;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Redis;
+use Illuminate\Support\Facades\Storage;
 
 class HomeController extends BaseController
 {

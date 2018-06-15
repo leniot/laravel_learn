@@ -38,9 +38,6 @@
                                         <input id="pid" class="form-control hide" name="pid" value="0"/>
                                     </div>
 
-                                    {{--<div class="col-sm-offset-3 col-sm-8">--}}
-                                        {{--<div id="p_menuTreeView" class="hide" style="position: relative; z-index: 999;"></div>--}}
-                                    {{--</div>--}}
                                     @if ($errors->has('pid'))
                                         <div class="col-sm-offset-3 col-sm-8">
                                             <span class="invalid-feedback">
@@ -178,9 +175,6 @@
                 <div class="modal-body">
                     <div id="p_menuTreeView" class=""></div>
                 </div>
-                {{--<div class="modal-footer">--}}
-                    {{--<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>--}}
-                {{--</div>--}}
             </div>
         </div>
     </div>

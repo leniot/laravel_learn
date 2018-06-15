@@ -43,19 +43,16 @@ class PermissionController extends BaseController
         $this->validate($request, [
             'route' => 'required|unique:permissions',
             'method' => 'required',
-            'type' => 'required',
             'desc' => 'required',
         ],[
             'route.required' => '请输入路由名称',
             'route.unique' => '该路由名称已存在',
             'method.required' => '请选择请求方式',
-            'type.required' => '请选择类型',
             'desc.required' => '请输入权限描述',
         ]);
         $permission = new Permission();
         $permission->route = $request->get('route');
         $permission->method = $request->get('method');
-        $permission->type = $request->get('type');
         $permission->desc = $request->get('desc');
         if ($permission->save()) {
             admin_toastr('创建成功！');
@@ -101,13 +98,11 @@ class PermissionController extends BaseController
         $this->validate($request, [
             'route' => 'required|unique:permissions,route,'.$id.'|max:255',
             'method' => 'required',
-            'type' => 'required',
             'desc' => 'required',
         ],[
             'route.required' => '请输入路由名称',
             'route.unique' => '该路由名称已存在',
             'method.required' => '请选择请求方式',
-            'type.required' => '请选择类型',
             'desc.required' => '请输入权限描述',
         ]);
         $permission = Permission::find($id);

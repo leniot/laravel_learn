@@ -19,7 +19,6 @@ class CreatePermissionsTable extends Migration
             $table->string('route')->unique();
             $table->string('method');
             $table->string('desc');
-            $table->tinyInteger('type')->default(0);
             $table->timestamps();
         });
     }

@@ -3,7 +3,6 @@ $(function() {
     var has_children = false;
     var options = {
         bootstrap2: true,
-        showTags: true,
         levels: 1,
         data: menuTree,
         onNodeSelected: function(event, node) {

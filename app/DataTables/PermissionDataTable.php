@@ -17,13 +17,6 @@ class PermissionDataTable extends DataTable
     {
         return datatables($query)
             ->setRowClass('text-center')
-            ->editColumn('type', function (Permission $permission) {
-                if ($permission->type == 0) {
-                    return '<span class="label bg-blue">普通</span>';
-                }else{
-                    return '<span class="label bg-purple">菜单</span>';
-                }
-            })
             ->editColumn('method', function (Permission $permission) {
                 return '<span class="label label-info">'.$permission->method.'</span>';
             })
@@ -47,7 +40,7 @@ class PermissionDataTable extends DataTable
     public function query(Permission $model)
     {
         return $model->newQuery()->select('id', 'route', 'method',
-            'desc', 'type', 'created_at', 'updated_at');
+            'desc', 'created_at', 'updated_at');
     }
 
     /**
@@ -85,7 +78,6 @@ class PermissionDataTable extends DataTable
             ['name' => 'route', 'data' => 'route', 'title' => '路由名称', 'class' => 'text-center', 'orderable' => false],
             ['name' => 'desc', 'data' => 'desc', 'title' => '描述', 'class' => 'text-center', 'orderable' => false],
             ['name' => 'method', 'data' => 'method', 'title' => '请求方式', 'class' => 'text-center', 'orderable' => false],
-            ['name' => 'type', 'data' => 'type', 'title' => '类型', 'class' => 'text-center'],
             ['name' => 'created_at', 'data' => 'created_at', 'title' => '创建时间', 'class' => 'text-center'],
             ['name' => 'updated_at', 'data' => 'updated_at', 'title' => '更新时间', 'class' => 'text-center'],
         ];
@@ -105,5 +97,5 @@ class PermissionDataTable extends DataTable
      * 打印列
      * @var array
      */
-    protected $printColumns = ['id', 'desc', 'method', 'route', 'type', 'created_at', 'updated_at'];
+    protected $printColumns = ['id', 'desc', 'method', 'route', 'created_at', 'updated_at'];
 }

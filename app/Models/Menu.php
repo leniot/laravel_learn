@@ -52,4 +52,30 @@ class Menu extends Model
 
         return $menuTree;
     }
+
+    /**
+     * 生成treeview格式菜单树
+     * @param $menuList
+     * @param int $pid
+     * @return array
+     */
+    public function formatTreeViewArr($menuList, $pid = 0)
+    {
+        $tree = [];
+
+        foreach ($menuList as $key => $value) {
+            $tem = [];
+            if ($value['pid'] == $pid) {
+                $tem['id'] = $value['id'];
+                $tem['text'] = $value['title'];
+                $tem['icon'] = 'fa '.$value['icon'];
+                $nodes = self::formatTreeViewArr($menuList, $value['id']);
+                !empty($nodes) && $tem['nodes'] = $nodes;
+                $tree[] = $tem;
+                unset($menuList[$key]);
+            }
+        }
+
+        return $tree;
+    }
 }

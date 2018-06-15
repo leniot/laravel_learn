@@ -84,31 +84,6 @@
                                     @endif
                                 </div>
 
-                                <div class="form-group {{ $errors->has('type') ? ' has-error' : '' }}">
-                                    <label for="type_menu" class="col-sm-3 control-label">类 型：</label>
-
-                                    <div class="col-sm-8">
-                                        <div class="radio">
-                                            <label class="margin-r-5">
-                                                <input type="radio" name="type" id="type_normal" value="0" checked="">
-                                                普 通
-                                            </label>
-                                            <label class="margin-r-5">
-                                                <input type="radio" name="type" id="type_menu" value="1">
-                                                菜 单
-                                            </label>
-                                        </div>
-
-                                        @if ($errors->has('type'))
-                                            <div class="col-sm-offset-3 col-sm-8">
-                                            <span class="invalid-feedback">
-                                                <strong class="text-danger">{{ $errors->first('type') }}</strong>
-                                            </span>
-                                            </div>
-                                        @endif
-                                    </div>
-                                </div>
-
                             </div>
 
                         </div>

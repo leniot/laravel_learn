@@ -42,19 +42,6 @@ return [
     'secure' => false,
 
     /*
-     * Laravel-admin upload setting.
-     */
-    'upload' => [
-
-        'disk' => 'admin',
-
-        'directory' => [
-            'image' => 'images',
-            'file'  => 'files',
-        ],
-    ],
-
-    /*
      * 无需验证权限的路由
      */
     'permission_except' => [

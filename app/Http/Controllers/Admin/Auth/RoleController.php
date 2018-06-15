@@ -4,8 +4,11 @@ namespace App\Http\Controllers\Admin\Auth;
 
 use App\DataTables\RoleDataTable;
 use App\Http\Controllers\Admin\BaseController;
+use App\Models\Menu;
 use App\Models\Policy;
 use App\Models\Role;
+use App\Models\RoleMenu;
+use App\Models\RolePolicies;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -30,8 +33,11 @@ class RoleController extends BaseController
     public function create()
     {
         $policyList = Policy::all();
+        $menuModel = new Menu();
+        $menuTree = $menuModel->formatTreeViewArr($menuModel::all());
         return view(admin_view_path('auth.role.create'))->with([
-            'policyList' => $policyList
+            'policyList' => $policyList,
+            'menuTree' => json_encode($menuTree),
         ]);
     }
 
@@ -102,9 +108,12 @@ class RoleController extends BaseController
     {
         $role = Role::find($id);
         $policies = Policy::all();
+        $menuModel = new Menu();
+        $menuTree = $menuModel->formatTreeViewArr($menuModel::all());
         return view(admin_view_path('auth.role.edit'))->with([
             'role' => $role,
-            'policyList' => $policies
+            'policyList' => $policies,
+            'menuTree' => json_encode($menuTree),
         ]);
     }
 
@@ -163,8 +172,7 @@ class RoleController extends BaseController
      */
     public function destroy($id)
     {
-        //TODO：删除所有与之的关联关系
-        if (Role::find($id)->delete()) {
+        if (Role::find($id)->delete() && RolePolicies::syncDelRole($id) && RoleMenu::syncDelRole($id)) {
             return response()->json([
                 'status' => true,
                 'message' => '删除成功！'

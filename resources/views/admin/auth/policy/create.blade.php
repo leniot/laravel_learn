@@ -66,7 +66,7 @@
                                     <div class="col-sm-8">
                                         <select class="form-control select2" style="width: 100%;" name="permissions[]" multiple>
                                             @foreach ($permissionList as $permission)
-                                                <option value="{{ $permission->id }}">
+                                                <option value="{{ $permission->id }}" @if(in_array($permission->id, old('permissions', []))) selected @endif>
                                                     {{ $permission->route.' ['.$permission->desc.']' }}
                                                 </option>
                                             @endforeach

@@ -54,16 +54,19 @@ class RoleController extends BaseController
             'name' => 'required',
             'desc' => 'required',
             'policies' => 'required|array',
+            'menus' => 'required|json',
         ],[
             'identifier.required' => '请输入角色标识',
             'identifier.unique' => '该标识已存在',
             'name.required' => '请输入角色名称',
             'desc.required' => '请输入角色描述',
             'policies.*' => '权限策略未选择或数据类型错误',
+            'menus.*' => '角色可见菜单未选择或数据类型错误',
         ]);
 
         $role = new Role();
         $policies = $request->get('policies');
+        $menus = json_decode($request->get('menus'), true);
         $role->name = $request->get('name');
         $role->identifier = $request->get('identifier');
         $role->desc = $request->get('desc');
@@ -74,7 +77,10 @@ class RoleController extends BaseController
                 throw new \Exception('角色保存失败');
             }
             if (!$role->updateRelation($policies)) {
-                throw new \Exception('保存失败');
+                throw new \Exception('角色权限策略保存失败');
+            }
+            if (!$role->updateMenusRelation($menus)) {
+                throw new \Exception('角色可见菜单保存失败');
             }
             DB::commit();
             admin_toastr('角色创建成功！');
@@ -106,10 +112,18 @@ class RoleController extends BaseController
      */
     public function edit($id)
     {
-        $role = Role::find($id);
+        $roleModel = new Role();
+        $role = $roleModel::find($id);
         $policies = Policy::all();
-        $menuModel = new Menu();
-        $menuTree = $menuModel->formatTreeViewArr($menuModel::all());
+        $checkedMenuList = $role->menus()->get();
+
+        $roleChecked = [];
+        foreach ($checkedMenuList as $key => $checkedMenu) {
+            $roleChecked[] = $checkedMenu['id'];
+        }
+
+        $menuTree = $roleModel->formatRoleMenuTreeView(Menu::all(), $roleChecked);
+
         return view(admin_view_path('auth.role.edit'))->with([
             'role' => $role,
             'policyList' => $policies,
@@ -131,16 +145,19 @@ class RoleController extends BaseController
             'name' => 'required',
             'desc' => 'required',
             'policies' => 'required|array',
+            'menus' => 'required|json',
         ],[
             'identifier.required' => '请输入角色标识',
             'identifier.unique' => '该标识已存在',
             'name.required' => '请输入角色名称',
             'desc.required' => '请输入角色描述',
             'policies.*' => '权限策略未选择或数据类型错误',
+            'menus.*' => '角色可见菜单未选择或数据类型错误',
         ]);
 
         $role = Role::find($id);
         $policies = $request->get('policies');
+        $menus = json_decode($request->get('menus'), true);
         $role->name = $request->get('name');
         $role->identifier = $request->get('identifier');
         $role->desc = $request->get('desc');
@@ -148,10 +165,13 @@ class RoleController extends BaseController
         DB::beginTransaction();
         try {
             if (!$role->save()) {
-                throw new \Exception('角色保存失败');
+                throw new \Exception('角色更新失败');
             }
             if (!$role->updateRelation($policies)) {
-                throw new \Exception('保存失败');
+                throw new \Exception('角色权限策略更新失败');
+            }
+            if (!$role->updateMenusRelation($menus)) {
+                throw new \Exception('角色可见菜单更新失败');
             }
             DB::commit();
             admin_toastr('角色更新成功！');

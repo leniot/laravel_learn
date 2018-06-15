@@ -37,7 +37,7 @@ return [
     ],
 
     /*
-     * Use `https`.
+     * 是否使用 `https`.
      */
     'secure' => false,
 
@@ -49,5 +49,18 @@ return [
         'login.postLogin',
         'login.logout',
         'home.index'
-    ]
+    ],
+
+    /*
+     * 文件上传
+     */
+    'upload' => [
+
+        'disk' => 'admin',
+
+        'directory' => [
+            'image' => 'images',
+            'file'  => 'files',
+        ],
+    ],
 ];

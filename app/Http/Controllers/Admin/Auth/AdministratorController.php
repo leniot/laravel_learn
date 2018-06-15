@@ -48,6 +48,7 @@ class AdministratorController extends BaseController
         $this->validate($request, [
             'login_name' => 'required|unique:administrators',
             'display_name' => 'required',
+            'avatar' => 'image|max:200',
             'roles' => 'required',
             'password' => 'required|min:6|confirmed',
             'password_confirmation' => 'required|min:6',
@@ -55,6 +56,8 @@ class AdministratorController extends BaseController
             'login_name.required' => '请输入登录名',
             'login_name.unique' => '该登录名已存在',
             'display_name.required' => '请输入显示名',
+            'avatar.image' => '文件格式错误，请选择图片文件（jpeg、png、bmp、gif 或者 svg）',
+            'avatar.max' => '文件大小超出最大限制（200KB）',
             'roles.required' => '请选择一个或多个角色',
             'password.required' => '请输入密码',
             'password.min' => '密码至少6位',
@@ -63,10 +66,17 @@ class AdministratorController extends BaseController
             'password_confirmation.min' => '密码至少6位',
         ]);
         $administrator = new Administrator();
+
         // 上传头像
         if ($request->hasFile('avatar')) {
-            $path = $request->file('avatar')->store('public/admin/avatars');
-            $administrator->avatar = $path;
+            if ($request->file('avatar')->isValid() ) {
+                $path = $request->file('avatar')->store('public/admin/avatars');
+                $administrator->avatar = $path;
+            }else{
+                return redirect()->back()->withInput()->withErrors([
+                    'avatar' => '头像上传失败',
+                ]);
+            }
         }
         $administrator->login_name = $request->get('login_name');
         $administrator->display_name = $request->get('display_name');
@@ -132,22 +142,29 @@ class AdministratorController extends BaseController
         $this->validate($request, [
             'login_name' => 'required|unique:administrators,login_name,'.$id,
             'display_name' => 'required',
+            'avatar' => 'image|max:200',
             'roles' => 'required',
         ],[
             'login_name.required' => '请输入登录名',
             'login_name.unique' => '该登录名已存在',
             'display_name.required' => '请输入显示名',
+            'avatar.image' => '文件格式错误，请选择图片文件（jpeg、png、bmp、gif 或者 svg）',
+            'avatar.max' => '文件大小超出最大限制（200KB）',
             'roles.required' => '请选择一个或多个角色',
         ]);
+
         $administrator = Administrator::find($id);
-        // 上传封面图
+
+        // 上传头像
         if ($request->hasFile('avatar')) {
-            $path = $request->file('avatar')->store('avatars');
-            $administrator->avatar = $path;
-//            $result = fileUploader('avatar', 'uploads/administrator_avatar');
-//            if ($result['status_code'] === 200) {
-//                $administrator->avatar = $result['data']['path'].$result['data']['new_name'];
-//            }
+            if ($request->file('avatar')->isValid() ) {
+                $path = $request->file('avatar')->store('public/admin/avatars');
+                $administrator->avatar = $path;
+            }else{
+                return redirect()->back()->withInput()->withErrors([
+                    'avatar' => '头像上传失败',
+                ]);
+            }
         }
         $administrator->login_name = $request->get('login_name');
         $administrator->display_name = $request->get('display_name');

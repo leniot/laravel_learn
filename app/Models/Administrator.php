@@ -162,7 +162,7 @@ class Administrator extends Model implements AuthenticatableContract
         //获取用户所有策略
         $menus = [];
         foreach ($roles as $role) {
-            $menus_obj = $role->menus()->get();
+            $menus_obj = $role->menus()->orderBy('order')->get();
             foreach ($menus_obj as $value) {
                 $menus[] = $value;
             }

@@ -66,7 +66,7 @@
                                     <div class="col-sm-8">
                                         <select multiple="multiple" size="10" name="policies[]">
                                             @foreach ($policyList as $policy)
-                                                <option value="{{ $policy->id }}">
+                                                <option value="{{ $policy->id }}" @if(in_array($policy->id, old('policies', []))) selected @endif>
                                                 {{ $policy->identifier.' ['.$policy->name.']' }}
                                                 </option>
                                             @endforeach
@@ -145,7 +145,7 @@
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
-                    <h4 class="modal-title" id="roleMenuModalLabel">可 见 菜 单</h4>
+                    <h4 class="modal-title" id="roleMenuModalLabel">可 见 菜 单 设 置</h4>
                 </div>
                 <div class="modal-body">
                     <div id="roleMenuTreeView" class=""></div>

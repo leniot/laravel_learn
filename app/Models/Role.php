@@ -66,4 +66,34 @@ class Role extends Model
     {
         return $this->menus()->sync($menus);
     }
+
+    /**
+     * 构造角色菜单树
+     * @param $menuList
+     * @param array $roleChecked
+     * @param int $pid
+     * @return array
+     */
+    public function formatRoleMenuTreeView($menuList, $roleChecked, $pid = 0)
+    {
+        $tree = [];
+
+        foreach ($menuList as $key => $value) {
+            $tem = [];
+            if ($value['pid'] == $pid) {
+                $tem['id'] = $value['id'];
+                $tem['text'] = $value['title'];
+                $tem['icon'] = 'fa '.$value['icon'];
+                if (in_array($value['id'], $roleChecked)) {
+                    $tem['state'] = ['checked' => true];
+                }
+                $nodes = self::formatRoleMenuTreeView($menuList, $roleChecked, $value['id']);
+                !empty($nodes) && $tem['nodes'] = $nodes;
+                $tree[] = $tem;
+                unset($menuList[$key]);
+            }
+        }
+
+        return $tree;
+    }
 }

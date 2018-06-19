@@ -165,6 +165,11 @@ return [
         Yajra\DataTables\DataTablesServiceProvider::class,
         Yajra\DataTables\ButtonsServiceProvider::class,
 
+        /**
+         * 社会化登录
+         */
+        SocialiteProviders\Manager\ServiceProvider::class,
+
     ],
 
     /*
@@ -215,6 +220,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
 
         'Admin' => App\Facades\Admin::class,
+        'Socialite' => Laravel\Socialite\Facades\Socialite::class,
 
     ],
 

@@ -16,6 +16,14 @@ class EventServiceProvider extends ServiceProvider
         'App\Events\Event' => [
             'App\Listeners\EventListener',
         ],
+
+        \SocialiteProviders\Manager\SocialiteWasCalled::class => [
+            'SocialiteProviders\weixin\WeixinExtendSocialite@handle',
+        ],
+
+        \SocialiteProviders\Manager\SocialiteWasCalled::class => [
+            'SocialiteProviders\qq\QqExtendSocialite@handle',
+        ],
     ];
 
     /**
@@ -29,4 +37,6 @@ class EventServiceProvider extends ServiceProvider
 
         //
     }
+
+
 }

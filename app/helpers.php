@@ -137,3 +137,17 @@ if ( !function_exists('markdown_to_html') ) {
         return $html;
     }
 }
+
+if (!function_exists('frontend_view_path')) {
+    /**
+     * Get admin url.
+     *
+     * @param string $path
+     *
+     * @return string
+     */
+    function frontend_view_path($path = '')
+    {
+        return 'frontend'.'.'.trim($path, '.');
+    }
+}

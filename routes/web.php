@@ -11,10 +11,12 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+use Illuminate\Routing\Router;
+
+Route::group([
+    'namespace'     => config('frontend.route.namespace'),
+], function (Router $router) {
+
+    $router->get('/', 'Home\HomeController@index')->name('home.index');
+
 });
-
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');

@@ -15,6 +15,8 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Schema::defaultStringLength(191);
+
+        $this->loadViewsFrom(resource_path('views/frontend'), 'frontend');
     }
 
     /**

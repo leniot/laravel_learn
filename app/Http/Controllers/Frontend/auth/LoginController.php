@@ -6,34 +6,44 @@
  * Time: 17:07
  */
 
-namespace App\Http\Controllers\Frontend\auth;
+namespace App\Http\Controllers\Frontend\Auth;
 
 
 use App\Http\Controllers\Controller;
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 class LoginController extends Controller
 {
+    use AuthenticatesUsers;
+
+    public function showLoginForm()
+    {
+        return view(frontend_view_path('auth.login'));
+    }
+
     /**
-     * 登录页
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * Where to redirect users after login.
+     *
+     * @var string
      */
-    public function index()
+    protected $redirectTo = '/';
+
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
     {
-        return view(frontend_view_path('auth/login'));
+        $this->middleware('guest')->except('logout');
     }
 
-    public function login()
+    /**
+     * 设置使用用户名进行登录
+     * @return string
+     */
+    public function username()
     {
-
-    }
-
-    public function register()
-    {
-
-    }
-
-    public function logout()
-    {
-
+        return 'name';
     }
 }

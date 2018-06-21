@@ -17,6 +17,12 @@ Route::group([
     'namespace'     => config('frontend.route.namespace'),
 ], function (Router $router) {
 
-    $router->get('/', 'Home\HomeController@index')->name('home.index');
+    $router->get('/', 'Home\HomeController@index');
+    //登录页面
+    $router->get('login', 'Auth\LoginController@showLoginForm');
+    //登录
+    $router->post('login', 'Auth\LoginController@login');
+    //注册
+    $router->get('register', 'Auth\RegisterController@index');
 
 });

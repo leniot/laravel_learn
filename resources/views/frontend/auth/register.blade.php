@@ -27,12 +27,12 @@
 
                 <div class="form-group">
                     <div class="col-md-6">
-                        <label for="email" class="control-label">邮箱</label>
-                        <input type="email" class="form-control" id="email" placeholder="邮箱">
-                    </div>
-                    <div class="col-md-6">
                         <label for="mobile" class="control-label">手机号</label>
                         <input type="text" class="form-control" id="mobile" placeholder="手机号" min="11">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="email" class="control-label">邮箱</label>
+                        <input type="email" class="form-control" id="email" placeholder="邮箱">
                     </div>
                 </div>
 

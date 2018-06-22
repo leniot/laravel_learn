@@ -46,4 +46,9 @@ class LoginController extends Controller
     {
         return 'name';
     }
+
+    public function loginWithWeChat()
+    {
+
+    }
 }

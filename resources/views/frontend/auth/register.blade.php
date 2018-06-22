@@ -6,6 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('frontend/login/css/font-awesome.min.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ asset('frontend/login/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ asset('frontend/login/css/bootstrap-theme.min.css') }}" rel="stylesheet" type="text/css">
@@ -15,35 +16,63 @@
 <h1 class="margin-bottom-15">用户注册</h1>
 <div class="container">
     <div class="col-md-12">
-        <form class="form-horizontal templatemo-create-account templatemo-container" role="form" action="#" method="post">
+        <form class="form-horizontal templatemo-create-account templatemo-container" role="form" action="register" method="post">
+
+            @csrf
+
             <div class="form-inner">
 
                 <div class="form-group">
                     <div class="col-md-12">
-                        <label for="username" class="control-label">用户名</label>
-                        <input type="text" class="form-control" id="first_name" placeholder="用户名">
+                        <label for="name" class="control-label">用户名</label>
+                        <input type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" id="name" name="name" placeholder="用户名" required>
+                        @if ($errors->has('name'))
+                            <span class="invalid-feedback">
+                                <strong>{{ $errors->first('name') }}</strong>
+                            </span>
+                        @endif
                     </div>
                 </div>
 
                 <div class="form-group">
                     <div class="col-md-6">
                         <label for="mobile" class="control-label">手机号</label>
-                        <input type="text" class="form-control" id="mobile" placeholder="手机号" min="11">
+                        <input type="text" class="form-control{{ $errors->has('mobile') ? ' is-invalid' : '' }}" id="mobile" name="mobile" placeholder="手机号">
+                        @if ($errors->has('mobile'))
+                            <span class="invalid-feedback">
+                                <strong>{{ $errors->first('mobile') }}</strong>
+                            </span>
+                        @endif
                     </div>
                     <div class="col-md-6">
                         <label for="email" class="control-label">邮箱</label>
-                        <input type="email" class="form-control" id="email" placeholder="邮箱">
+                        <input type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" id="email" name="email" placeholder="邮箱" required>
+                        @if ($errors->has('email'))
+                            <span class="invalid-feedback">
+                                <strong>{{ $errors->first('email') }}</strong>
+                            </span>
+                        @endif
                     </div>
                 </div>
 
                 <div class="form-group">
                     <div class="col-md-6">
                         <label for="password" class="control-label">密码</label>
-                        <input type="password" class="form-control" id="password" placeholder="密码">
+                        <input type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" id="password" name="password" placeholder="密码" required>
+                        @if ($errors->has('password'))
+                            <span class="invalid-feedback">
+                                <strong>{{ $errors->first('password') }}</strong>
+                            </span>
+                        @endif
                     </div>
                     <div class="col-md-6">
-                        <label for="password" class="control-label">确认密码</label>
-                        <input type="password" class="form-control" id="password_confirm" placeholder="确认密码">
+                        <label for="password_confirmation" class="control-label">确认密码</label>
+                        <input type="password" class="form-control{{ $errors->has('password_confirmation') ? ' is-invalid' : '' }}" id="password_confirmation" name="password_confirmation" placeholder="确认密码" required>
+                        @if ($errors->has('password_confirmation'))
+                            <span class="invalid-feedback">
+                                <strong>{{ $errors->first('password_confirmation') }}</strong>
+                            </span>
+                        @endif
                     </div>
                 </div>
 

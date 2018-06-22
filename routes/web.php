@@ -18,11 +18,13 @@ Route::group([
 ], function (Router $router) {
 
     $router->get('/', 'Home\HomeController@index');
-    //登录页面
+    //跳转登录页面
     $router->get('login', 'Auth\LoginController@showLoginForm');
     //登录
     $router->post('login', 'Auth\LoginController@login');
+    //跳转注册页面
+    $router->get('register', 'Auth\RegisterController@showRegistrationForm');
     //注册
-    $router->get('register', 'Auth\RegisterController@index');
+    $router->post('register', 'Auth\RegisterController@register');
 
 });

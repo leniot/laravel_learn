@@ -13,9 +13,14 @@
     <link href="{{ asset('frontend/login/css/templatemo_style.css') }}" rel="stylesheet" type="text/css">
 </head>
 <body class="templatemo-bg-gray">
-<h1 class="margin-bottom-15">用户注册</h1>
+
+
 <div class="container">
     <div class="col-md-12">
+
+        <a href="/"><h1>laravel</h1></a>
+        <h1 class="margin-bottom-15">用户注册</h1>
+
         <form class="form-horizontal templatemo-create-account templatemo-container" role="form" action="register" method="post">
 
             @csrf

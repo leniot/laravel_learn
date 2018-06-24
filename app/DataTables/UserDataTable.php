@@ -2,7 +2,6 @@
 
 namespace App\DataTables;
 
-use App\Models\Administrator;
 use App\User;
 use Yajra\DataTables\Services\DataTable;
 
@@ -21,14 +20,14 @@ class UserDataTable extends DataTable
             ->editColumn('avatar', function (User $user) {
                 return '<img class="img" width="24" height="24" src="'.$user->avatar.'">';
             })
-            ->editColumn('status', function (Administrator $user) {
+            ->editColumn('status', function (User $user) {
                 if ($user->status == 1) {
                     return '<span class="label label-primary">正常</span>';
                 }
                 return '<span class="label label-warning">禁用</span>';
             })
             ->rawColumns(['avatar', 'status', 'action'])
-            ->addColumn('action', function (Administrator $user) {
+            ->addColumn('action', function (User $user) {
                 $edit_path = admin_base_path('user/users/'.$user->id.'/edit');
                 $delete_path = admin_base_path('user/users/'.$user->id);
                 return '<a href="'.$edit_path.'" class="btn btn-xs btn-primary margin-r-5">'.
@@ -41,12 +40,12 @@ class UserDataTable extends DataTable
     /**
      * Get query source of dataTable.
      *
-     * @param \App\Models\Administrator $model
+     * @param \App\User $model
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function query(Administrator $model)
+    public function query(User $model)
     {
-        return $model->newQuery()->select('id', 'login_name', 'display_name',
+        return $model->newQuery()->select('id', 'name', 'nickname',
             'avatar', 'status', 'created_at', 'updated_at');
     }
 
@@ -65,7 +64,7 @@ class UserDataTable extends DataTable
             ->parameters([
                 'dom' => 'Bfrtip',
                 'buttons' => [
-                    ['extend' => 'create', 'text' => '<i class="fa fa-plus"> 创建</i>'],
+//                    ['extend' => 'create', 'text' => '<i class="fa fa-plus"> 创建</i>'],
                     ['extend' => 'excel', 'text' => '<i class="fa fa-file-excel-o"> 导出</i>'],
                     ['extend' => 'print', 'text' => '<i class="fa fa-print"> 打印</i>'],
                     ['extend' => 'reload', 'text' => '<i class="fa fa-refresh"> 刷新'],
@@ -98,12 +97,12 @@ class UserDataTable extends DataTable
      */
     protected function filename()
     {
-        return 'Administrator_' . date('YmdHis');
+        return 'User_' . date('YmdHis');
     }
 
     /**
      * 打印列
      * @var array
      */
-    protected $printColumns = ['id', 'login_name', 'display_name', 'created_at', 'updated_at'];
+    protected $printColumns = ['id', 'name', 'nickname', 'created_at', 'updated_at'];
 }

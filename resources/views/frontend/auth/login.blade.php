@@ -9,7 +9,7 @@
 
         <link href="{{ asset('frontend/login/css/font-awesome.min.css') }}" rel="stylesheet" type="text/css">
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-        <link href="{{ asset('frontend/login/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css">
+        <link href="{{ asset('frontend/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css">
         <link href="{{ asset('frontend/login/css/bootstrap-theme.min.css') }}" rel="stylesheet" type="text/css">
         <link href="{{ asset('frontend/login/css/templatemo_style.css') }}" rel="stylesheet" type="text/css">
     </head>
@@ -19,7 +19,7 @@
         <div class="container">
 
             <div class="col-md-12">
-
+                <a href="/"><h1>laravel</h1></a>
                 <h1 class="margin-bottom-15">用户登录</h1>
 
                 <form class="form-horizontal templatemo-container templatemo-login-form-1 margin-bottom-30" role="form" action="login" method="post">
@@ -97,7 +97,7 @@
             </div>
         </div>
 
-        <script type="text/javascript" src="{{ asset('frontend/login/js/jquery-1.11.1.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('frontend/js/jquery.min.js') }}"></script>
         <script type="text/javascript" src="{{ asset('frontend/login/js/bootstrap.min.js') }}"></script>
     </body>
 

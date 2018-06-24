@@ -15,6 +15,7 @@
     <!-- Css -->
     <link rel="stylesheet" href="{{ asset('frontend/css/bootstrap.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('frontend/css/font-icons.css') }}" />
+    <link rel="stylesheet" href="{{ asset('frontend/login/css/font-awesome.min.css') }}" type="text/css">
     <link rel="stylesheet" href="{{ asset('frontend/css/style.css') }}" />
 
     <!-- Favicons -->
@@ -45,27 +46,6 @@
 <main class="main oh" id="main">
 
     @include('frontend::partials.header')
-
-    <!-- Header -->
-    <div class="header">
-        <div class="container">
-            <div class="flex-parent align-items-center">
-
-                <!-- Logo -->
-                <a href="index.html" class="logo d-none d-lg-block">
-                    <img class="logo__img" src="{{ asset('frontend/img/logo.png') }}" srcset="{{ asset('frontend/img/logo.png') }} 1x, {{ asset('frontend/img/logo@2x.png') }} 2x" alt="logo">
-                </a>
-
-                <!-- Ad Banner 728 -->
-                <div class="text-center">
-                    <a href="#">
-                        <img src="{{ asset('frontend/img/blog/placeholder_leaderboard.jpg') }}" alt="ad">
-                    </a>
-                </div>
-
-            </div>
-        </div>
-    </div> <!-- end header -->
 
     @yield('content')
 

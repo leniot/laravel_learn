@@ -18,6 +18,7 @@ Route::group([
 ], function (Router $router) {
 
     $router->get('/', 'Home\HomeController@index');
+    $router->get('/home', 'Home\HomeController@index');
     //跳转登录页面
     $router->get('login', 'Auth\LoginController@showLoginForm');
     //登录
@@ -26,5 +27,7 @@ Route::group([
     $router->get('register', 'Auth\RegisterController@showRegistrationForm');
     //注册
     $router->post('register', 'Auth\RegisterController@register');
+    //个人中心
+    $router->get('profile/{id}', 'User\ProfileController@show');
 
 });

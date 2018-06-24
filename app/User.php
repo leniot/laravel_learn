@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Facades\Storage;
 
 class User extends Authenticatable
 {
@@ -26,4 +27,19 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    /**
+     * 获取后台用户头像
+     * @param $avatar
+     * @return mixed
+     */
+    public function getAvatarAttribute($avatar)
+    {
+        //若设置了头像则直接返回头像url
+        if ($avatar) {
+            return Storage::disk('local')->url($avatar);
+        }
+        //未设置头像时返回默认
+        return admin_asset('AdminLTE/dist/img/user2-160x160.jpg');
+    }
 }

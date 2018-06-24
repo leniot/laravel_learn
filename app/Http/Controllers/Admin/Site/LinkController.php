@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Admin\User;
+namespace App\Http\Controllers\Admin\Site;
 
 use App\Http\Controllers\Admin\BaseController;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
-class UserController extends BaseController
+class LinkController extends BaseController
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +15,7 @@ class UserController extends BaseController
      */
     public function index()
     {
-        //
+        return view(admin_view_path('site.link.index'));
     }
 
     /**

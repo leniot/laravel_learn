@@ -49,4 +49,12 @@ Route::group([
     $router->resource('blog/tags', 'Blog\TagController');
     $router->resource('blog/categories', 'Blog\CategoryController');
 
+    /**
+     * 站点设置
+     */
+    //友情链接
+    $router->resource('site/links', 'Site\LinkController');
+    //会员管理
+    $router->resource('site/users', 'Site\UserController');
+
 });

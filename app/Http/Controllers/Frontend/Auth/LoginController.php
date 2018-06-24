@@ -16,6 +16,9 @@ class LoginController extends Controller
 {
     use AuthenticatesUsers;
 
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function showLoginForm()
     {
         return view(frontend_view_path('auth.login'));

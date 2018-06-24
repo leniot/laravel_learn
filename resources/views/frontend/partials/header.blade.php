@@ -77,12 +77,17 @@
                         {{--</a>--}}
                     {{--</div>--}}
 
-                    <div class="nav__right-item">
+                    <div class="nav__right-item socials nav__socials d-none d-lg-flex">
                         @guest
-                            <a href="{{ url('login') }}" class="btn btn-sm btn-color">登 录</a>
+                            <a href="{{ url('login') }}" class="btn btn-sm btn-color" style="margin-right: 5px;">登 录</a>
+
                             <a href="{{ url('register') }}" class="btn btn-sm btn-color">注 册</a>
                         @else
-
+                            <div class="" style="margin-right:15px;float:left;">
+                                <img alt="" src="{{ Auth::guard()->user()->avatar }}" class="avatar" style="width: 40px;height: 40px;margin-right: 5px;">
+                                <a href="{{ url('profile/'.Auth::guard()->user()->id) }}">{{ Auth::guard()->user()->name }}</a>
+                            </div>
+                            <a href="#" class="btn btn-sm btn-color">发 文</a>
                         @endguest
                     </div>
 

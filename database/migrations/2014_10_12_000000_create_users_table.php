@@ -23,7 +23,7 @@ class CreateUsersTable extends Migration
             $table->string('social_id')->nullable()->comment('第三方id');
             $table->string('avatar')->nullable()->comment('头像');
             $table->string('email')->unique()->nullable()->comment('邮箱');
-            $table->tinyInteger('status')->unique()->nullable()->default(1)->comment('状态：0禁用，1启用');
+            $table->tinyInteger('status')->nullable()->default(1)->comment('状态：0禁用，1启用');
             $table->rememberToken();
             $table->timestamps();
         });

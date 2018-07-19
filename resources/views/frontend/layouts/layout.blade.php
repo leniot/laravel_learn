@@ -5,15 +5,15 @@
         <meta name="renderer" content="webkit">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>木庄网络博客-MZ-NetBlog主题模板</title>
+        <title>Laravel</title>
         <meta name="keywords" content="">
         <meta name="description" content="">
         <link rel="stylesheet" type="text/css" href="{{ asset('frontend/css/bootstrap.min.css') }}">
         <link rel="stylesheet" type="text/css" href="{{ asset('frontend/css/nprogress.css') }}">
         <link rel="stylesheet" type="text/css" href="{{ asset('frontend/css/style.css') }}">
         <link rel="stylesheet" type="text/css" href="{{ asset('frontend/css/font-awesome.min.css') }}">
-        <link rel="apple-touch-icon-precomposed" href="images/icon.png">
-        <link rel="shortcut icon" href="images/favicon.ico">
+        <link rel="apple-touch-icon-precomposed" href="{{ asset('frontend/images/favicon.ico') }}">
+        <link rel="shortcut icon" href="{{ asset('frontend/images/favicon.ico') }}">
 
         <script src="{{ asset('frontend/js/jquery-2.1.4.min.js') }}"></script>
         <script src="{{ asset('frontend/js/nprogress.js') }}"></script>

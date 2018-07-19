@@ -44,7 +44,7 @@
                         <div class="form-top-left">
                             <a href="{{ url('/') }}"><img src="{{ asset('frontend/images/laravel.jpg') }}" width="64"></a>
                             <h3>Laravel</h3>
-                            <p>发现更大的世界...</p>
+                            <p>求知 探索...</p>
                         </div>
                         <div class="form-top-right">
                             <i class="fa fa-lock"></i>

@@ -20,11 +20,11 @@
             <div class="col-sm-12">
                 <div class="box box-widget">
                     <div class="box-header with-border">
-                        <a href="{{ admin_base_path('blog/articles') }}" class="btn btn-default">
+                        <a href="{{ admin_base_path('content/articles') }}" class="btn btn-default">
                             <i class="fa fa-arrow-left"></i> 返回
                         </a>
                     </div>
-                    <form class="form-horizontal" pjax-container action="{{ admin_base_path('blog/articles') }}" method="post">
+                    <form class="form-horizontal" pjax-container action="{{ admin_base_path('content/articles') }}" method="post">
                         @csrf
                         <div class="box-body">
 
@@ -229,7 +229,7 @@
                 'h2', 'h3', 'h4', 'h5', 'h6', 'list-ul', 'list-ol', 'hr', 'link', 'reference-link',
                 'image', 'code', 'code-block', 'table', 'html-entities', 'watch', 'preview', 'search'],
             imageUpload: true,
-            imageUploadURL : '{{ admin_base_path('blog/articles/uploadImage') }}',
+            imageUploadURL : '{{ admin_base_path('content/articles/uploadImage') }}',
         });
 
         //Red color scheme for iCheck

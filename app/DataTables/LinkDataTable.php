@@ -2,10 +2,10 @@
 
 namespace App\DataTables;
 
-use App\Models\Tag;
+use App\Models\Link;
 use Yajra\DataTables\Services\DataTable;
 
-class TagDataTable extends DataTable
+class LinkDataTable extends DataTable
 {
     /**
      * Build DataTable class.
@@ -17,10 +17,26 @@ class TagDataTable extends DataTable
     {
         return datatables($query)
             ->setRowClass('text-center')
-            ->rawColumns(['action'])
-            ->addColumn('action', function (Tag $tag) {
-                $edit_path = admin_base_path('content/tags/'.$tag->id.'/edit');
-                $delete_path = admin_base_path('content/tags/'.$tag->id);
+            ->editColumn('category', function (Link $link) {
+                return $link->category ? $link->category->name : '';
+            })
+            ->editColumn('logo', function (Link $link) {
+                $logoPath = '';
+                if ($link) {
+                    $logoPath = 'http://www.google.com/s2/favicons?domain='.$link->site_address;
+                }
+                return '<img width="24" height="24" src="'.$logoPath.'">';
+            })
+            ->editColumn('status', function (Link $link) {
+                if ($link->status == 1) {
+                    return '<span class="label label-primary">正常</span>';
+                }
+                return '<span class="label label-warning">禁用</span>';
+            })
+            ->rawColumns(['logo', 'status', 'action'])
+            ->addColumn('action', function (Link $link) {
+                $edit_path = admin_base_path('site/links/'.$link->id.'/edit');
+                $delete_path = admin_base_path('site/links/'.$link->id);
                 return '<a href="'.$edit_path.'" class="btn btn-xs btn-primary margin-r-5">'.
                     '<i class="fa fa-edit"></i> 编辑</a>'.
                     '<a class="btn btn-xs btn-danger margin-r-5 row-delete" data-url="'.$delete_path.'">'.
@@ -29,14 +45,14 @@ class TagDataTable extends DataTable
     }
 
     /**
+     * Get query source of dataTable.
      *
-     * @param Tag $model
+     * @param \App\Models\Link $model
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function query(Tag $model)
+    public function query(Link $model)
     {
-        return $model->newQuery()->select('id',
-            'name', 'created_at', 'updated_at');
+        return $model->newQuery()->select('id', 'name', 'site_address', 'logo', 'status', 'category_id', 'created_at', 'updated_at');
     }
 
     /**
@@ -49,7 +65,7 @@ class TagDataTable extends DataTable
         return $this->builder()
             ->addTableClass('table-bordered table-striped')
             ->columns($this->getColumns())
-            ->minifiedAjax('tags')
+            ->minifiedAjax('links')
             ->addAction(['title' => '操作', 'class' => 'text-center'])
             ->parameters([
                 'dom' => 'Bfrtip',
@@ -71,7 +87,11 @@ class TagDataTable extends DataTable
     {
         return [
             ['name' => 'id', 'data' => 'id', 'title' => 'ID', 'class' => 'text-center'],
-            ['name' => 'name', 'data' => 'name', 'title' => '标签名称', 'class' => 'text-center', 'orderable' => false],
+            ['name' => 'logo', 'data' => 'logo', 'title' => '图标', 'class' => 'text-center', 'orderable' => false],
+            ['name' => 'name', 'data' => 'name', 'title' => '名称', 'class' => 'text-center', 'orderable' => false],
+            ['name' => 'site_address', 'data' => 'site_address', 'title' => 'web地址', 'class' => 'text-center', 'orderable' => false],
+            ['name' => 'category', 'data' => 'category', 'title' => '分类', 'class' => 'text-center', 'orderable' => false],
+            ['name' => 'status', 'data' => 'status', 'title' => '状态', 'class' => 'text-center', 'orderable' => false],
             ['name' => 'created_at', 'data' => 'created_at', 'title' => '创建时间', 'class' => 'text-center'],
             ['name' => 'updated_at', 'data' => 'updated_at', 'title' => '更新时间', 'class' => 'text-center'],
         ];
@@ -84,6 +104,6 @@ class TagDataTable extends DataTable
      */
     protected function filename()
     {
-        return 'Tag_' . date('YmdHis');
+        return 'Link_' . date('YmdHis');
     }
 }

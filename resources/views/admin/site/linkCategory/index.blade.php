@@ -5,11 +5,11 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
         <h1>
-            链接
+            链接分类
             <small>列表</small>
         </h1>
         <ol class="breadcrumb">
-            <li><a href="#"><i class="fa fa-home"></i> links</a></li>
+            <li><a href="#"><i class="fa fa-home"></i> linkCategories</a></li>
             <li class="active"> index</li>
         </ol>
     </section>

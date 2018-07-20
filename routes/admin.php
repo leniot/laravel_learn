@@ -24,7 +24,7 @@ Route::group([
     $router->post('logout', 'Auth\LoginController@postLogout')->name('login.logout');
 
     /**
-     * auth模块
+     * auth模块（权限管理）
      */
     //后台用户管理
     $router->resource('auth/administrators', 'Auth\AdministratorController');
@@ -38,23 +38,25 @@ Route::group([
     $router->resource('auth/menus', 'Auth\MenuController');
 
     /**
-     * blog模块
+     * content模块（内容管理）
      */
     //文章管理
-    $router->resource('blog/articles', 'Blog\ArticleController');
-//    $router->post('blog/articles/uploadImage', 'Blog\ArticleController@uploadImage')->name('articles.uploadImage');
-    $router->post('blog/articles/uploadImage', function () {
+    $router->resource('content/articles', 'Content\ArticleController');
+//    $router->post('content/articles/uploadImage', 'Content\ArticleController@uploadImage')->name('articles.uploadImage');
+    $router->post('content/articles/uploadImage', function () {
         return 123;
     });
-    $router->resource('blog/tags', 'Blog\TagController');
-    $router->resource('blog/categories', 'Blog\CategoryController');
+    $router->resource('content/tags', 'Content\TagController');
+    $router->resource('content/categories', 'Content\CategoryController');
 
     /**
-     * 站点设置
+     * site模块（站点设置）
      */
     //友情链接
     $router->resource('site/links', 'Site\LinkController');
     //会员管理
     $router->resource('site/users', 'Site\UserController');
+    //链接分类
+    $router->resource('site/linkCategories', 'Site\LinkCategoryController');
 
 });

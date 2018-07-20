@@ -2,10 +2,10 @@
 
 namespace App\DataTables;
 
-use App\Models\Tag;
+use App\Models\LinkCategory;
 use Yajra\DataTables\Services\DataTable;
 
-class TagDataTable extends DataTable
+class LinkCategoryDataTable extends DataTable
 {
     /**
      * Build DataTable class.
@@ -18,9 +18,9 @@ class TagDataTable extends DataTable
         return datatables($query)
             ->setRowClass('text-center')
             ->rawColumns(['action'])
-            ->addColumn('action', function (Tag $tag) {
-                $edit_path = admin_base_path('content/tags/'.$tag->id.'/edit');
-                $delete_path = admin_base_path('content/tags/'.$tag->id);
+            ->addColumn('action', function (LinkCategory $category) {
+                $edit_path = admin_base_path('site/linkCategories/'.$category->id.'/edit');
+                $delete_path = admin_base_path('site/linkCategories/'.$category->id);
                 return '<a href="'.$edit_path.'" class="btn btn-xs btn-primary margin-r-5">'.
                     '<i class="fa fa-edit"></i> 编辑</a>'.
                     '<a class="btn btn-xs btn-danger margin-r-5 row-delete" data-url="'.$delete_path.'">'.
@@ -29,14 +29,14 @@ class TagDataTable extends DataTable
     }
 
     /**
+     * Get query source of dataTable.
      *
-     * @param Tag $model
+     * @param \App\Models\LinkCategory $model
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function query(Tag $model)
+    public function query(LinkCategory $model)
     {
-        return $model->newQuery()->select('id',
-            'name', 'created_at', 'updated_at');
+        return $model->newQuery()->select('id', 'name', 'created_at', 'updated_at');
     }
 
     /**
@@ -49,7 +49,7 @@ class TagDataTable extends DataTable
         return $this->builder()
             ->addTableClass('table-bordered table-striped')
             ->columns($this->getColumns())
-            ->minifiedAjax('tags')
+            ->minifiedAjax('linkCategories')
             ->addAction(['title' => '操作', 'class' => 'text-center'])
             ->parameters([
                 'dom' => 'Bfrtip',
@@ -71,7 +71,7 @@ class TagDataTable extends DataTable
     {
         return [
             ['name' => 'id', 'data' => 'id', 'title' => 'ID', 'class' => 'text-center'],
-            ['name' => 'name', 'data' => 'name', 'title' => '标签名称', 'class' => 'text-center', 'orderable' => false],
+            ['name' => 'name', 'data' => 'name', 'title' => '名称', 'class' => 'text-center', 'orderable' => false],
             ['name' => 'created_at', 'data' => 'created_at', 'title' => '创建时间', 'class' => 'text-center'],
             ['name' => 'updated_at', 'data' => 'updated_at', 'title' => '更新时间', 'class' => 'text-center'],
         ];
@@ -84,6 +84,6 @@ class TagDataTable extends DataTable
      */
     protected function filename()
     {
-        return 'Tag_' . date('YmdHis');
+        return 'LinkCategory_' . date('YmdHis');
     }
 }

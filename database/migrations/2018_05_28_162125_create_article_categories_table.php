@@ -13,10 +13,11 @@ class CreateCategoriesTable extends Migration
      */
     public function up()
     {
-        Schema::create('categories', function (Blueprint $table) {
+        Schema::create('article_categories', function (Blueprint $table) {
             $table->increments('id')->comment('自增id');
-            $table->string('name', 20)->commen('分类名称');
-            $table->string('description')->default('')->commen('分类描述');
+            $table->string('name', 20)->comment('分类名称');
+            $table->string('description')->default('')->comment('分类描述');
+            $table->string('title')->default('')->comment('SEO标题');
             $table->string('keywords')->default('')->comment('关键词');
             $table->timestamps();
             $table->softDeletes();
@@ -30,6 +31,6 @@ class CreateCategoriesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('categories');
+        Schema::dropIfExists('article_categories');
     }
 }

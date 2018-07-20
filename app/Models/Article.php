@@ -8,7 +8,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Article extends Model
 {
-    //
+    /**
+     * @var string
+     */
     protected $table = 'articles';
 
     /**

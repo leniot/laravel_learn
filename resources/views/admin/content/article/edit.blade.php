@@ -20,20 +20,20 @@
             <div class="col-sm-12">
                 <div class="box box-widget">
                     <div class="box-header with-border">
-                        <a href="{{ admin_base_path('blog/articles') }}" class="btn btn-default">
+                        <a href="{{ admin_base_path('content/articles') }}" class="btn btn-default">
                             <i class="fa fa-arrow-left"></i> 返回
                         </a>
                     </div>
-                    <form class="form-horizontal" action="{{ admin_base_path('content').'/'.$article->id }}" method="post">
+                    <form class="form-horizontal" action="{{ admin_base_path('content/articles').'/'.$article->id }}" method="post" enctype="multipart/form-data">
                         @method('PATCH')
                         @csrf
                         <div class="box-body">
                             <div class="fields-group">
                                 <div class="form-group {{ $errors->has('title') ? ' has-error' : '' }}">
-                                    <label for="login_name" class="col-sm-3 control-label">文 章 标 题：</label>
+                                    <label for="title" class="col-sm-3 control-label">文 章 标 题：</label>
 
                                     <div class="col-sm-8">
-                                        <input type="text" class="form-control" id="login_name" name="login_name" placeholder="文章标题" value="{{ $article->title }}">
+                                        <input type="text" class="form-control" id="title" name="title" placeholder="文章标题" value="{{ $article->title }}">
                                     </div>
 
                                     @if ($errors->has('title'))
@@ -111,24 +111,33 @@
                                     <label for="keywords" class="col-sm-3 control-label">封 面 图：</label>
 
                                     <div class="col-sm-8">
-                                        <div class="bs-example">
-                                            <div class="fileinput fileinput-new" data-provides="fileinput">
-                                                <div class="fileinput-new thumbnail" style="width: 200px; height: 150px;">
-                                                    <img data-src="holder.js/100%x100%" alt="cover_image" src="{{ asset($article->cover_image) }}">
-                                                    <input type="hidden" name="cover_image" value="{{ $article->cover_image }}">
-                                                </div>
-                                                <div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 200px; max-height: 150px;"></div>
-                                                <div>
-                                                    <span class="btn btn-default btn-file">
-                                                        <span class="fileinput-new">选 择 图 片</span>
-                                                        <span class="fileinput-exists">更 换</span>
-                                                        <input type="file" name="cover_image">
-                                                    </span>
-                                                    <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">移 除</a>
-                                                </div>
+                                        <div class="fileinput @if($article->cover_image) fileinput-exists @else fileinput-new @endif" data-provides="fileinput">
+                                            <div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 200px; max-height: 150px;">
+                                                <img alt="cover_image" src="{{ asset(Storage::url($article->cover_image)) }}" style="max-height: 140px;">
+                                                {{--<input type="hidden" name="cover_image" value="{{ $administrator->avatar }}">--}}
+                                            </div>
+                                            <div>
+                                            <span class="btn btn-default btn-file">
+                                                <span class="fileinput-new">上 传</span>
+                                                <span class="fileinput-exists">更 换</span>
+                                                <input type="file" name="cover_image">
+                                            </span>
+                                                <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">移 除</a>
                                             </div>
                                         </div>
-                                        {{--<input id="cover_image" class="form-control" name="cover_image" value="{{ old('cover_image') }}" placeholder="">--}}
+                                        {{--<div class="fileinput @if($article->cover_image) fileinput-exists @else fileinput-new @endif" data-provides="fileinput">--}}
+                                            {{--<div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 200px; max-height: 150px;">--}}
+                                                {{--<img alt="cover_image" src="{{ asset(Storage::url($article->cover_image)) }}" style="max-height: 140px;">--}}
+                                            {{--</div>--}}
+                                            {{--<div>--}}
+                                                {{--<span class="btn btn-default btn-file">--}}
+                                                    {{--<span class="fileinput-new">上 传</span>--}}
+                                                    {{--<span class="fileinput-exists">更 换</span>--}}
+                                                    {{--<input type="file" name="cover_image">--}}
+                                                {{--</span>--}}
+                                                {{--<a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">移 除</a>--}}
+                                            {{--</div>--}}
+                                        {{--</div>--}}
                                     </div>
 
                                     @if ($errors->has('cover_image'))
@@ -161,7 +170,7 @@
 
                                     <div class="col-sm-8">
                                         <div id="test-editormd" style="z-index: 1000;">
-                                            <textarea type="text" class="markdown hide" id="content" name="content">{{ $article->content}}</textarea>
+                                            <textarea type="text" class="markdown hide" id="content" name="content">{{ $article->content_markdown }}</textarea>
                                         </div>
                                     </div>
 

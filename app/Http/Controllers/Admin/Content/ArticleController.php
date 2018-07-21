@@ -1,14 +1,15 @@
 <?php
 
-namespace App\Http\Controllers\Admin\Blog;
+namespace App\Http\Controllers\Admin\Content;
 
 use App\DataTables\ArticleDataTable;
 use App\Http\Controllers\Admin\BaseController;
 use App\Models\Article;
-use App\Models\Category;
+use App\Models\ArticleCategory;
 use App\Models\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class ArticleController extends BaseController
 {
@@ -19,7 +20,7 @@ class ArticleController extends BaseController
      */
     public function index(ArticleDataTable $dataTable)
     {
-        return $dataTable->render(admin_view_path('blog.article.index'));
+        return $dataTable->render(admin_view_path('content.article.index'));
     }
 
     /**
@@ -29,9 +30,9 @@ class ArticleController extends BaseController
      */
     public function create()
     {
-        $categoryList = Category::all();
+        $categoryList = ArticleCategory::all();
         $tagList = Tag::all();
-        return view(admin_view_path('blog.article.create'))->with([
+        return view(admin_view_path('content.article.create'))->with([
             'categoryList' => $categoryList,
             'tagList' => $tagList,
         ]);
@@ -47,7 +48,7 @@ class ArticleController extends BaseController
     {
         $this->validate($request, [
             'title' => 'required|unique:articles',
-            'cover_image' => 'required',
+            'cover_image' => 'image|max:200',
             'category' => 'required',
             'tags' => 'required',
             'keywords' => 'required',
@@ -56,7 +57,8 @@ class ArticleController extends BaseController
         ],[
             'title.required' => '请输入文章标题',
             'title.unique' => '文章标题重复',
-            'cover_image.required' => '请上传一张文章封面图片',
+            'cover_image.image' => '文件格式错误，请选择图片文件（jpeg、png、bmp、gif 或者 svg）',
+            'cover_image.max' => '文件大小超出最大限制（200KB）',
             'category.required' => '请选择文章类别',
             'keywords.required' => '请输入关键词',
             'description.required' => '请输入文章描述',
@@ -68,20 +70,26 @@ class ArticleController extends BaseController
         $article = new Article();
         // 上传封面图
         if ($request->hasFile('cover_image')) {
-            $result = fileUploader('cover_image', 'uploads/article');
-            if ($result['status_code'] === 200) {
-                $article->cover_image = $result['data']['path'].$result['data']['new_name'];
+            if ($request->file('cover_image')->isValid() ) {
+                $path = $request->file('cover_image')->store('public/articles');
+                $article->cover_image = $path;
+            }else{
+                return redirect()->back()->withInput()->withErrors([
+                    'cover_image' => '文章封面上传失败！请重试！',
+                ]);
             }
         }
+
         $article->title = $request->get('title');
         $article->category_id = $request->get('category');
         $tags = $request->get('tags');
         $is_top = $request->get('is_top');
         $article->is_top = $is_top == 'on' ? 1 : 0;
         $article->keywords = $request->get('keywords');
-        $article->content = markdown_to_html($request->get('content'));
+        $article->content_markdown = $request->get('content');
+        $article->content_html = markdown_to_html($request->get('content'));
+        $article->description = $request->get('description');
         $article->author = Auth::guard('administrator')->id();
-        $article->status = 0;
         //文章保存
         if (!$article->save()) {
             admin_toastr('文章创建失败！', 'error');
@@ -92,7 +100,7 @@ class ArticleController extends BaseController
         //更新文章标签
         $article->updateTagRelation($tags);
         admin_toastr('文章创建成功！');
-        return redirect(admin_base_path('blog/articles'));
+        return redirect(admin_base_path('content/articles'));
     }
 
     /**
@@ -115,9 +123,9 @@ class ArticleController extends BaseController
     public function edit($id)
     {
         $article = Article::find($id);
-        $categoryList = Category::all();
+        $categoryList = ArticleCategory::all();
         $tagList = Tag::all();
-        return view(admin_view_path('blog.article.edit'))->with([
+        return view(admin_view_path('content.article.edit'))->with([
             'article' => $article,
             'categoryList' => $categoryList,
             'tagList' => $tagList,
@@ -134,8 +142,8 @@ class ArticleController extends BaseController
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'title' => 'required|unique:articles',
-            'cover_image' => 'required',
+            'title' => 'required|unique:articles,title,'.$id,
+            'cover_image' => 'image|max:200',
             'category' => 'required',
             'tags' => 'required',
             'keywords' => 'required',
@@ -144,7 +152,8 @@ class ArticleController extends BaseController
         ],[
             'title.required' => '请输入文章标题',
             'title.unique' => '文章标题重复',
-            'cover_image.required' => '请上传一张文章封面图片',
+            'cover_image.image' => '文件格式错误，请选择图片文件（jpeg、png、bmp、gif 或者 svg）',
+            'cover_image.max' => '文件大小超出最大限制（200KB）',
             'category.required' => '请选择文章类别',
             'keywords.required' => '请输入关键词',
             'description.required' => '请输入文章描述',
@@ -156,9 +165,13 @@ class ArticleController extends BaseController
         $article = Article::find($id);
         // 上传封面图
         if ($request->hasFile('cover_image')) {
-            $result = fileUploader('cover_image', 'uploads/article');
-            if ($result['status_code'] === 200) {
-                $article->cover_image = $result['data']['path'].$result['data']['new_name'];
+            if ($request->file('cover_image')->isValid()) {
+                $path = $request->file('cover_image')->store('public/articles');
+                $article->cover_image = $path;
+            }else{
+                return redirect()->back()->withInput()->withErrors([
+                    'cover_image' => '文章封面上传失败！请重试！',
+                ]);
             }
         }
         $article->title = $request->get('title');
@@ -167,7 +180,8 @@ class ArticleController extends BaseController
         $is_top = $request->get('is_top');
         $article->is_top = $is_top == 'on' ? 1 : 0;
         $article->keywords = $request->get('keywords');
-        $article->content = markdown_to_html($request->get('content'));
+        $article->content_markdown = $request->get('content');
+        $article->content_html = markdown_to_html($request->get('content'));
         $article->author = Auth::guard('administrator')->id();
         $article->status = 0;
         $article->description = $request->get('description');
@@ -181,7 +195,7 @@ class ArticleController extends BaseController
         //更新文章标签
         $article->updateTagRelation($tags);
         admin_toastr('文章创建成功！');
-        return redirect(admin_base_path('blog/articles'));
+        return redirect(admin_base_path('content/articles'));
     }
 
     /**
@@ -192,7 +206,7 @@ class ArticleController extends BaseController
      */
     public function destroy($id)
     {
-        if (Category::find($id)->delete()) {
+        if (Article::find($id)->delete()) {
             return response()->json([
                 'status'  => true,
                 'message' => '删除成功！',
@@ -206,26 +220,29 @@ class ArticleController extends BaseController
     }
 
     /**
-     * 配合editormd上传图片的方法
+     * 编辑器文件上传
+     * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function uploadImage()
+    public function uploadImage(Request $request)
     {
-        $result = fileUploader('editormd-image-file', 'uploads/article');
-        if ($result['status_code'] === 200) {
-            $data = [
-                'success' => 1,
-                'message' => $result['message'],
-                'url' => $result['data']['path'].$result['data']['new_name']
-            ];
-        } else {
-            $data = [
-                'success' => 0,
-                'message' => $result['message'],
-                'url' => ''
-            ];
+        $result_json = [];
+        if ($request->hasFile('editormd-image-file')) {
+            if ($request->file('editormd-image-file')->isValid()) {
+                $path = $request->file('editormd-image-file')->store('public/articles');
+                $result_json = [
+                    'success' => 1,
+                    'message' => '图片上传成功！',
+                    'url' => url(asset(Storage::url($path)))
+                ];
+            }else{
+                $result_json = [
+                    'success' => 0,
+                    'message' => '图片上传失败！',
+                    'url' => ''
+                ];
+            }
         }
-
-        return response()->json($data);
+        return response()->json($result_json);
     }
 }

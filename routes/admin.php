@@ -42,12 +42,12 @@ Route::group([
      */
     //文章管理
     $router->resource('content/articles', 'Content\ArticleController');
-//    $router->post('content/articles/uploadImage', 'Content\ArticleController@uploadImage')->name('articles.uploadImage');
-    $router->post('content/articles/uploadImage', function () {
-        return 123;
-    });
+    $router->post('content/articles/uploadImage', 'Content\ArticleController@uploadImage')->name('articles.uploadImage');
+//    $router->get('content/articles/uploadImage', function () {
+//        return 123;
+//    });
     $router->resource('content/tags', 'Content\TagController');
-    $router->resource('content/categories', 'Content\CategoryController');
+    $router->resource('content/articleCategories', 'Content\ArticleCategoryController');
 
     /**
      * site模块（站点设置）

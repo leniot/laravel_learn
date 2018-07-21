@@ -30,7 +30,7 @@ class TagDataTable extends DataTable
 
     /**
      *
-     * @param Tag $model
+     * @param \App\Models\Tag $model
      * @return \Illuminate\Database\Eloquent\Builder
      */
     public function query(Tag $model)
@@ -84,6 +84,6 @@ class TagDataTable extends DataTable
      */
     protected function filename()
     {
-        return 'Tag_' . date('YmdHis');
+        return 'ArticleTag_' . date('YmdHis');
     }
 }

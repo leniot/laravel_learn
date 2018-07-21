@@ -67,7 +67,7 @@ class Administrator extends Model implements AuthenticatableContract
     {
         //若设置了头像则直接返回头像url
         if ($avatar) {
-            return Storage::disk('local')->url($avatar);
+            return Storage::url($avatar);
         }
         //未设置头像时返回默认
         return admin_asset('AdminLTE/dist/img/user2-160x160.jpg');

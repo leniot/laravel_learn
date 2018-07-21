@@ -229,7 +229,8 @@
                 'h2', 'h3', 'h4', 'h5', 'h6', 'list-ul', 'list-ol', 'hr', 'link', 'reference-link',
                 'image', 'code', 'code-block', 'table', 'html-entities', 'watch', 'preview', 'search'],
             imageUpload: true,
-            imageUploadURL : '{{ admin_base_path('content/articles/uploadImage') }}',
+            imageFormats : ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
+            imageUploadURL : '{{ url('admin/content/articles/uploadImage') }}',
         });
 
         //Red color scheme for iCheck

@@ -3,7 +3,7 @@
 namespace App\DataTables;
 
 use App\Models\Article;
-use App\User;
+use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\Services\DataTable;
 
 class ArticleDataTable extends DataTable
@@ -20,12 +20,21 @@ class ArticleDataTable extends DataTable
             ->setRowClass('text-center')
             ->editColumn('title', function (Article $article) {
                 $title = strCut($article->title, 30);
-                $edit_path = admin_base_path('blog/articles/'.$article->id.'/edit');
+                $edit_path = admin_base_path('content/articles/'.$article->id.'/edit');
                 return '<a href="'.$edit_path.'">'.$title.'</a>';
 
             })
             ->editColumn('cover_image', function (Article $article) {
-                return '<img class="img" width="24" height="24" src="'.$article->cover_image.'">';
+                return '<img class="img" width="24" height="24" src="'.asset(Storage::url($article->cover_image)).'">';
+            })
+            ->editColumn('category_id', function (Article $article) {
+                return $article->category ? $article->category->name : '';
+            })
+            ->editColumn('author', function (Article $article) {
+                if ($article->author_type) {
+                    return $article->member ? ($article->member->nickname ? $article->member->nickname : $article->member->name) : '';
+                }
+                return $article->administrator ? $article->administrator->display_name : '';
             })
             ->editColumn('status', function (Article $article) {
                 $html = '';
@@ -50,8 +59,8 @@ class ArticleDataTable extends DataTable
             })
             ->rawColumns(['title', 'cover_image', 'status', 'is_top', 'action'])
             ->addColumn('action', function (Article $article) {
-                $edit_path = admin_base_path('blog/articles/'.$article->id.'/edit');
-                $delete_path = admin_base_path('blog/articles/'.$article->id);
+                $edit_path = admin_base_path('content/articles/'.$article->id.'/edit');
+                $delete_path = admin_base_path('content/articles/'.$article->id);
                 return '<a href="'.$edit_path.'" class="btn btn-xs btn-primary margin-r-5">'.
                     '<i class="fa fa-edit"></i> 编辑</a>'.
                     '<a class="btn btn-xs btn-danger margin-r-5 row-delete" data-url="'.$delete_path.'">'.
@@ -67,7 +76,7 @@ class ArticleDataTable extends DataTable
      */
     public function query(Article $model)
     {
-        return $model->newQuery()->select('id', 'title', 'status', 'author',
+        return $model->newQuery()->select('id', 'title', 'status', 'author', 'author_type',
             'is_top', 'description', 'cover_image', 'category_id', 'keywords', 'created_at', 'updated_at');
     }
 

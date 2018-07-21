@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin\blog;
+namespace App\Http\Controllers\Admin\Content;
 
 use App\DataTables\TagDataTable;
 use App\Http\Controllers\Admin\BaseController;
@@ -16,7 +16,7 @@ class TagController extends BaseController
      */
     public function index(TagDataTable $dataTable)
     {
-        return $dataTable->render(admin_view_path('blog.tag.index'));
+        return $dataTable->render(admin_view_path('content.tag.index'));
     }
 
     /**
@@ -25,7 +25,7 @@ class TagController extends BaseController
      */
     public function create()
     {
-        return view(admin_view_path('blog.tag.create'));
+        return view(admin_view_path('content.tag.create'));
     }
 
     /**
@@ -54,7 +54,7 @@ class TagController extends BaseController
         }
 
         admin_toastr('标签创建成功！');
-        return redirect(admin_base_path('blog/tags'));
+        return redirect(admin_base_path('content/tags'));
     }
 
     /**
@@ -74,7 +74,7 @@ class TagController extends BaseController
     public function edit($id)
     {
         $tag = Tag::find($id);
-        return view(admin_view_path('blog.tag.edit'))->with([
+        return view(admin_view_path('content.tag.edit'))->with([
             'tag' => $tag,
         ]);
     }
@@ -106,7 +106,7 @@ class TagController extends BaseController
         }
 
         admin_toastr('标签保存成功！');
-        return redirect(admin_base_path('blog/tags'));
+        return redirect(admin_base_path('content/tags'));
     }
 
     /**

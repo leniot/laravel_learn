@@ -2,10 +2,10 @@
 
 namespace App\DataTables;
 
-use App\Models\Category;
+use App\Models\ArticleCategory;
 use Yajra\DataTables\Services\DataTable;
 
-class CategoryDataTable extends DataTable
+class ArticleCategoryDataTable extends DataTable
 {
     /**
      * Build DataTable class.
@@ -17,10 +17,25 @@ class CategoryDataTable extends DataTable
     {
         return datatables($query)
             ->setRowClass('text-center')
+            ->editColumn('pid', function (ArticleCategory $category) {
+                $pCategory = '--';
+                $keyValue = $this->keyValueCategory($category);
+                if ($category->pid) {
+                    $pCategory = $keyValue[$category->pid]['name'];
+                }
+                return $pCategory;
+            })
+            ->editColumn('description', function (ArticleCategory $category) {
+                $description = $category->description;
+                if (strlen($description) > 50) {
+                    $description = mb_substr($description, 0, 50).'...';
+                }
+                return $description;
+            })
             ->rawColumns(['action'])
-            ->addColumn('action', function (Category $category) {
-                $edit_path = admin_base_path('blog/categories/'.$category->id.'/edit');
-                $delete_path = admin_base_path('blog/categories/'.$category->id);
+            ->addColumn('action', function (ArticleCategory $category) {
+                $edit_path = admin_base_path('content/articleCategories/'.$category->id.'/edit');
+                $delete_path = admin_base_path('content/articleCategories/'.$category->id);
                 return '<a href="'.$edit_path.'" class="btn btn-xs btn-primary margin-r-5">'.
                     '<i class="fa fa-edit"></i> 编辑</a>'.
                     '<a class="btn btn-xs btn-danger margin-r-5 row-delete" data-url="'.$delete_path.'">'.
@@ -31,12 +46,12 @@ class CategoryDataTable extends DataTable
     /**
      * Get query source of dataTable.
      *
-     * @param \App\Models\Category $model
+     * @param \App\Models\ArticleCategory $model
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function query(Category $model)
+    public function query(ArticleCategory $model)
     {
-        return $model->newQuery()->select('id', 'name', 'keywords', 'description',
+        return $model->newQuery()->select('id', 'pid', 'name', 'keywords', 'description',
             'created_at', 'updated_at');
     }
 
@@ -50,7 +65,7 @@ class CategoryDataTable extends DataTable
         return $this->builder()
             ->addTableClass('table-bordered table-striped')
             ->columns($this->getColumns())
-            ->minifiedAjax('categories')
+            ->minifiedAjax('articleCategories')
             ->addAction(['title' => '操作', 'class' => 'text-center'])
             ->parameters([
                 'dom' => 'Bfrtip',
@@ -72,6 +87,7 @@ class CategoryDataTable extends DataTable
     {
         return [
             ['name' => 'id', 'data' => 'id', 'title' => 'ID', 'class' => 'text-center'],
+            ['name' => 'pid', 'data' => 'pid', 'title' => '父级分类', 'class' => 'text-center'],
             ['name' => 'name', 'data' => 'name', 'title' => '名称', 'class' => 'text-center', 'orderable' => false],
             ['name' => 'keywords', 'data' => 'keywords', 'title' => '关键词', 'class' => 'text-center', 'orderable' => false],
             ['name' => 'description', 'data' => 'description', 'title' => '描述', 'class' => 'text-center', 'orderable' => false],
@@ -88,5 +104,21 @@ class CategoryDataTable extends DataTable
     protected function filename()
     {
         return 'Category_' . date('YmdHis');
+    }
+
+    /**
+     * @param ArticleCategory $model
+     * @return array
+     */
+    public function keyValueCategory(ArticleCategory $model)
+    {
+        $categoryList = $model::all();
+
+        $keyValue = [];
+        foreach ($categoryList as $category) {
+            $keyValue[$category['id']] = $category;
+        }
+
+        return $keyValue;
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -43,7 +44,25 @@ class Article extends Model
      */
     public function category() : BelongsTo
     {
-        return $this->belongsTo(Category::class);
+        return $this->belongsTo(ArticleCategory::class);
+    }
+
+    /**
+     * 关联管理员表
+     * @return BelongsTo
+     */
+    public function administrator() : BelongsTo
+    {
+        return $this->belongsTo(Administrator::class, 'author');
+    }
+
+    /**
+     * 关联会员表
+     * @return BelongsTo
+     */
+    public function member() : BelongsTo
+    {
+        return $this->belongsTo(User::class, 'author');
     }
 
     /**

@@ -5,10 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class Category extends Model
+class ArticleCategory extends Model
 {
     //定义数据表
-    protected $table = 'categories';
+    protected $table = 'article_categories';
 
     /**
      * 关联文章模型

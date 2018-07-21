@@ -20,15 +20,32 @@
             <div class="col-sm-12">
                 <div class="box box-widget">
                     <div class="box-header with-border">
-                        <a href="{{ admin_base_path('blog/categories') }}" class="btn btn-default">
+                        <a href="{{ admin_base_path('content/articleCategories') }}" class="btn btn-default">
                             <i class="fa fa-arrow-left"></i> 返回
                         </a>
                     </div>
-                    <form class="form-horizontal" action="{{ admin_base_path('blog/categories').'/'.$category->id }}" method="post">
+                    <form class="form-horizontal" action="{{ admin_base_path('content/articleCategories').'/'.$category->id }}" method="post">
                         @method('PATCH')
                         @csrf
                         <div class="box-body">
                             <div class="fields-group">
+                                <div class="form-group {{ $errors->has('pid') ? ' has-error' : '' }}">
+                                    <label for="name" class="col-sm-3 control-label">父 级 分 类：</label>
+
+                                    <div class="col-sm-8">
+                                        <input id="pCategoryName" class="form-control" placeholder="请选择父级分类（留空表示ROOT）" readonly data-toggle="modal" data-target="#pCategoryModal" value="@if($category->pid) {{ $pCategory->name }} @endif"/>
+                                        <input id="pid" class="form-control hide" name="pid" value="{{ $category->pid }}"/>
+                                    </div>
+
+                                    @if ($errors->has('pid'))
+                                        <div class="col-sm-offset-3 col-sm-8">
+                                            <span class="invalid-feedback">
+                                                <strong class="text-danger">{{ $errors->first('pid') }}</strong>
+                                            </span>
+                                        </div>
+                                    @endif
+                                </div>
+
                                 <div class="form-group {{ $errors->has('name') ? ' has-error' : '' }}">
                                     <label for="name" class="col-sm-3 control-label">类 别 名 称：</label>
 
@@ -74,6 +91,22 @@
                                         <div class="col-sm-offset-3 col-sm-8">
                                             <span class="invalid-feedback">
                                                 <strong class="text-danger">{{ $errors->first('keywords') }}</strong>
+                                            </span>
+                                        </div>
+                                    @endif
+                                </div>
+
+                                <div class="form-group {{ $errors->has('sort') ? ' has-error' : '' }}">
+                                    <label for="sort" class="col-sm-3 control-label">排 序：</label>
+
+                                    <div class="col-sm-8">
+                                        <input type="number" class="form-control" id="sort" name="sort" placeholder="排序..." value="{{ $category->sort }}">
+                                    </div>
+
+                                    @if ($errors->has('sort'))
+                                        <div class="col-sm-offset-3 col-sm-8">
+                                            <span class="invalid-feedback">
+                                                <strong class="text-danger">{{ $errors->first('sort') }}</strong>
                                             </span>
                                         </div>
                                     @endif

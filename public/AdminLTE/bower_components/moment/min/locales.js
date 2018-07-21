@@ -1846,7 +1846,7 @@ function processRelativeTime(number, withoutSuffix, key, isFuture) {
     var format = {
         'm': ['eine Minute', 'einer Minute'],
         'h': ['eine Stunde', 'einer Stunde'],
-        'd': ['ein Tag', 'einem Tag'],
+        'd': ['ein Tag', 'einem ArticleTag'],
         'dd': [number + ' Tage', number + ' Tagen'],
         'M': ['ein Monat', 'einem Monat'],
         'MM': [number + ' Monate', number + ' Monaten'],
@@ -1914,7 +1914,7 @@ function processRelativeTime$1(number, withoutSuffix, key, isFuture) {
     var format = {
         'm': ['eine Minute', 'einer Minute'],
         'h': ['eine Stunde', 'einer Stunde'],
-        'd': ['ein Tag', 'einem Tag'],
+        'd': ['ein Tag', 'einem ArticleTag'],
         'dd': [number + ' Tage', number + ' Tagen'],
         'M': ['ein Monat', 'einem Monat'],
         'MM': [number + ' Monate', number + ' Monaten'],
@@ -1982,7 +1982,7 @@ function processRelativeTime$2(number, withoutSuffix, key, isFuture) {
     var format = {
         'm': ['eine Minute', 'einer Minute'],
         'h': ['eine Stunde', 'einer Stunde'],
-        'd': ['ein Tag', 'einem Tag'],
+        'd': ['ein Tag', 'einem ArticleTag'],
         'dd': [number + ' Tage', number + ' Tagen'],
         'M': ['ein Monat', 'einem Monat'],
         'MM': [number + ' Monate', number + ' Monaten'],

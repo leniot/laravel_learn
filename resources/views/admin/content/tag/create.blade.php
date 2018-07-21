@@ -20,11 +20,11 @@
             <div class="col-sm-12">
                 <div class="box box-widget">
                     <div class="box-header with-border">
-                        <a href="{{ admin_base_path('blog/tags') }}" class="btn btn-default">
+                        <a href="{{ admin_base_path('content/tags') }}" class="btn btn-default">
                             <i class="fa fa-arrow-left"></i> 返回
                         </a>
                     </div>
-                    <form class="form-horizontal" pjax-container action="{{ admin_base_path('blog/tags') }}" method="post">
+                    <form class="form-horizontal" pjax-container action="{{ admin_base_path('content/tags') }}" method="post">
                         @csrf
                         <div class="box-body">
 

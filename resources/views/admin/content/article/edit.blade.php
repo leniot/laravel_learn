@@ -153,7 +153,7 @@
                                     <label for="description" class="col-sm-3 control-label">描 述：</label>
 
                                     <div class="col-sm-8">
-                                        <textarea id="description" class="form-control" name="description" value="{{ $article->description }}" placeholder="文 章 描 述"></textarea>
+                                        <textarea id="description" class="form-control" name="description" placeholder="文 章 描 述">{{ $article->description }}</textarea>
                                     </div>
 
                                     @if ($errors->has('description'))
@@ -242,7 +242,7 @@
                 'h2', 'h3', 'h4', 'h5', 'h6', 'list-ul', 'list-ol', 'hr', 'link', 'reference-link',
                 'image', 'code', 'code-block', 'table', 'html-entities', 'watch', 'preview', 'search'],
             imageUpload: true,
-            imageUploadURL : '{{ admin_base_path('blog/articles/uploadImage') }}',
+            imageUploadURL : '{{ admin_base_path('content/articles/uploadImage') }}',
         });
 
         //Red color scheme for iCheck

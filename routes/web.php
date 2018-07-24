@@ -18,7 +18,7 @@ Auth::routes();
 Route::group([
     'namespace'     => config('frontend.route.namespace'),
 ], function (Router $router) {
-
+    //前台首页
     $router->get('/', 'Home\HomeController@index');
     $router->get('/home', 'Home\HomeController@index');
     //跳转登录页面
@@ -33,5 +33,9 @@ Route::group([
     $router->post('register', 'Auth\RegisterController@register')->name('register');
     //个人中心
     $router->get('profile/{id}', 'User\ProfileController@show');
+    //第三方登录
+    $router->get('login/{service}', 'Auth\OAuthController@redirectToProvider');
+    //第三方登录回调
+    $router->get('login/{service}/callback', 'Auth\OAuthController@handleProviderCallback');
 
 });

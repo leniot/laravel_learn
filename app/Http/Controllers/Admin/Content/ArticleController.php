@@ -90,6 +90,8 @@ class ArticleController extends BaseController
         $article->content_html = markdown_to_html($request->get('content'));
         $article->description = $request->get('description');
         $article->author = Auth::guard('administrator')->id();
+        $article->author_type = 0;
+
         //文章保存
         if (!$article->save()) {
             admin_toastr('文章创建失败！', 'error');

@@ -19,14 +19,13 @@ class ArticleDataTable extends DataTable
         return datatables($query)
             ->setRowClass('text-center')
             ->editColumn('title', function (Article $article) {
-                $title = strCut($article->title, 30);
+                $title = mb_substr($article->title, 0, 30).'...';
                 $edit_path = admin_base_path('content/articles/'.$article->id.'/edit');
                 return '<a href="'.$edit_path.'">'.$title.'</a>';
-
             })
-            ->editColumn('cover_image', function (Article $article) {
-                return '<img class="img" width="24" height="24" src="'.asset(Storage::url($article->cover_image)).'">';
-            })
+//            ->editColumn('cover_image', function (Article $article) {
+//                return '<img class="img" width="120" height="120" src="'.asset(Storage::url($article->cover_image)).'">';
+//            })
             ->editColumn('category_id', function (Article $article) {
                 return $article->category ? $article->category->name : '';
             })
@@ -54,7 +53,6 @@ class ArticleDataTable extends DataTable
                 if ($article->is_top == 1) {
                     return '<span class="label label-success">是</span>';
                 }
-
                 return '<span class="label label-warning">否</span>';
             })
             ->rawColumns(['title', 'cover_image', 'status', 'is_top', 'action'])
@@ -113,7 +111,7 @@ class ArticleDataTable extends DataTable
         return [
             ['name' => 'id', 'data' => 'id', 'title' => 'ID', 'class' => 'text-center'],
             ['name' => 'title', 'data' => 'title', 'title' => '文章标题', 'class' => 'text-center', 'orderable' => false],
-            ['name' => 'cover_image', 'data' => 'cover_image', 'title' => '封面', 'class' => 'text-center', 'orderable' => false],
+//            ['name' => 'cover_image', 'data' => 'cover_image', 'title' => '封面', 'class' => 'text-center', 'orderable' => false],
             ['name' => 'category_id', 'data' => 'category_id', 'title' => '文章分类', 'class' => 'text-center', 'orderable' => false],
 //            ['name' => 'description', 'data' => 'description', 'title' => '文章描述', 'class' => 'text-center', 'orderable' => false],
             ['name' => 'keywords', 'data' => 'keywords', 'title' => '关键词', 'class' => 'text-center', 'orderable' => false],

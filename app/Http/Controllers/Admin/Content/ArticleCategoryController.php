@@ -98,7 +98,7 @@ class ArticleCategoryController extends BaseController
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'name' => 'required|unique:categories,name,'.$id.'|max:20',
+            'name' => 'required|unique:article_categories,name,'.$id.'|max:20',
         ],[
             'name.required' => '请输入类别名称',
             'name.unique' => '该类别名称已存在',
@@ -118,7 +118,7 @@ class ArticleCategoryController extends BaseController
         }
 
         admin_toastr('类别保存成功！');
-        return redirect(admin_base_path('content/categories'));
+        return redirect(admin_base_path('content/articleCategories'));
     }
 
     /**

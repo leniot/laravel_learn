@@ -139,7 +139,7 @@
                                     <label for="description" class="col-sm-3 control-label">描 述：</label>
 
                                     <div class="col-sm-8">
-                                        <textarea id="description" class="form-control" name="description" value="{{ old('description') }}" placeholder="文 章 描 述"></textarea>
+                                        <textarea id="description" class="form-control" name="description" placeholder="文 章 描 述">{{ old('description') }}</textarea>
                                     </div>
 
                                     @if ($errors->has('description'))

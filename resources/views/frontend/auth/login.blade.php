@@ -90,10 +90,13 @@
                 <div class="col-sm-6 col-sm-offset-3 social-login">
                     <h3>第三方登录</h3>
                     <div class="social-login-buttons">
-                        <a class="btn btn-link-2" href="#">
+                        {{--<a class="btn btn-link-2" href="{{ url('login/github') }}">--}}
+                            {{--<i class="fa fa-github"></i> github--}}
+                        {{--</a>--}}
+                        <a class="btn btn-link-2" href="{{ url('login/weixin') }}">
                             <i class="fa fa-weixin"></i> 微信
                         </a>
-                        <a class="btn btn-link-2" href="#">
+                        <a class="btn btn-link-2" href="{{ url('login/qq') }}">
                             <i class="fa fa-qq"></i> QQ
                         </a>
                     </div>

@@ -35,4 +35,22 @@ return [
         'secret' => env('STRIPE_SECRET'),
     ],
 
+//    'github' => [
+//        'client_id' => env('GITHUB_CLIENT_ID'),
+//        'client_secret' => env('GITHUB_CLIENT_SECRET'),
+//        'redirect' => '/login/github/callback',
+//    ],
+
+    'qq' => [
+        'client_id' => env('QQ_KEY'),
+        'client_secret' => env('QQ_SECRET'),
+        'redirect' => '/login/qq/callback'
+    ],
+
+    'weixin' => [
+        'client_id' => env('WEIXIN_KEY'),
+        'client_secret' => env('WEIXIN_SECRET'),
+        'redirect' => '/login/weixin/callback'
+    ],
+
 ];

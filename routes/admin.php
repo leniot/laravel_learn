@@ -42,20 +42,22 @@ Route::group([
      */
     //文章管理
     $router->resource('content/articles', 'Content\ArticleController');
+    //编辑器图片上传
     $router->post('content/articles/uploadImage', 'Content\ArticleController@uploadImage')->name('articles.uploadImage');
-//    $router->get('content/articles/uploadImage', function () {
-//        return 123;
-//    });
+    //文章标签
     $router->resource('content/tags', 'Content\TagController');
+    //文章分类
     $router->resource('content/articleCategories', 'Content\ArticleCategoryController');
 
     /**
      * site模块（站点设置）
      */
-    //友情链接
-    $router->resource('site/links', 'Site\LinkController');
     //会员管理
     $router->resource('site/users', 'Site\UserController');
+    //第三方会员
+    $router->resource('site/oAuthUsers', 'Site\OAuthUserController');
+    //友情链接
+    $router->resource('site/links', 'Site\LinkController');
     //链接分类
     $router->resource('site/linkCategories', 'Site\LinkCategoryController');
 

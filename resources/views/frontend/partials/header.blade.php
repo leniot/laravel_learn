@@ -1,21 +1,28 @@
 <header class="header">
     <nav class="navbar navbar-default" id="navbar">
         <div class="container">
-            <div class="header-topbar hidden-xs link-border">
-                <ul class="site-nav topmenu">
-                    {{--<li>--}}
-                        {{--<a href="http://www.muzhuangnet.com/tags/">标签云</a>--}}
-                    {{--</li>--}}
-                    {{--<li>--}}
-                        {{--<a href="http://www.muzhuangnet.com/readers/" rel="nofollow">读者墙</a>--}}
-                    {{--</li>--}}
-                    {{--<li>--}}
-                        {{--<a href="http://www.muzhuangnet.com/rss.html" title="RSS订阅">--}}
-                            {{--<i class="fa fa-rss">--}}
-                            {{--</i> RSS订阅--}}
-                        {{--</a>--}}
-                    {{--</li>--}}
 
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#header-navbar" aria-expanded="false">
+                    <span class="sr-only"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+
+                <a class="navbar-brand" href="{{ url('/') }}">
+                    <img src="" alt="logo">
+                </a>
+            </div>
+
+            <div class="collapse navbar-collapse" id="header-navbar">
+
+                <ul class="nav navbar-nav">
+                    <li><a data-cont="" title="" href="{{ url('/') }}">首页</a></li>
+                </ul>
+
+
+                <ul class="nav navbar-nav navbar-right">
                     @guest
                         <li>
                             <a href="{{ url('login') }}" title="立即登录">立即登录</a>
@@ -50,32 +57,9 @@
                             </ul>
                         </li>
                         <li>
-                            <a href="#"><i class="fa fa-edit"></i> 写文章</a>
+                            <a href="#"><i class="fa fa-edit"></i> 投稿</a>
                         </li>
                     @endguest
-
-                </ul>
-                求知 探索...
-            </div>
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#header-navbar" aria-expanded="false"> <span class="sr-only"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
-                <h1 class="logo hvr-bounce-in">
-                    <a href="{{ url('/') }}" title="laravel">
-                        <img src="{{ asset('frontend/images/laravel.jpg') }}" class="logo" alt="laravel" style="width: 64px;">
-                    </a>
-                </h1>
-            </div>
-            <div class="collapse navbar-collapse" id="header-navbar">
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a data-cont="木庄网络博客" title="木庄网络博客" href="index.html">首页</a></li>
-                    <li><a data-cont="列表页" title="列表页" href="list.html">列表页</a></li>
-                    <li><a data-cont="详细页" title="详细页" href="show.html">详细页</a></li>
-                    <li><a data-cont="404" title="404" href="404.html">404</a></li>
-                    <li><a data-cont="MZ-NetBolg主题" title="MZ-NetBolg主题" href="http://www.muzhuangnet.com/list/mznetblog/" >MZ-NetBolg主题</a></li>
-                    <li><a data-cont="IT技术笔记" title="IT技术笔记" href="http://www.muzhuangnet.com/list/code/" >IT技术笔记</a></li>
-                    <li><a data-cont="源码分享" title="源码分享" href="http://www.muzhuangnet.com/list/share/" >源码分享</a></li>
-                    <li><a data-cont="靠谱网赚" title="靠谱网赚" href="http://www.muzhuangnet.com/list/money/" >靠谱网赚</a></li>
-                    <li><a data-cont="资讯分享" title="资讯分享" href="http://www.muzhuangnet.com/list/news/" >资讯分享</a></li>
                 </ul>
             </div>
         </div>

@@ -10,7 +10,8 @@
         <meta name="description" content="">
         <link rel="stylesheet" type="text/css" href="{{ asset('frontend/css/bootstrap.min.css') }}">
         <link rel="stylesheet" type="text/css" href="{{ asset('frontend/css/nprogress.css') }}">
-        <link rel="stylesheet" type="text/css" href="{{ asset('frontend/css/style.css') }}">
+        {{--<link rel="stylesheet" type="text/css" href="{{ asset('frontend/css/style.css') }}">--}}
+        <link rel="stylesheet" type="text/css" href="{{ asset('frontend/css/custom.css') }}">
         <link rel="stylesheet" type="text/css" href="{{ asset('frontend/css/font-awesome.min.css') }}">
         <link rel="apple-touch-icon-precomposed" href="{{ asset('frontend/images/favicon.ico') }}">
         <link rel="shortcut icon" href="{{ asset('frontend/images/favicon.ico') }}">
@@ -35,10 +36,10 @@
 
     @yield('content')
 
-    @include('frontend::partials.footer')
+    {{--@include('frontend::partials.footer')--}}
 
     <script src="{{ asset('frontend/js/bootstrap.min.js') }}"></script>
-    <script src="{{ asset('frontend/js/jquery.ias.js') }}"></script>
+    <script src="{{ asset('frontend/js/jquery-ias.min.js') }}"></script>
     <script src="{{ asset('frontend/js/scripts.js') }}"></script>
     </body>
 </html>

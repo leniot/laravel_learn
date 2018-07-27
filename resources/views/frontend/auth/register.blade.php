@@ -16,10 +16,11 @@
 </head>
 <body>
 <div class="container">
-    <form class="form-signin" action="">
+    <form class="form-signin" action="{{ route('register') }}" method="post">
+        @csrf
         <div class="text-center mb-4">
             <a href="{{ url('/') }}">
-                <img class="mb-4" src="{{ asset('frontend/assets/images/laravel.jpg') }}" alt="" width="108" height="72">
+                <img class="mb-4" src="{{ asset('frontend/assets/images/laravel.jpg') }}" alt="logo" width="108" height="72">
             </a>
             <h1 class="h3 mb-3 font-weight-normal">Laravel</h1>
             <p>求知 探索...</p>

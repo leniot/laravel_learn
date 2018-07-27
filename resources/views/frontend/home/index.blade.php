@@ -5,11 +5,11 @@
         <div class="row">
             <div class="col-lg-8">
                 <div class="bd-example">
-                    <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
+                    <div id="carouselCaptions" class="carousel slide" data-ride="carousel">
                         <ol class="carousel-indicators">
-                            <li data-target="#carouselExampleCaptions" data-slide-to="0" class=""></li>
-                            <li data-target="#carouselExampleCaptions" data-slide-to="1" class="active"></li>
-                            <li data-target="#carouselExampleCaptions" data-slide-to="2" class=""></li>
+                            <li data-target="#carouselCaptions" data-slide-to="0" class=""></li>
+                            <li data-target="#carouselCaptions" data-slide-to="1" class="active"></li>
+                            <li data-target="#carouselCaptions" data-slide-to="2" class=""></li>
                         </ol>
                         <div class="carousel-inner">
                             <div class="carousel-item">
@@ -34,11 +34,11 @@
                                 </div>
                             </div>
                         </div>
-                        <a class="carousel-control-prev" href="#carouselExampleCaptions" role="button" data-slide="prev">
+                        <a class="carousel-control-prev" href="#carouselCaptions" role="button" data-slide="prev">
                             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                             <span class="sr-only">Previous</span>
                         </a>
-                        <a class="carousel-control-next" href="#carouselExampleCaptions" role="button" data-slide="next">
+                        <a class="carousel-control-next" href="#carouselCaptions" role="button" data-slide="next">
                             <span class="carousel-control-next-icon" aria-hidden="true"></span>
                             <span class="sr-only">Next</span>
                         </a>
@@ -50,47 +50,77 @@
                         <h3 class="section-title">最新文章</h3>
                         {{--<a href="#" class="all-posts-url">查看全部</a>--}}
                     </div>
-                    @foreach($articleList as $article)
-                    <article class="entry post">
-                            <div class="entry__img-holder post__img-holder">
-                                <a href="single-post.html">
-                                    <div class="thumb-container thumb-75">
-                                        <img data-src="{{ Storage::url($article->cover_img) }}" src="{{ asset('frontend/assets/images/1.jpg') }}" class="entry__img lazyloaded" alt="">
-                                    </div>
-                                </a>
-                            </div>
 
-                            <div class="entry__body post__body">
-                                <div class="entry__header">
-                                    <a href="#" class="entry__meta-category">{{ $article->category->name }}</a>
-                                    <h2 class="entry__title">
-                                        <a href="single-post.html">{{ $article->title }}</a>
-                                    </h2>
-                                    <ul class="entry__meta">
-                                        <li class="entry__meta-author">
-                                            <img src="http://www.mylaravel.com/AdminLTE/dist/img/user2-160x160.jpg" alt="author-avatar" style="width: 20px; height: auto; border-radius: 50%;">
-                                            <a href="#">admin</a>
-                                        </li>
-                                        <li class="entry__meta-date">
-                                            <i class="fa fa-calendar-minus-o"></i>
-                                            {{ $article->created_at }}
-                                        </li>
-                                        <li class="entry__meta-comments">
-                                            <i class="fa fa-comment"></i>
-                                            <a href="#">100</a>
-                                        </li>
-                                    </ul>
+                    <div id="post_container">
+                        @foreach($articleList as $article)
+                            <article class="entry post">
+                                <div class="entry__img-holder post__img-holder">
+                                    <a href="single-post.html">
+                                        <div class="thumb-container thumb-75">
+                                            <img data-src="{{ Storage::url($article->cover_image) }}" src="{{ Storage::url($article->cover_image) }}" class="entry__img lazyloaded" alt="">
+                                        </div>
+                                    </a>
                                 </div>
-                                <div class="entry__excerpt">
-                                    <p>{{ $article->description }}</p>
+
+                                <div class="entry__body post__body">
+                                    <div class="entry__header">
+                                        <a href="#" class="entry__meta-category">{{ $article->category->name }}</a>
+                                        <h2 class="entry__title">
+                                            <a href="single-post.html">{{ $article->title }}</a>
+                                        </h2>
+                                        <ul class="entry__meta">
+                                            <li class="entry__meta-author">
+                                                @if($article->author_type)
+                                                    <img src="{{ Storage::url($article->member->avatar) }}" alt="author-avatar" style="width: 20px; height: auto; border-radius: 50%;">
+                                                    <a href="#">{{ $article->member->name }}</a>
+                                                @else
+                                                    <img src="{{ $article->administrator->avatar }}" alt="author-avatar" style="width: 20px; height: auto; border-radius: 50%;">
+                                                    <a href="#">{{ $article->administrator->login_name }}</a>
+                                                @endif
+                                            </li>
+                                            <li class="entry__meta-date">
+                                                <i class="fa fa-calendar-minus-o"></i>
+                                                {{ date('Y-m-d', strtotime($article->created_at)) }}
+                                            </li>
+                                            <li class="entry__meta-comments">
+                                                <i class="fa fa-comment"></i>
+                                                <a href="#">100</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="entry__excerpt">
+                                        <p>{{ $article->description }}</p>
+                                    </div>
                                 </div>
-                            </div>
-                        </article>
-                    @endforeach
+                            </article>
+                        @endforeach
+                    </div>
+
+                    <nav id="pagination" aria-label="Page navigation" class="hidden-xs-up" style="display: none;">
+                        <ul class="pagination">
+                            <li class="page-item">
+                                <a class="page-link Previous" href="#" aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                    <span class="sr-only">Previous</span>
+                                </a>
+                            </li>
+
+                            <li class="page-item"><a class="page-link" href="#">1</a></li>
+                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+
+                            <li class="page-item">
+                                <a class="page-link next" href="#" aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                    <span class="sr-only">Next</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
                 </div>
 
             </div>
-            <div class="col-lg-4 sidebar">
+            <div class="col-lg-4 sidebar hidden-sm-down">
                 <div class="widget widget_tag_cloud">
                     <h4 class="widget-title">Tags</h4>
                     <hr>

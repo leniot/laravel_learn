@@ -16,7 +16,8 @@
 </head>
 <body>
     <div class="container">
-        <form class="form-signin">
+        <form class="form-signin" method="post" action="{{ route('login') }}">
+            @csrf
             <div class="text-center mb-4">
                 <a href="{{ url('/') }}">
                     <img class="mb-4" src="{{ asset('frontend/assets/images/laravel.jpg') }}" alt="" width="108" height="72">
@@ -26,18 +27,18 @@
             </div>
 
             <div class="form-label-group">
-                <input type="text" id="inputUsername" class="form-control" placeholder="用户名" required="" autofocus="">
-                <label for="inputEmail">用户名</label>
+                <input type="text" id="inputUsername" class="form-control" name="name" placeholder="用户名" required>
+                <label for="inputUsername">用户名</label>
             </div>
 
             <div class="form-label-group">
-                <input type="password" id="inputPassword" class="form-control" placeholder="密码" required="">
+                <input type="password" id="inputPassword" class="form-control" name="password" placeholder="密码" required>
                 <label for="inputPassword">密 码</label>
             </div>
 
             <div class="checkbox mb-3">
                 <label>
-                    <input type="checkbox" value="remember-me"> 记住我
+                    <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}> 记住我
                 </label>
             </div>
 

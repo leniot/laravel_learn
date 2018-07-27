@@ -39,7 +39,7 @@
 
                                 <img src="{{ Auth::user()->avatar }}" class="user-avatar" alt="avatar">
 
-                                <span class="hidden-xs">{{ Auth::user()->login_name }}</span>
+                                <span class="hidden-xs">{{ Auth::user()->name }}</span>
                             </a>
                             <ul class="dropdown-menu">
                                 <li>

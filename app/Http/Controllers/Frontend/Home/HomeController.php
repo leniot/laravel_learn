@@ -10,6 +10,7 @@ namespace App\Http\Controllers\Frontend\Home;
 
 
 use App\Http\Controllers\Controller;
+use App\Models\Article;
 
 class HomeController extends Controller
 {
@@ -18,7 +19,10 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view(frontend_view_path('home.index'));
+        $articleList = Article::all();
+        return view(frontend_view_path('home.index'))->with([
+            'articleList' => $articleList,
+        ]);
     }
 
 }

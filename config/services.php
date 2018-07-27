@@ -35,11 +35,11 @@ return [
         'secret' => env('STRIPE_SECRET'),
     ],
 
-//    'github' => [
-//        'client_id' => env('GITHUB_CLIENT_ID'),
-//        'client_secret' => env('GITHUB_CLIENT_SECRET'),
-//        'redirect' => '/login/github/callback',
-//    ],
+    'github' => [
+        'client_id' => env('GITHUB_CLIENT_ID'),
+        'client_secret' => env('GITHUB_CLIENT_SECRET'),
+        'redirect' => '/login/github/callback',
+    ],
 
     'qq' => [
         'client_id' => env('QQ_KEY'),

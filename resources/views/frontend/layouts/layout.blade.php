@@ -1,45 +1,30 @@
 <!doctype html>
-<html lang="{{ app()->getLocale() }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="renderer" content="webkit">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Laravel</title>
-        <meta name="keywords" content="">
-        <meta name="description" content="">
-        <link rel="stylesheet" type="text/css" href="{{ asset('frontend/css/bootstrap.min.css') }}">
-        <link rel="stylesheet" type="text/css" href="{{ asset('frontend/css/nprogress.css') }}">
-        {{--<link rel="stylesheet" type="text/css" href="{{ asset('frontend/css/style.css') }}">--}}
-        <link rel="stylesheet" type="text/css" href="{{ asset('frontend/css/custom.css') }}">
-        <link rel="stylesheet" type="text/css" href="{{ asset('frontend/css/font-awesome.min.css') }}">
-        <link rel="apple-touch-icon-precomposed" href="{{ asset('frontend/images/favicon.ico') }}">
-        <link rel="shortcut icon" href="{{ asset('frontend/images/favicon.ico') }}">
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-        <script src="{{ asset('frontend/js/jquery-2.1.4.min.js') }}"></script>
-        <script src="{{ asset('frontend/js/nprogress.js') }}"></script>
-        <script src="{{ asset('frontend/js/jquery.lazyload.min.js') }}"></script>
-        <!--[if gte IE 9]>
-        <script src="{{ asset('frontend/js/jquery-1.11.1.min.js') }}" type="text/javascript"></script>
-        <script src="{{ asset('frontend/js/html5shiv.min.js') }}" type="text/javascript"></script>
-        <script src="{{ asset('frontend/js/respond.min.js') }}" type="text/javascript"></script>
-        <script src="{{ asset('frontend/js/selectivizr-min.js') }}" type="text/javascript"></script>
-        <![endif]-->
-        <!--[if lt IE 9]>
-        <script>window.location.href='upgrade-browser.html';</script>
-        <![endif]-->
-    </head>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    {{--style.css--}}
+    <link rel="stylesheet" href="{{ asset('frontend/assets/css/style.css') }}">
+    {{--font-awesome--}}
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
 
-    <body class="user-select">
-
+    <title>Laravel</title>
+</head>
+<body>
+    {{--header--}}
     @include('frontend::partials.header')
-
+    {{--content--}}
     @yield('content')
-
-    {{--@include('frontend::partials.footer')--}}
-
-    <script src="{{ asset('frontend/js/bootstrap.min.js') }}"></script>
-    <script src="{{ asset('frontend/js/jquery-ias.min.js') }}"></script>
-    <script src="{{ asset('frontend/js/scripts.js') }}"></script>
-    </body>
+    {{--footer--}}
+    @include('frontend::partials.footer')
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdn.bootcss.com/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://cdn.bootcss.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
 </html>

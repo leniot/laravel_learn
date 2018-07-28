@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
     {{--style.css--}}
     <link rel="stylesheet" href="{{ asset('frontend/assets/css/style.css') }}">
     {{--font-awesome--}}
@@ -18,22 +18,22 @@
     <div class="container">
         <form class="form-signin" method="post" action="{{ route('login') }}">
             @csrf
-            <div class="text-center mb-4">
+            <div class="text-center">
                 <a href="{{ url('/') }}">
-                    <img class="mb-4" src="{{ asset('frontend/assets/images/laravel.jpg') }}" alt="" width="108" height="72">
+                    <img class="" src="{{ asset('frontend/assets/images/laravel.jpg') }}" alt="laravel" width="108" height="72">
                 </a>
-                <h1 class="h3 mb-3 font-weight-normal">Laravel</h1>
+                <h1 class="h3 font-weight-normal">Laravel</h1>
                 <p>求知 探索...</p>
             </div>
 
             <div class="form-label-group">
-                <input type="text" id="inputUsername" class="form-control" name="name" placeholder="用户名" required>
-                <label for="inputUsername">用户名</label>
+                <label for="inputName" class="sr-only">用户名</label>
+                <input type="text" id="inputName" class="form-control" name="name" placeholder="用户名" required="" autofocus="">
             </div>
 
             <div class="form-label-group">
-                <input type="password" id="inputPassword" class="form-control" name="password" placeholder="密码" required>
-                <label for="inputPassword">密 码</label>
+                <label for="inputPassword" class="sr-only">密码</label>
+                <input type="password" id="inputPassword" class="form-control" name="password" placeholder="Password" required="">
             </div>
 
             <div class="checkbox mb-3">
@@ -44,7 +44,7 @@
 
             <button class="btn btn-lg btn-primary btn-block" type="submit">登 录</button>
 
-            <p class="mt-3">没有账号？ <a class="" href="{{ url('register') }}">注 册</a></p>
+            <p class="redirect-register">没有账号？ <a class="" href="{{ url('register') }}">注 册</a></p>
         </form>
         <hr>
         <div class="social-login text-center">
@@ -62,11 +62,5 @@
             </a>
         </div>
     </div>
-
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdn.bootcss.com/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://cdn.bootcss.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 </body>
 </html>

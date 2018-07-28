@@ -8,6 +8,7 @@ html {
 body {
     /* Margin bottom by footer height */
     margin-bottom: 60px;
+    padding-top: 50px;
 }
 
 .footer {
@@ -25,17 +26,9 @@ body {
 -------------------------------------------------- */
 /* Not required for template or sticky footer method. */
 
-body > .container {
-    padding: 20px 15px 0;
-}
-
 .footer > .container {
     padding-right: 15px;
     padding-left: 15px;
-}
-
-code {
-    font-size: 80%;
 }
 
 .navbar-nav>.user-menu .user-avatar {
@@ -55,172 +48,7 @@ code {
     position: relative;
 }
 
-.title-wrap {
-    position: relative;
-    overflow: hidden;
-    margin-bottom: 30px;
-    border-bottom: 1px solid #ebeeef;
-}
-
-.post {
-    position: relative;
-    padding-bottom: 20px;
-    border-bottom: 1px solid #ebeeef;
-    margin-bottom: 20px;
-}
-
-.post:last-child {
-    border-bottom: 0;
-    padding-bottom: 0;
-    margin-bottom: 0;
-}
-
-.section-title {
-    text-transform: uppercase;
-    letter-spacing: 0.04em;
-    margin-bottom: 15px;
-    font-size: 22px;
-    display: inline-block;
-    float: left;
-}
-
-.entry {
-    overflow: hidden;
-    position: relative;
-    margin-bottom: 30px;
-}
-
-.post__img-holder {
-    width: 270px;
-    height: 100%;
-    float: left;
-    margin-right: 30px;
-    margin-bottom: 0;
-}
-
-.entry__img-holder {
-    position: relative;
-    overflow: hidden;
-    margin-bottom: 20px;
-}
-
-.thumb-75 {
-    padding-bottom: 75%;
-}
-
-.thumb-container {
-    background-color: #f7f7f7;
-    position: relative;
-    overflow: hidden;
-    -webkit-transform: translateZ(0);
-    -moz-transform: translateZ(0);
-    -ms-transform: translateZ(0);
-    -o-transform: translateZ(0);
-    transform: translateZ(0);
-}
-
-.thumb-container img {
-    -webkit-transition: all 0.2s !important;
-    -moz-transition: all 0.2s !important;
-    -ms-transition: all 0.2s !important;
-    -o-transition: all 0.2s !important;
-    transition: all 0.2s !important;
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    min-height: 100%;
-    -webkit-backface-visibility: hidden;
-    backface-visibility: hidden;
-}
-
-.entry__img {
-    width: 100%;
-}
-
-.post__body {
-    overflow: hidden;
-}
-
-.entry__header {
-    margin-bottom: 14px;
-}
-
-.entry__meta-category {
-    font-family: "Open Sans", sans-serif;
-    font-size: 12px;
-    text-transform: uppercase;
-    margin-bottom: 3px;
-    font-weight: 700;
-    color: #0098d0;
-}
-
-.entry__title {
-    font-size: 16px;
-    line-height: 1.4;
-    margin-top: 3px;
-    margin-bottom: 5px;
-    font-weight: 700;
-}
-
-.entry__meta li {
-    display: inline-block;
-    font-size: 12px;
-    color: #adb6b9;
-    font-style: italic;
-    margin-right: 15px;
-}
-
-ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-}
-
-/*sidebar widget*/
-.sidebar .widget:last-child {
-    margin-bottom: 0;
-}
-
-.sidebar .widget {
-    margin-bottom: 30px;
-    -webkit-box-shadow: 0px 0px 4px 0px rgba(222, 225, 227, 0.8);
-    box-shadow: 0px 0px 4px 0px rgba(222, 225, 227, 0.8);
-    padding: 20px;
-}
-
-.widget-title {
-    font-size: 14px;
-    text-transform: uppercase;
-    letter-spacing: 0.04em;
-    margin-bottom: 18px;
-    font-weight: 700;
-}
-
-.tagcloud {
-    overflow: hidden;
-}
-
-.widget_tag_cloud a, .entry__tags a {
-    padding: 9px 10px;
-    line-height: 1;
-    margin: 0 6px 6px 0;
-    font-size: 12px;
-    background-color: #fafcfc;
-    border: 1px solid #ebeeef;
-    font-family: "Open Sans", sans-serif;
-    color: #878c8e;
-    display: inline-block;
-    float: left;
-}
-
-:root {
-    --input-padding-x: .75rem;
-    --input-padding-y: .75rem;
-}
-
-
+/*登录（注册）页样式*/
 .form-signin {
     width: 100%;
     max-width: 420px;
@@ -228,59 +56,71 @@ ul {
     margin: 0 auto;
 }
 
-.form-label-group {
+.form-signin .form-signin-heading,
+.form-signin .checkbox {
+    margin-bottom: 10px;
+}
+
+.form-signin .checkbox {
+    font-weight: normal;
+}
+
+.form-signin .form-control {
     position: relative;
-    margin-bottom: 1rem;
+    height: auto;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    padding: 10px;
+    font-size: 16px;
 }
 
-.form-label-group > input,
-.form-label-group > label {
-    padding: var(--input-padding-y) var(--input-padding-x);
+.form-signin .form-control:focus {
+    z-index: 2;
 }
 
-.form-label-group > label {
-    position: absolute;
-    top: 0;
-    left: 0;
-    display: block;
+.form-signin .form-label-group {
+    margin-bottom: 15px;
+    margin-top: 15px;
+}
+
+.redirect-register, .redirect-login {
+    margin-top: 10px;
+}
+
+/*文章*/
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+.post-list ul li .post {
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+    height: 9.5rem;
+    overflow: hidden;
+    padding: 1rem 0;
+    position: relative;
+}
+
+img {
+    box-sizing: border-box;
+    vertical-align: middle;
+    border: 0;
+}
+
+.post-list .post .post-cover .post-img {
     width: 100%;
-    margin-bottom: 0; /* Override default `<label>` margin */
-    line-height: 1.5;
-    color: #495057;
-    border: 1px solid transparent;
-    border-radius: .25rem;
-    transition: all .1s ease-in-out;
 }
 
-.form-label-group input::-webkit-input-placeholder {
-    color: transparent;
-}
-
-.form-label-group input:-ms-input-placeholder {
-    color: transparent;
-}
-
-.form-label-group input::-ms-input-placeholder {
-    color: transparent;
-}
-
-.form-label-group input::-moz-placeholder {
-    color: transparent;
-}
-
-.form-label-group input::placeholder {
-    color: transparent;
-}
-
-.form-label-group input:not(:placeholder-shown) {
-    padding-top: calc(var(--input-padding-y) + var(--input-padding-y) * (2 / 3));
-    padding-bottom: calc(var(--input-padding-y) / 3);
-}
-
-.form-label-group input:not(:placeholder-shown) ~ label {
-    padding-top: calc(var(--input-padding-y) / 3);
-    padding-bottom: calc(var(--input-padding-y) / 3);
-    font-size: 12px;
-    color: #777;
+.post-list .post .post-cover {
+    float: left;
+    width: 13rem;
+    height: 7.5rem;
+    position: relative;
+    overflow: hidden;
+    background-color: #c3c3c3;
 }
 

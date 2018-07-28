@@ -1,37 +1,43 @@
 <header>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-default navbar-fixed-top">
         <div class="container">
-            <a class="navbar-brand" href="{{ url('/') }}">Laravel</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbars" aria-controls="navbars" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
-            <div class="collapse navbar-collapse" id="navbars">
-
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="#">首 页</a>
-                    </li>
-
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown07" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
-                        <div class="dropdown-menu" aria-labelledby="dropdown07">
-                            <a class="dropdown-item" href="#">Action</a>
-                            <a class="dropdown-item" href="#">Another action</a>
-                            <a class="dropdown-item" href="#">Something else here</a>
-                        </div>
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">Laravel</a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="{{ url('/') }}">首页</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">Action</a></li>
+                            <li><a href="#">Another action</a></li>
+                            <li><a href="#">Something else here</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li class="dropdown-header">Nav header</li>
+                            <li><a href="#">Separated link</a></li>
+                            <li><a href="#">One more separated link</a></li>
+                        </ul>
                     </li>
                 </ul>
 
                 <ul class="nav navbar-nav navbar-right">
                     @guest
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url('login') }}">登 录</a>
-                    </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url('login') }}">登 录</a>
+                        </li>
 
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url('register') }}">注 册</a>
-                    </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url('register') }}">注 册</a>
+                        </li>
                     @else
                         <li class="dropdown nav-item user user-menu">
                             <!-- Menu Toggle Button -->
@@ -39,7 +45,7 @@
 
                                 <img src="{{ Auth::user()->avatar }}" class="user-avatar" alt="avatar">
 
-                                <span class="hidden-xs">{{ Auth::user()->name }}</span>
+                                <span class="">{{ Auth::user()->name }}</span>
                             </a>
                             <ul class="dropdown-menu">
                                 <li>
@@ -63,12 +69,11 @@
                         </li>
 
                         <li class="nav-item">
-                            <a class="btn btn-sm btn-primary" href="{{ url('register') }}">投 稿</a>
+                            <a class="" href="{{ url('register') }}">投 稿</a>
                         </li>
                     @endguest
                 </ul>
-
-            </div>
+            </div><!--/.nav-collapse -->
         </div>
     </nav>
 </header>

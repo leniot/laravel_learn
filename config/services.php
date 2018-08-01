@@ -42,8 +42,8 @@ return [
     ],
 
     'qq' => [
-        'client_id' => env('QQ_KEY'),
-        'client_secret' => env('QQ_SECRET'),
+        'client_id' => env('101488001'),
+        'client_secret' => env('b2e06d1d88fa4001b7a20ea673718d30'),
         'redirect' => '/login/qq/callback'
     ],
 

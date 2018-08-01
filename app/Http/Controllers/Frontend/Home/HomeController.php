@@ -19,9 +19,23 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $articleList = Article::all();
+        $articleList = Article::with(['author', 'tags', 'category'])
+            ->orderBy('created_at' , 'desc')->paginate(2);
         return view(frontend_view_path('home.index'))->with([
             'articleList' => $articleList,
+        ]);
+    }
+
+    /**
+     * 文章阅读
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function article($id)
+    {
+        $article = Article::find($id);
+        return view(frontend_view_path('home.article'))->with([
+            'article' => $article,
         ]);
     }
 

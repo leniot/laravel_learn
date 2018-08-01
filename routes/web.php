@@ -21,6 +21,8 @@ Route::group([
     //前台首页
     $router->get('/', 'Home\HomeController@index');
     $router->get('/home', 'Home\HomeController@index');
+    //文章页
+    $router->get('article/{id}', 'Home\HomeController@article');
     //跳转登录页面
     $router->get('login', 'Auth\LoginController@showLoginForm');
     //登录

@@ -11,6 +11,19 @@
                 <a class="navbar-brand" href="#">Laravel</a>
             </div>
             <div id="navbar" class="navbar-collapse collapse">
+                <form class="navbar-form visible-xs">
+                    <div class="form-group">
+                        <div class="input-group input-group-md">
+                            <input type="search" class="search-field form-control" value="" name="keyword">
+                            <span class="input-group-btn">
+                                <button type="submit" class="btn btn-default">
+                                    <span class="ipt-icon-search"><i class="fa fa-search"></i></span>
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                </form>
+
                 <ul class="nav navbar-nav">
                     <li class="active"><a href="{{ url('/') }}">首页</a></li>
                     <li><a href="#about">About</a></li>

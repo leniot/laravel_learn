@@ -8,7 +8,13 @@ html {
 body {
     /* Margin bottom by footer height */
     margin-bottom: 60px;
-    padding-top: 50px;
+    padding-top: 70px;
+    background: #f7f7f7;
+}
+
+a {
+    text-decoration: none;
+    color: #555;
 }
 
 .footer {
@@ -18,10 +24,17 @@ body {
     /* Set the fixed height of the footer here */
     height: 60px;
     line-height: 60px; /* Vertically center the text there */
-    background-color: #f5f5f5;
+    /*background-color: #f5f5f5;*/
+    border-color: #e7e7e7;
+    background: #333;
+    color: #a5a4a4;
+
 }
 
-
+ul {
+    list-style: none;
+    padding: 0;
+}
 /* Custom page CSS
 -------------------------------------------------- */
 /* Not required for template or sticky footer method. */
@@ -47,7 +60,10 @@ body {
 .navbar .navbar-nav .nav-item .nav-link {
     position: relative;
 }
-
+.navbar-form {
+    border-bottom: unset;
+    border-top: unset;
+}
 /*登录（注册）页样式*/
 .form-signin {
     width: 100%;
@@ -89,38 +105,247 @@ body {
 }
 
 /*文章*/
-ul {
-    list-style: none;
-    padding: 0;
+.post {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #eee;
+    padding-top: 10px;
+    padding-bottom: 15px;
+    background: #fff;
 }
 
-.post-list ul li .post {
-    border-top-left-radius: 4px;
-    border-bottom-left-radius: 4px;
-    border-top-right-radius: 4px;
-    border-bottom-right-radius: 4px;
-    height: 9.5rem;
-    overflow: hidden;
-    padding: 1rem 0;
-    position: relative;
-}
-
-img {
-    box-sizing: border-box;
-    vertical-align: middle;
-    border: 0;
-}
-
-.post-list .post .post-cover .post-img {
+.post-left img {
     width: 100%;
-}
-
-.post-list .post .post-cover {
-    float: left;
-    width: 13rem;
-    height: 7.5rem;
-    position: relative;
+    margin-top: 10px;
+    border-radius: 5px;
     overflow: hidden;
-    background-color: #c3c3c3;
 }
 
+.post-left a.post-category {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    display: block;
+    padding: 4px 8px;
+    color: #fff;
+    background: rgba(0,0,0,.5);
+    font-size: 12px;
+    text-align: center;
+    border-radius: 5px;
+    z-index: 10;
+}
+
+.post-left a.post-category:hover{
+    cursor: pointer;
+}
+
+.post-meta {
+    margin-top: 10px;
+}
+
+.post-meta a {
+    color: #096;
+}
+
+.post-meta span {
+    margin-right: 5px;
+}
+
+.post-meta .author img {
+    vertical-align: middle;
+    margin: 0;
+    border-radius: 100%;
+    width: 24px;
+}
+
+.post-meta .post-date i{
+    margin-right: 5px;
+}
+
+.post-meta .post-tags a {
+    border-right: 1px solid #555;
+    padding-right: 5px;
+}
+
+.post-meta .post-tags a:last-child {
+    border-right: unset;
+    padding-right: 0;
+}
+
+.load-end {
+    margin-bottom: 20px;
+}
+
+.load-progress {
+    margin: 20px 0 20px 0;
+}
+
+.sidebar .panel-heading {
+    border-bottom: 1px solid #eee;
+}
+
+.sidebar .panel .form-group {
+    margin-bottom: 0;
+}
+
+.tag-cloud a {
+    line-height: 24px;
+    display: block;
+    background: #999;
+    float: left;
+    padding: 3px 11px;
+    margin: 10px 10px 0 0;
+    border-radius: 8px;
+    -moz-transition: all 0.5s;
+    -webkit-transition: all 0.5s;
+    -o-transition: all 0.5s;
+    transition: all 0.5s; color: #FFF
+}
+.tag-cloud a:nth-child(8n-7) { background: #8A9B0F }
+.tag-cloud a:nth-child(8n-6) { background: #EB6841 }
+.tag-cloud a:nth-child(8n-5) { background: #3FB8AF }
+.tag-cloud a:nth-child(8n-4) { background: #FE4365 }
+.tag-cloud a:nth-child(8n-3) { background: #FC9D9A }
+.tag-cloud a:nth-child(8n-2) { background: #EDC951 }
+.tag-cloud a:nth-child(8n-1) { background: #C8C8A9 }
+.tag-cloud a:nth-child(8n) { background: #83AF9B }
+.tag-cloud a:first-child { background: #036564 }
+.tag-cloud a:last-child { background: #3299BB }
+.tag-cloud a:hover { border-radius: 0; text-shadow: #000 1px 1px 1px }
+
+.single-post-box {
+    background: #fff;
+    padding: 15px 15px;
+    margin-bottom: 20px;
+}
+
+.single-post {
+    /*background: #fff;*/
+    /*padding: 15px 0;*/
+}
+
+.single-post .single-post-title {
+    /*padding: 0 20px;*/
+    display: inline;
+}
+
+.single-post .single-post-title a {
+    color: #FFF;
+    background-color: #F4650E;
+    padding: 3px 6px;
+    font-size: 12px;
+    display: inline-block;
+    position: relative;
+    top: -5px;
+    margin-right: 6px;
+}
+
+.single-post .single-post-title a i {
+    position: absolute;
+    top: 50%;
+    margin-top: -4px;
+    right: -4px;
+    display: inline-block;
+    width: 0;
+    height: 0;
+    vertical-align: middle;
+    border-left: 4px solid #F4650E;
+    border-top: 4px solid transparent;
+    border-bottom: 4px solid transparent;
+}
+
+.single-post .single-post-title h3 {
+    display: inline;
+}
+
+.single-post .single-post-content {
+    margin-top: 30px;
+    /*padding: 0 20px;*/
+}
+
+.single-post-meta {
+    margin-top: 10px;
+    /*padding: 0 20px;*/
+}
+
+.single-post-meta a {
+    color:#096;
+}
+
+.single-post-meta span {
+    margin-right: 5px;
+}
+
+.single-post-meta .author img {
+    vertical-align: middle;
+    margin: 0;
+    border-radius: 100%;
+    width: 24px;
+}
+
+.single-post-meta .post-date i {
+    margin-right: 5px;
+}
+
+.content-left.comment-box {
+    padding: 0 15px;
+    background: #fff;
+}
+
+.comment-form-title, .comment-list-title {
+    border-left: 5px solid #4285f4;
+    padding-left: 5px;
+}
+
+.comment-list .comment-input {
+    margin-bottom: 20px;
+}
+.comment-list li {
+    margin-top: 15px;
+}
+.comment-list img {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 5px;
+    vertical-align: middle;
+}
+
+.comment-list .comment-item {
+    border-bottom: 1px solid #e6e8eb;
+}
+
+.comment-list .comment-item-meta {
+    margin-bottom: 15px;
+    line-height: 24px;
+}
+
+.comment-list .comment-item-footer {
+    margin: 10px 0;
+}
+
+.comment-list .comment-item {
+    margin: 20px 0;
+}
+.comment-item-footer button {
+    height: auto;
+    padding: 0;
+    line-height: inherit;
+    background-color: transparent;
+    border: none;
+    border-radius: 0;
+}
+
+.comment-item-footer button {
+    margin-left: 20px;
+}
+
+.comment-item-footer button:first-child {
+    margin-left: 0;
+}
+
+.comment-item-footer .hover-btn {
+    opacity: 0;
+    transition: opacity .2s;
+}

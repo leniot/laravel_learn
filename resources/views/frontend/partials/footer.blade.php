@@ -1,5 +1,5 @@
 <footer class="footer">
     <div class="container">
-        <span class="text-muted">design by Chan.</span>
+        <p class="copyright">design by Chan.</p>
     </div>
 </footer>

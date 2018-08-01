@@ -74,4 +74,17 @@ class Article extends Model
     {
         return $this->tags()->sync($tags);
     }
+
+    /**
+     * 关联作者（会员、管理员）
+     * @return BelongsTo
+     */
+    public function author() : BelongsTo
+    {
+        if ($this->author_type) {
+            return $this->belongsTo(User::class, 'author');
+        }
+
+        return $this->belongsTo(Administrator::class, 'author');
+    }
 }

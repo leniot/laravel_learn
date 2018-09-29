@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Frontend\Auth;
 
 use App\Models\OAuthUser;
+use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -22,39 +23,82 @@ class OAuthController extends Controller
     }
 
     /**
+     * 第三方登录回调
      * @param Request $request
      * @param $service
+     * @param User $UserModel
      */
-    public function handleProviderCallback(Request $request, $service)
+    public function handleProviderCallback(Request $request, User $UserModel, $service)
     {
-//        $user = Socialite::driver($service)->user();
-        $user = Socialite::driver($service)->stateless()->user();
+        //登录类型
+        $type = [
+            'weixin' => 1,
+            'qq' => 2,
+            'github' => 3
+        ];
+        //获取用户资料
+        $user = Socialite::driver($service)->user();
 
-        dd($user->token);
-    }
+        // 组合存入session中的值
+        $sessionData = [
+            'user' => [
+                'name' => $user->nickname,
+                'type' => $type[$service],
+            ]
+        ];
 
+        $where = [
+            'type' => $type[$service],
+            'openid' => $user->id
+        ];
+        $userData = $UserModel::where($where)->first();
 
+        //判断用户是否第一次登录（若首次登录则插入数据，否则更新用户数据）
+        if (empty($userData)) {//首次登录，插入用户数据
 
-    /**
-     * 注销登录
-     * @param Request $request
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
-     */
-    public function logout(Request $request)
-    {
-        $this->guard()->logout();
+            $saveData = [
+                'type' => $type[$service],
+                'openid' => $user->id,
+                'name' => $user->name ? $user->name : $user->nickname,
+                'nickname' => $user->nickname,
+                'avatar' => $user->avatar,
+                'login_times' => 1,
+                'last_login_ip' => $request->getClientIp(),
+                'access_token' => $user->token,
+                'last_login_time' => date('Y-m-d H:i:s', time()),
+            ];
 
-        $request->session()->invalidate();
+            $result = $UserModel::create($saveData);
+            if ($result) {
+                $OauthUser = $UserModel::find($result->id);
+            } else {
+                //跳转登录页，并提示错误
+                return redirect(\url('/login'));
+            }
 
-        return $this->loggedOut($request) ?: redirect('/');
-    }
+        } else {//更新用户数据
+            $userId = $userData['id'];
+            $OauthUser = $UserModel::find($userId);
+            $updateData = [
+                'name' => $user->name ? $user->name : $user->nickname,
+                'nickname' => $user->nickname,
+                'login_times' => $userData['login_times'] + 1,
+                'access_token' => $user->token,
+                'last_login_ip' => $request->getClientIp(),
+                'last_login_time' => date('Y-m-d H:i:s', time()),
+                'avatar' => $user->avatar,
+            ];
 
-    /**
-     * 当前登录用户
-     * @return \Illuminate\Contracts\Auth\Guard|\Illuminate\Contracts\Auth\StatefulGuard|mixed
-     */
-    protected function guard()
-    {
-        return Auth::guard();
+            $OauthUser->update($updateData);
+        }
+
+        // 将数据存入session
+        session($sessionData);
+
+        Auth::login($OauthUser);
+
+        //跳转首页
+        return redirect(\url('/'));
+
     }
 }

@@ -8,7 +8,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">Laravel</a>
+                <a class="navbar-brand" href="{{ url('/') }}">Laravel</a>
             </div>
             <div id="navbar" class="navbar-collapse collapse">
                 <form class="navbar-form visible-xs">
@@ -62,7 +62,7 @@
                             </a>
                             <ul class="dropdown-menu">
                                 <li>
-                                    <a class="dropdown-item" href="#"><i class="fa fa-user"></i> 个人中心</a>
+                                    <a class="dropdown-item" href="{{ route('profile') }}"><i class="fa fa-user"></i> 个人中心</a>
                                 </li>
 
                                 <li>

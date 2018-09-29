@@ -26,6 +26,16 @@ class UserDataTable extends DataTable
                 }
                 return '<span class="label label-warning">禁用</span>';
             })
+            ->editColumn('type', function (User $user) {
+                $typeArr = [
+                    0 => '系统',
+                    1 => '微信',
+                    2 => 'qq',
+                    3 => 'github',
+                ];
+
+                return $typeArr[$user->type];
+            })
             ->rawColumns(['avatar', 'status', 'action'])
             ->addColumn('action', function (User $user) {
                 $edit_path = admin_base_path('user/users/'.$user->id.'/edit');
@@ -45,7 +55,7 @@ class UserDataTable extends DataTable
      */
     public function query(User $model)
     {
-        return $model->newQuery()->select('id', 'name', 'nickname',
+        return $model->newQuery()->select('id', 'name', 'nickname', 'type',
             'avatar', 'status', 'created_at', 'updated_at');
     }
 
@@ -84,6 +94,7 @@ class UserDataTable extends DataTable
             ['name' => 'name', 'data' => 'name', 'title' => '用户名', 'class' => 'text-center', 'orderable' => false],
             ['name' => 'nickname', 'data' => 'nickname', 'title' => '昵称', 'class' => 'text-center', 'orderable' => false],
             ['name' => 'avatar', 'data' => 'avatar', 'title' => '头像', 'class' => 'text-center', 'orderable' => false],
+            ['name' => 'type', 'data' => 'type', 'title' => '用户类型', 'class' => 'text-center', 'orderable' => false],
             ['name' => 'status', 'data' => 'status', 'title' => '状态', 'class' => 'text-center'],
             ['name' => 'created_at', 'data' => 'created_at', 'title' => '注册时间', 'class' => 'text-center'],
             ['name' => 'updated_at', 'data' => 'updated_at', 'title' => '更新时间', 'class' => 'text-center'],

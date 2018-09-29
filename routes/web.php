@@ -39,5 +39,7 @@ Route::group([
     $router->get('login/{service}', 'Auth\OAuthController@redirectToProvider');
     //第三方登录回调
     $router->get('login/{service}/callback', 'Auth\OAuthController@handleProviderCallback');
+    //个人中心
+    $router->get('profile', 'User\ProfileController@index')->name('profile');
 
 });

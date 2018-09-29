@@ -11,14 +11,17 @@ namespace App\Http\Controllers\Frontend\User;
 
 use App\Http\Controllers\Controller;
 use App\User;
+use Illuminate\Support\Facades\Auth;
 
 class ProfileController extends Controller
 {
-    public function show($id)
+    //个人中心
+    public function index()
     {
-        $user = User::find($id);
+        $userInfo = Auth::user();
+
         return view(frontend_view_path('profile.index'))->with([
-            'user' => $user,
+            'userInfo' => $userInfo,
         ]);
     }
 }

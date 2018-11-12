@@ -29,7 +29,7 @@ $(function() {
 
         //设置表单值
         var checkedNodes = $('#roleMenuTreeView').treeview('getChecked');
-        var checkedNodeIds = new Array();
+        var checkedNodeIds = [];
         for (var i= 0; i < checkedNodes.length; i++) {
             checkedNodeIds.push(checkedNodes[i].id);
         }
@@ -49,18 +49,18 @@ $(function() {
 
         //设置表单值
         var checkedNodes = $('#roleMenuTreeView').treeview('getChecked');
-        var checkedNodeIds = new Array();
+        var checkedNodeIds = [];
         for (var i= 0; i < checkedNodes.length;i++) {
             checkedNodeIds.push(checkedNodes[i].id);
         }
         $('#menus').val(JSON.stringify(checkedNodeIds));
     }
-    
+
     //勾选所有父节点
     function checkParents(node) {
         $('#roleMenuTreeView').treeview('checkNode', node.nodeId, {silent: true});
         var parentNode = $('#roleMenuTreeView').treeview('getParent', node.nodeId);
-        if(!("nodeId" in parentNode)) {
+        if(!('nodeId' in parentNode)) {
             return;
         }else{
             checkParents(parentNode);
@@ -82,7 +82,7 @@ $(function() {
         $('#roleMenuTreeView').treeview('uncheckNode', node.nodeId, {silent: true});
         var siblings = $('#roleMenuTreeView').treeview('getSiblings', node.nodeId);
         var parentNode = $('#roleMenuTreeView').treeview('getParent',node.nodeId);
-        if(!("nodeId" in parentNode)) {
+        if(!('nodeId' in parentNode)) {
             return;
         }
         var isAllUnchecked = true;  //是否全部没选中

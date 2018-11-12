@@ -62,7 +62,7 @@
     <!-- Select2 -->
     <script src="{{ asset('AdminLTE/bower_components/select2/dist/js/select2.full.min.js') }}"></script>
     <!-- AdminLTE App -->
-    <script src="{{ asset('AdminLTE/dist/js/adminlte.min.js') }}"></script>
+    <script src="{{ asset('AdminLTE/dist/js/adminlte.js') }}"></script>
     <!-- dataTables -->
     <script src="{{ asset('AdminLTE/bower_components/datatables.net/js/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('AdminLTE/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js') }}"></script>
@@ -112,7 +112,7 @@
                     });
                 </script>
             @endif
-            
+
         </section>
         <!-- /.content -->
     </div>
@@ -128,7 +128,7 @@
 <!-- ./wrapper -->
 
 <script>
-    var selectedMenu = "{!! $requestUri !!}";
+    var selectedMenu = '{!! $requestUri !!}';
 
     var csrf_token = '{{ csrf_token() }}';
 </script>

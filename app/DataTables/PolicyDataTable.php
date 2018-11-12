@@ -17,7 +17,7 @@ class PolicyDataTable extends DataTable
     {
         return datatables($query)
             ->setRowClass('text-center')
-            ->editColumn('permissions', function (Policy $policy) {
+            ->addColumn('permissions', function (Policy $policy) {
                 return $policy->permissions->map(function ($permission) {
                     return '<span class="label label-info margin-r-5">'.$permission->route.'</span>';
                 })->implode('');
@@ -81,7 +81,7 @@ class PolicyDataTable extends DataTable
             ['name' => 'identifier', 'data' => 'identifier', 'title' => '标识', 'class' => 'text-center', 'orderable' => false],
             ['name' => 'name', 'data' => 'name', 'title' => '名称', 'class' => 'text-center', 'orderable' => false],
             ['name' => 'desc', 'data' => 'desc', 'title' => '描述', 'class' => 'text-center', 'orderable' => false],
-            ['name' => 'permissions', 'data' => 'permissions', 'title' => '权限路由', 'class' => 'text-center', 'orderable' => false],
+            ['name' => 'permissions.route', 'data' => 'permissions', 'title' => '权限路由', 'class' => 'text-center', 'orderable' => false],
             ['name' => 'created_at', 'data' => 'created_at', 'title' => '创建时间', 'class' => 'text-center'],
             ['name' => 'updated_at', 'data' => 'updated_at', 'title' => '更新时间', 'class' => 'text-center'],
         ];

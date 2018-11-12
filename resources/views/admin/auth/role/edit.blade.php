@@ -162,7 +162,7 @@
 
     <script>
         var menuTree = '{!! $menuTree !!}';
-        $.getScript('{{ asset('js_expand/views-script/role/role-create.js') }}');
+        $.getScript('{{ asset('js_expand/views-script/role/role-edit.js') }}');
     </script>
 
 @endsection

@@ -69,7 +69,7 @@ class AdministratorController extends BaseController
 
         // 上传头像
         if ($request->hasFile('avatar')) {
-            if ($request->file('avatar')->isValid() ) {
+            if ($request->file('avatar')->isValid()) {
                 $path = $request->file('avatar')->store('public/admin/avatars');
                 $administrator->avatar = $path;
             }else{
@@ -92,7 +92,7 @@ class AdministratorController extends BaseController
                 throw new \Exception('保存失败');
             }
             DB::commit();
-            admin_toastr('角色更新成功！');
+            admin_toastr('用户创建成功！');
             return redirect(admin_base_path('auth/administrators'));
         } catch (\Exception $e) {
             $error = $e->getMessage();
@@ -179,7 +179,7 @@ class AdministratorController extends BaseController
                 throw new \Exception('保存失败');
             }
             DB::commit();
-            admin_toastr('角色更新成功！');
+            admin_toastr('用户更新成功！');
             return redirect(admin_base_path('auth/administrators'));
         } catch (\Exception $e) {
             $error = $e->getMessage();

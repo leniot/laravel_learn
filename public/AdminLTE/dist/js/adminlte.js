@@ -1050,9 +1050,12 @@ throw new Error('AdminLTE requires jQuery')
     }
 
     if (isOpen) {
-      this.collapse(treeviewMenu, parentLi);
+        this.collapse(treeviewMenu, parentLi);
+        $(Selector.treeview).removeClass('active');
     } else {
-      this.expand(treeviewMenu, parentLi);
+        this.expand(treeviewMenu, parentLi);
+        $(Selector.treeview).siblings().removeClass('active');
+        $(Selector.treeview).addClass('active');
     }
   };
 
@@ -1083,7 +1086,7 @@ throw new Error('AdminLTE requires jQuery')
   };
 
   // Private
-  
+
   Tree.prototype._setUpListeners = function () {
     var that = this;
 

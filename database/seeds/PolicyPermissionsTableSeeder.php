@@ -17,18 +17,21 @@ class PolicyPermissionsTableSeeder extends Seeder
         DB::table('policy_permissions')->delete();
 
         DB::table('policy_permissions')->insert([
+            //home
             [
                 'policy_id' => 1,
                 'permission_id' => 1,
                 'created_at' => $current_time,
                 'updated_at' => $current_time,
-            ],[
+            ],
+            //permissions
+            [
                 'policy_id' => 2,
                 'permission_id' => 2,
                 'created_at' => $current_time,
                 'updated_at' => $current_time,
             ],[
-                'policy_id' => 2,
+                'policy_id' => 3,
                 'permission_id' => 3,
                 'created_at' => $current_time,
                 'updated_at' => $current_time,
@@ -38,7 +41,7 @@ class PolicyPermissionsTableSeeder extends Seeder
                 'created_at' => $current_time,
                 'updated_at' => $current_time,
             ],[
-                'policy_id' => 3,
+                'policy_id' => 4,
                 'permission_id' => 5,
                 'created_at' => $current_time,
                 'updated_at' => $current_time,
@@ -52,13 +55,15 @@ class PolicyPermissionsTableSeeder extends Seeder
                 'permission_id' => 7,
                 'created_at' => $current_time,
                 'updated_at' => $current_time,
-            ],[
+            ],
+            //policies
+            [
                 'policy_id' => 6,
                 'permission_id' => 8,
                 'created_at' => $current_time,
                 'updated_at' => $current_time,
             ],[
-                'policy_id' => 6,
+                'policy_id' => 7,
                 'permission_id' => 9,
                 'created_at' => $current_time,
                 'updated_at' => $current_time,
@@ -68,7 +73,7 @@ class PolicyPermissionsTableSeeder extends Seeder
                 'created_at' => $current_time,
                 'updated_at' => $current_time,
             ],[
-                'policy_id' => 7,
+                'policy_id' => 8,
                 'permission_id' => 11,
                 'created_at' => $current_time,
                 'updated_at' => $current_time,
@@ -82,23 +87,25 @@ class PolicyPermissionsTableSeeder extends Seeder
                 'permission_id' => 13,
                 'created_at' => $current_time,
                 'updated_at' => $current_time,
-            ],[
+            ],
+            //roles
+            [
                 'policy_id' => 10,
                 'permission_id' => 14,
                 'created_at' => $current_time,
                 'updated_at' => $current_time,
             ],[
-                'policy_id' => 10,
+                'policy_id' => 11,
                 'permission_id' => 15,
                 'created_at' => $current_time,
                 'updated_at' => $current_time,
             ],[
                 'policy_id' => 11,
-                'permission_id' =>16,
+                'permission_id' => 16,
                 'created_at' => $current_time,
                 'updated_at' => $current_time,
             ],[
-                'policy_id' => 11,
+                'policy_id' => 12,
                 'permission_id' => 17,
                 'created_at' => $current_time,
                 'updated_at' => $current_time,
@@ -112,13 +119,15 @@ class PolicyPermissionsTableSeeder extends Seeder
                 'permission_id' => 19,
                 'created_at' => $current_time,
                 'updated_at' => $current_time,
-            ],[
+            ],
+            //roles
+            [
                 'policy_id' => 14,
                 'permission_id' => 20,
                 'created_at' => $current_time,
                 'updated_at' => $current_time,
             ],[
-                'policy_id' => 14,
+                'policy_id' => 15,
                 'permission_id' => 21,
                 'created_at' => $current_time,
                 'updated_at' => $current_time,
@@ -128,7 +137,7 @@ class PolicyPermissionsTableSeeder extends Seeder
                 'created_at' => $current_time,
                 'updated_at' => $current_time,
             ],[
-                'policy_id' => 15,
+                'policy_id' => 16,
                 'permission_id' => 23,
                 'created_at' => $current_time,
                 'updated_at' => $current_time,
@@ -142,13 +151,15 @@ class PolicyPermissionsTableSeeder extends Seeder
                 'permission_id' => 25,
                 'created_at' => $current_time,
                 'updated_at' => $current_time,
-            ],[
+            ],
+            //administrators
+            [
                 'policy_id' => 18,
                 'permission_id' => 26,
                 'created_at' => $current_time,
                 'updated_at' => $current_time,
             ],[
-                'policy_id' => 18,
+                'policy_id' => 19,
                 'permission_id' => 27,
                 'created_at' => $current_time,
                 'updated_at' => $current_time,
@@ -158,13 +169,18 @@ class PolicyPermissionsTableSeeder extends Seeder
                 'created_at' => $current_time,
                 'updated_at' => $current_time,
             ],[
-                'policy_id' => 19,
+                'policy_id' => 20,
                 'permission_id' => 29,
                 'created_at' => $current_time,
                 'updated_at' => $current_time,
             ],[
                 'policy_id' => 20,
                 'permission_id' => 30,
+                'created_at' => $current_time,
+                'updated_at' => $current_time,
+            ],[
+                'policy_id' => 21,
+                'permission_id' => 31,
                 'created_at' => $current_time,
                 'updated_at' => $current_time,
             ],
